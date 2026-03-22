@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso: Introducción a la IA — AI4U Academy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/course.css">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body class="course-body dark-theme">
+
+    <!-- Top Navigation for Course -->
+    <header class="course-header">
+        <div class="course-header-left">
+            <a href="dashboard.html" class="back-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Dashboard
+            </a>
+            <div class="header-divider"></div>
+            <h1 class="course-main-title">Introducción a la IA</h1>
+        </div>
+        <div class="course-progress-bar">
+            <span id="progress-text">0% Completado</span>
+            <div class="progress-track">
+                <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
+            </div>
+        </div>
+    </header>
+
+    <div class="course-container">
+        
+        <!-- Main Content Area: Video & Details -->
+        <main class="course-content">
+            <!-- Video Placeholder -->
+            <div class="video-container glass-panel">
+                <div class="video-placeholder" id="video-placeholder">
+                    <svg viewBox="0 0 24 24" width="60" height="60" stroke="#00A389" stroke-width="1.5" fill="rgba(0,163,137,0.1)" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    <h2 id="current-video-title">Cargando Módulo...</h2>
+                    <p>Haz clic para simular reproducción</p>
+                </div>
+            </div>
+
+            <!-- Module Info & Actions -->
+            <div class="module-details glass-panel">
+                <div class="module-header">
+                    <div>
+                        <span class="module-badge" id="module-badge">Módulo 1</span>
+                        <h2 class="module-title" id="module-title">Fundamentos</h2>
+                    </div>
+                    <div class="module-duration">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        <span id="module-time">45 min</span>
+                    </div>
+                </div>
+                
+                <p class="module-description" id="module-desc">
+                    Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.
+                </p>
+
+                <div class="module-actions">
+                    <button class="btn btn-primary btn-complete" id="btn-complete" disabled>
+                        <span>Marcar como Completado y Continuar</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Exercises Placeholder -->
+            <div class="exercises-section glass-panel" style="padding: 30px;">
+                <h3 class="comments-title">Laboratorio de Prompts (Evaluador con IA)</h3>
+                <p style="color: #cbd5e1; font-size: 0.95rem; margin-bottom: 20px;">
+                    Escribe un prompt aplicando lo aprendido en este módulo. Nuestro evaluador de inteligencia artificial lo analizará en tiempo real y te dará una calificación Oficial.
+                </p>
+                
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px;">
+                    <textarea id="prompt-eval-input" style="width: 100%; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.4); color: white; padding: 15px; border-radius: 8px; min-height: 120px; font-size: 1rem; resize: vertical;" placeholder="Ej. Eres un experto en marketing... Escribe un post para Instagram sobre inteligencia artificial..."></textarea>
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
+                        <div>
+                            <span id="prompt-eval-status" style="color: #94a3b8; font-size: 0.9rem; display: block;">Esperando instrucción...</span>
+                            <span id="eval-remaining-attempts" style="color: #10b981; font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block;">Límite diario: 5 verificaciones</span>
+                        </div>
+                        <button id="btn-eval-prompt" class="btn btn-primary" style="background: #0ea5e9;">
+                            <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 5px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                            Evaluar con IA
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Resultado de Evaluación (Oculto Inicialmente) -->
+                <div id="eval-result-container" style="display: none; margin-top: 25px; padding: 20px; border-radius: 12px; background: rgba(0,0,0,0.2); border-left: 5px solid var(--clr-action);">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                        <div id="eval-score-ring" style="width: 60px; height: 60px; min-width: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem; border: 4px solid var(--clr-action); color: #fff;">
+                            0
+                        </div>
+                        <div>
+                            <h4 id="eval-score-title" style="color: #fff; margin:0; font-size: 1.2rem;">Evaluación Completada</h4>
+                            <p id="eval-feedback" style="color: #cbd5e1; margin: 5px 0 0 0; line-height: 1.5; font-size: 0.95rem;"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section glass-panel">
+                <h3 class="comments-title">Comentarios y Dudas</h3>
+                
+                <form id="comment-form" class="comment-form">
+                    <textarea id="comment-input" placeholder="¿Tienes alguna duda o aporte sobre este módulo?" required></textarea>
+                    <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Comentario</button>
+                </form>
+
+                <div id="comments-list" class="comments-list">
+                    <!-- Comments injected here -->
+                </div>
+            </div>
+        </main>
+
+        <!-- Sidebar: Modules List -->
+        <aside class="course-sidebar glass-panel">
+            <h3 class="sidebar-title">Contenido del Curso</h3>
+            
+            <ul class="module-list" id="module-list">
+                <!-- Modules will be injected via JS -->
+            </ul>
+        </aside>
+
+    </div>
+
+    <!-- Global Loader -->
+    <div id="auth-loader" class="global-loader">
+        <div class="spinner"></div>
+        <p>Sincronizando progreso...</p>
+    </div>
+
+    <script type="module" src="js/course.js"></script>
+</body>
+</html>

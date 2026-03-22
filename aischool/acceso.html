@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acceder — AI4U Academy</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/auth.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body class="auth-body pattern-bg">
+
+    <div class="auth-wrapper">
+        <a href="index.html" class="auth-logo">
+            <img src="assets/images/LOGO.png" alt="AI4U Academy Logo" style="height: 60px;">
+        </a>
+        
+        <div class="auth-glass-card">
+            <div class="auth-header">
+                <h1 id="form-title">Bienvenido de nuevo</h1>
+                <p id="form-subtitle">Ingresa tus credenciales para continuar</p>
+            </div>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" id="tab-login">Iniciar Sesión</button>
+                <button class="auth-tab" id="tab-signup">Crear Cuenta</button>
+            </div>
+
+            <div class="auth-messages">
+                <div id="auth-error" class="auth-alert error" style="display: none;"></div>
+                <div id="auth-success" class="auth-alert success" style="display: none;"></div>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <div class="input-group">
+                    <label for="login-email">Correo Electrónico</label>
+                    <input type="email" id="login-email" required placeholder="tu@correo.com">
+                </div>
+                <div class="input-group">
+                    <label for="login-password">Contraseña</label>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <!-- <div class="forgot-password">
+                    <a href="#">¿Olvidaste tu contraseña?</a>
+                </div> -->
+                <button type="submit" class="btn btn-primary btn-block auth-submit">Iniciar Sesión</button>
+            </form>
+
+            <!-- Signup Form -->
+            <form id="signup-form" class="auth-form" style="display: none;">
+                <div class="input-group">
+                    <label for="signup-name">Nombre Completo</label>
+                    <input type="text" id="signup-name" required placeholder="Juan Pérez">
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Correo Electrónico</label>
+                    <input type="email" id="signup-email" required placeholder="tu@correo.com">
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Contraseña</label>
+                    <input type="password" id="signup-password" required placeholder="••••••••" minlength="6">
+                </div>
+                <div class="input-group">
+                    <label for="signup-password-confirm">Confirmar Contraseña</label>
+                    <input type="password" id="signup-password-confirm" required placeholder="••••••••" minlength="6">
+                </div>
+                <button type="submit" class="btn btn-primary btn-block auth-submit">Crear Cuenta</button>
+            </form>
+
+            <div class="auth-divider">
+                <span>O continuar con</span>
+            </div>
+
+            <button id="google-btn" class="btn btn-secondary btn-block btn-social">
+                <svg viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="matrix(1, 0, 0, 1, 27.009001, -39.238998)">
+                    <path fill="#4285F4" d="M -3.264 51.509 C -3.264 50.719 -3.334 49.969 -3.454 49.239 L -14.754 49.239 L -14.754 52.749 L -8.284 52.749 C -8.574 53.879 -9.364 54.819 -10.304 55.449 L -10.304 57.779 L -6.414 57.779 C -4.134 55.679 -2.864 52.549 -3.264 51.509 Z"/>
+                    <path fill="#34A853" d="M -14.754 63.239 C -11.514 63.239 -8.804 62.159 -6.824 60.329 L -10.684 58.009 C -11.764 58.729 -13.124 59.159 -14.754 59.159 C -17.904 59.159 -20.564 57.039 -21.524 54.189 L -25.544 54.189 L -25.544 57.329 C -23.534 61.359 -19.464 63.239 -14.754 63.239 Z"/>
+                    <path fill="#FBBC05" d="M -21.524 54.189 C -21.774 53.439 -21.914 52.649 -21.914 51.849 C -21.914 51.049 -21.774 50.259 -21.524 49.509 L -21.524 46.369 L -25.544 46.369 C -26.374 48.049 -26.834 49.899 -26.834 51.849 C -26.834 53.799 -26.374 55.649 -25.544 57.329 L -21.524 54.189 Z"/>
+                    <path fill="#EA4335" d="M -14.754 44.449 C -12.984 44.449 -11.404 45.059 -10.154 46.239 L -6.744 42.829 C -8.844 40.859 -11.554 39.759 -14.754 39.759 C -19.464 39.759 -23.534 42.349 -25.544 46.369 L -21.524 49.509 C -20.564 46.669 -17.904 44.449 -14.754 44.449 Z"/>
+                    </g>
+                </svg>
+                Google
+            </button>
+        </div>
+        
+        <div class="auth-footer text-center mt-3">
+            <a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: underline;">Volver al inicio</a>
+        </div>
+    </div>
+
+    <!-- Script loading -->
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Examen Final y Certificación — AI4U Academy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/course.css">
+    <link rel="stylesheet" href="css/examen.css">
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body class="course-body dark-theme">
+
+    <header class="course-header">
+        <div class="course-header-left">
+            <a href="course.html?id=intro-ia" class="back-link">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Volver al Módulo 6
+            </a>
+            <div class="header-divider"></div>
+            <h1 class="course-main-title">Examen Final: Introducción a la IA</h1>
+        </div>
+    </header>
+
+    <div class="course-container" style="justify-content: center;">
+        
+        <main class="course-content" style="max-width: 800px; width: 100%;">
+            
+            <!-- Exam Intro / Quiz Area -->
+            <div id="exam-area" class="glass-panel" style="padding: 40px;">
+                <h2 style="font-size: 2rem; color: #fff; margin-bottom: 10px; text-align: center;">Demuestra lo aprendido</h2>
+                <p style="color: #cbd5e1; text-align: center; margin-bottom: 30px;">
+                    Responde las siguientes preguntas. Necesitas al menos un <strong>65% de aciertos</strong> para desbloquear tu Certificado Profesional de AI4U Academy.
+                </p>
+
+                <form id="quiz-form">
+                    <!-- Q1 -->
+                    <div class="question-block">
+                        <p class="question-text">1. ¿Qué es primordialmente el 'Prompt Engineering'?</p>
+                        <label class="q-option"><input type="radio" name="q1" value="a"> Crear código de programación avanzado para construir IA desde cero.</label>
+                        <label class="q-option"><input type="radio" name="q1" value="b"> El proceso estratégico de redactar instrucciones precisas para que la IA dé las mejores respuestas.</label>
+                        <label class="q-option"><input type="radio" name="q1" value="c"> La forma de instalar inteligencia artificial en circuitos físicos.</label>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="question-block">
+                        <p class="question-text">2. En el entorno laboral, ¿cómo puede una IA para productividad ayudarnos mejor?</p>
+                        <label class="q-option"><input type="radio" name="q2" value="a"> Substituyendo totalmente el proceso de toma de decisiones humanas sin supervisión.</label>
+                        <label class="q-option"><input type="radio" name="q2" value="b"> Ocultando datos financieros para mayor seguridad.</label>
+                        <label class="q-option"><input type="radio" name="q2" value="c"> Automatizando tareas repetitivas como resumir reuniones y redactar correos base.</label>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="question-block">
+                        <p class="question-text">3. Cuando hablamos de "Alucinaciones" en modelos de IA nos referimos a:</p>
+                        <label class="q-option"><input type="radio" name="q3" value="a"> Respuestas inventadas u objetivamente incorrectas que la IA presenta como hechos ciertos.</label>
+                        <label class="q-option"><input type="radio" name="q3" value="b"> Efectos visuales generados en pantallas LED.</label>
+                        <label class="q-option"><input type="radio" name="q3" value="c"> Errores del servidor por falta de conexión a internet.</label>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="question-block">
+                        <p class="question-text">4. Para mantener la ética y privacidad usando inteligencias virtuales, nunca deberías:</p>
+                        <label class="q-option"><input type="radio" name="q4" value="a"> Compartirle manuales de dominio público.</label>
+                        <label class="q-option"><input type="radio" name="q4" value="b"> Ingresar datos sensibles, financieros o secretos de clientes reales de tu empresa.</label>
+                        <label class="q-option"><input type="radio" name="q4" value="c"> Pedirle a la IA que revise tu ortografía y gramática.</label>
+                    </div>
+
+                    <!-- Q5 -->
+                    <div class="question-block">
+                        <p class="question-text">5. Principal característica de un Prompt (instrucción) de alta calidad:</p>
+                        <label class="q-option"><input type="radio" name="q5" value="a"> Ser extremadamente corto (1 a 3 palabras).</label>
+                        <label class="q-option"><input type="radio" name="q5" value="b"> Proveer contexto claro, un objetivo definido y de preferencia el formato esperado de salida.</label>
+                        <label class="q-option"><input type="radio" name="q5" value="c"> Evitar usar signos de puntuación.</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-4" style="font-size: 1.1rem; padding: 15px;">Entregar Examen</button>
+                    <div id="quiz-msg" style="text-align: center; margin-top: 15px; font-weight: bold; font-size: 1.1rem;"></div>
+                </form>
+            </div>
+
+            <!-- Certificate Area -->
+            <div id="certificate-area" style="display: none; display: flex; flex-direction: column; align-items: center; gap: 30px;">
+                
+                <div style="text-align: center;">
+                    <h2 style="color: #10b981; font-size: 2.2rem; margin-bottom: 10px;">¡Felicidades, Aprobaste! 🎉</h2>
+                    <p style="color: #fff; font-size: 1.1rem;">Has superado la prueba final y demostrado tus conocimientos en IA.</p>
+                </div>
+
+                <div class="diploma-frame" id="diploma">
+                    <img src="assets/images/LOGO.png" alt="AI4U Logo" class="diploma-logo">
+                    <h3>CERTIFICADO DE PROFESIONALIZACIÓN</h3>
+                    <p class="diploma-subtitle">Se otorga el presente reconocimiento a:</p>
+                    <h1 class="diploma-name" id="cert-name">Nombre Apellido</h1>
+                    <p class="diploma-course">Por completar satisfactoriamente el programa y su evaluación final en:</p>
+                    <h2 class="diploma-title">Introducción a la Inteligencia Artificial</h2>
+                    <p class="diploma-date" id="cert-date">Otorgado el 12 de Marzo, 2026</p>
+                    <div class="diploma-stamp">AI4U Validado</div>
+                </div>
+
+                <div class="social-share glass-panel" style="width: 100%; text-align: center; padding: 30px;">
+                    <h3 style="color: #fff; margin-bottom: 20px;">Comparte tu logro profesional</h3>
+                    <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                        <button class="btn btn-share btn-linkedin" id="share-linkedin">Compartir en LinkedIn</button>
+                        <button class="btn btn-share btn-facebook" id="share-facebook">Compartir en Facebook</button>
+                        <button class="btn btn-share btn-twitter" id="share-twitter">Compartir en X / Twitter</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Global Loader -->
+    <div id="auth-loader" class="global-loader">
+        <div class="spinner"></div>
+        <p>Verificando credenciales...</p>
+    </div>
+
+    <script type="module" src="js/examen.js"></script>
+</body>
+</html>

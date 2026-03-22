@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración — AI4U Academy</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800;9..144,900&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <script type="module" crossorigin src="/assets/admin-dxBslHBK.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
+  <link rel="modulepreload" crossorigin href="/assets/supabase-config-BEUG5BCn.js">
+  <link rel="stylesheet" crossorigin href="/assets/admin-rnyZQ--Y.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CvIunNDa.css">
+  <link rel="stylesheet" crossorigin href="/assets/dashboard-BGGn5LN5.css">
+</head>
+<body class="dash-body">
+    <div class="dash-overlay" id="dash-overlay"></div>
+
+    <aside class="dash-sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html">
+                <img src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="sidebar-logo">
+            </a>
+            <button class="mobile-close" id="mobile-close">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-target="admin-overview">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+                <span>Resumen</span>
+            </a>
+            <a href="#" class="nav-item" data-target="admin-users">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                <span>Directorio de Usuarios</span>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <button id="logout-btn" class="nav-item text-danger">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                <span>Cerrar Sesión</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="dash-main">
+        <header class="dash-header">
+            <button class="mobile-menu-btn" id="mobile-menu-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+            <div class="user-greeting">
+                <h2>Panel de Administración 🚀</h2>
+                <p>Acceso restringido para control maestro.</p>
+            </div>
+            <div class="user-avatar-placeholder" style="background: linear-gradient(135deg, #ef4444, #b91c1c);">ADM</div>
+        </header>
+
+        <!-- Overview Section -->
+        <section class="dash-content admin-section" id="admin-overview">
+            <div class="section-title">
+                <h3>Métricas Globales</h3>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #0ea5e9; background: #e0f2fe;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Usuarios Registrados</span>
+                        <h4 class="stat-value" id="stat-total-users">-</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #10b981; background: #d1fae5;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Usuarios Activos (7 Días)</span>
+                        <h4 class="stat-value" id="stat-active-users">-</h4>
+                    </div>
+                </div>
+
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #f59e0b; background: #fef3c7;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Horas de Actividad Total</span>
+                        <h4 class="stat-value" id="stat-total-hours">- Hrs</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="dash-content admin-section" id="admin-users" style="display: none;">
+            <div class="section-title" style="display: flex; justify-content: space-between; align-items: center;">
+                <h3>Directorio de Usuarios</h3>
+                <input type="text" id="user-search" class="admin-search" placeholder="Buscar por correo...">
+            </div>
+            
+            <div class="glass-panel" style="overflow-x: auto; border-radius: 12px;">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Correo Electrónico</th>
+                            <th>Registrado</th>
+                            <th>Última Conexión</th>
+                            <th>Estado</th>
+                            <th>Acciones Rápidas</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-table-body">
+                        <tr><td colspan="5" class="text-center" style="padding: 30px;">Cargando usuarios...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- Global Loading Screen for Auth Validation -->
+    <div id="auth-loader" class="global-loader">
+        <div class="spinner"></div>
+        <p>Verificando permisos proxy...</p>
+    </div>
+
+    <!-- Modals -->
+    <div id="action-modal" class="modal-overlay hidden">
+        <div class="modal-card glass-panel">
+            <h3 id="modal-title">Acción</h2>
+            <p id="modal-desc" style="color: #64748b; margin-bottom: 20px;">-</p>
+            
+            <div id="modal-inputs" style="margin-bottom: 20px; display: none;">
+                <input type="password" id="modal-new-password" class="admin-input" placeholder="Nueva contraseña">
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-outline" id="modal-cancel" style="color: #64748b; border-color: #cbd5e1;">Cancelar</button>
+                <button class="btn btn-primary" id="modal-confirm">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
