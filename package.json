@@ -4,6 +4,6 @@
   "description": "Root workspace forwarder",
   "scripts": {
     "dev": "cd aischool && npm run dev",
-    "build": "cd aischool && npm install && npm run build"
+    "build": "cd aischool && npm install --include=dev && npm run build"
   }
 }

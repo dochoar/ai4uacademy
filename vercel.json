@@ -1,5 +1,5 @@
 {
-  "buildCommand": "cd aischool && npm install && npm run build",
+  "buildCommand": "cd aischool && npm install --include=dev && npm run build",
   "outputDirectory": "aischool/dist",
   "installCommand": "npm install"
 }
