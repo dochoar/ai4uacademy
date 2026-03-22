@@ -1,0 +1,1 @@
+function n(e){return e.length<8?"La contraseña debe tener al menos 8 caracteres.":/\s/.test(e)?"La contraseña no puede contener espacios en blanco.":/[A-Z]/.test(e)?/[0-9]/.test(e)?null:"La contraseña debe incluir al menos un número.":"La contraseña debe incluir al menos una letra mayúscula."}export{n as v};

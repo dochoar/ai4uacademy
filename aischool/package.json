@@ -1,0 +1,16 @@
+{
+  "name": "ai-school",
+  "version": "1.0.0",
+  "description": "AI 4U Academy Landing Page",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.1.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.98.0"
+  }
+}

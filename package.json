@@ -1,0 +1,10 @@
+{
+  "name": "ai4uacademy",
+  "version": "1.0.0",
+  "description": "Root workspace forwarder",
+  "scripts": {
+    "dev": "npm run dev --prefix aischool",
+    "build": "npm run build --prefix aischool",
+    "install": "npm install --prefix aischool"
+  }
+}
