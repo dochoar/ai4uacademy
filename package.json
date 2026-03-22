@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Root workspace forwarder",
   "scripts": {
-    "dev": "npm run dev --prefix aischool",
-    "build": "npm run build --prefix aischool",
-    "install": "npm install --prefix aischool"
+    "dev": "cd aischool && npm run dev",
+    "build": "cd aischool && npm install && npm run build"
   }
 }
