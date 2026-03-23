@@ -302,7 +302,16 @@ document.addEventListener('DOMContentLoaded', () => {
         async function loadVault() {
             try {
                 const { data, error } = await supabase.from('user_prompt_vault').select('*').eq('user_id', currentUser.id).single();
-                if (data && data.prompts) renderVault(data.prompts, data.profession, data.problem);
+                if (data && data.prompts) {
+                    const lastUpdated = new Date(data.updated_at || data.created_at);
+                    const hoursSinceUpdate = (new Date() - lastUpdated) / (1000 * 60 * 60);
+                    if (hoursSinceUpdate < 24) {
+                        renderVault(data.prompts, data.profession, data.problem);
+                    } else {
+                        vaultFormState.style.display = 'block';
+                        vaultResultState.style.display = 'none';
+                    }
+                }
             } catch (err) {}
         }
 
@@ -349,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!prof || !prob) return alert('Completa los campos.');
 
                 btnGenerateVault.disabled = true;
-                vaultGenStatus.textContent = 'Generando tu bóveda (Aprox. 10s)... ⏳';
+                vaultGenStatus.textContent = 'Generando tu bóveda de 5 prompts maestros (Aprox. 10s)... ⏳';
 
                 try {
                     const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {

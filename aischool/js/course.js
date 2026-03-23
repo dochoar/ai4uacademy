@@ -556,7 +556,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 .single();
 
             if (data && data.prompts && data.prompts.length > 0) {
-                renderVault(data.prompts, data.profession, data.problem);
+                const lastUpdated = new Date(data.updated_at || data.created_at);
+                const hoursSinceUpdate = (new Date() - lastUpdated) / (1000 * 60 * 60);
+                
+                if (hoursSinceUpdate < 24) {
+                    renderVault(data.prompts, data.profession, data.problem);
+                } else {
+                    // Vault expired (24h), show form to regenerate
+                    vaultFormState.style.display = 'block';
+                    vaultResultState.style.display = 'none';
+                }
             }
         } catch (err) {
             // No vault yet — show form (default state is already visible)
@@ -612,7 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         btnGenerateVault.disabled = true;
-        vaultGenStatus.innerHTML = `<span class="vault-loader"><span class="vault-loader-spinner"></span> La IA está creando tus 10 prompts personalizados... (puede tardar unos segundos)</span>`;
+        vaultGenStatus.innerHTML = `<span class="vault-loader"><span class="vault-loader-spinner"></span> La IA está creando tus 5 prompts maestros personalizados... (puede tardar unos segundos)</span>`;
 
         try {
             const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
