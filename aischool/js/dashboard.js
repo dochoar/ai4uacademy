@@ -122,6 +122,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Navigation Tabs Logic
+    const toolsSection = document.getElementById('tools-section');
+
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             const text = item.querySelector('span')?.textContent;
@@ -133,18 +135,21 @@ document.addEventListener('DOMContentLoaded', () => {
             navItems.forEach(nav => nav.classList.remove('active'));
             item.classList.add('active');
 
+            // Hide all sections first
+            coursesSection.style.display = 'none';
+            profileSection.style.display = 'none';
+            if (settingsSection) settingsSection.style.display = 'none';
+            if (toolsSection) toolsSection.style.display = 'none';
+
             if (text === 'Mis Cursos') {
                 coursesSection.style.display = 'block';
-                profileSection.style.display = 'none';
-                if (settingsSection) settingsSection.style.display = 'none';
             } else if (text === 'Mi Perfil') {
-                coursesSection.style.display = 'none';
                 profileSection.style.display = 'block';
-                if (settingsSection) settingsSection.style.display = 'none';
             } else if (text === 'Configuración') {
-                coursesSection.style.display = 'none';
-                profileSection.style.display = 'none';
-                if (settingsSection) settingsSection.style.display = 'block';
+                settingsSection.style.display = 'block';
+            } else if (text === 'Herramientas IA') {
+                toolsSection.style.display = 'block';
+                checkToolsUnlockState();
             }
             
             // Close mobile menu when navigating
@@ -153,6 +158,226 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ─────────────────────────────────────────────────────────────
+    // HERRAMIENTAS IA - UNLOCK LOGIC
+    // ─────────────────────────────────────────────────────────────
+    const lockedOverlay = document.getElementById('tools-locked-overlay');
+    const unlockedContent = document.getElementById('tools-unlocked-content');
+    const unlockInput = document.getElementById('unlock-code-input');
+    const unlockBtn = document.getElementById('btn-unlock-tools');
+    const unlockError = document.getElementById('unlock-error-msg');
+
+    async function checkToolsUnlockState() {
+        if (!currentUser) return;
+        
+        // Update WhatsApp link with user email for faster identification
+        const waLink = document.getElementById('whatsapp-unlock-link');
+        if (waLink) {
+            const baseMsg = "Hola!%20Acabo%20de%20compartir%20mi%20opini%C3%B3n%20sobre%20AI4U%20Academy%20y%20compart%C3%AD%20la%20web%20en%20mis%20redes.%20%C2%BFI%20Podr%C3%ADas%20darme%20mi%20c%C3%B3digo%20para%20desbloquear%20las%20Herramientas%20IA%3F";
+            const emailStr = `%20Mi%20correo%20es:%20${encodeURIComponent(currentUser.email)}`;
+            waLink.href = `https://wa.me/5212211173457?text=${baseMsg}${emailStr}`;
+        }
+
+        // Metadata might be fresh from getSession() or needs refresh
+        const isUnlocked = currentUser.user_metadata?.tools_unlocked === true;
+        
+        if (isUnlocked) {
+            lockedOverlay.style.display = 'none';
+            unlockedContent.style.display = 'block';
+            initAIUtils(); // Load vault if exists
+        } else {
+            lockedOverlay.style.display = 'block';
+            unlockedContent.style.display = 'none';
+        }
+    }
+
+    if (unlockBtn) {
+        unlockBtn.addEventListener('click', async () => {
+            const code = unlockInput.value.trim().toLowerCase();
+            if (code === 'ai4uacademy') {
+                unlockBtn.disabled = true;
+                unlockBtn.textContent = 'Validando...';
+                
+                try {
+                    // Save to user metadata for persistence
+                    const { data, error } = await supabase.auth.updateUser({
+                        data: { tools_unlocked: true }
+                    });
+                    
+                    if (error) throw error;
+                    
+                    currentUser = data.user; // Update local ref
+                    checkToolsUnlockState();
+                    alert('¡Acceso concedido! Bienvenido a tus herramientas de élite.');
+                } catch (err) {
+                    console.error(err);
+                    unlockError.textContent = 'Error al activar. Intenta de nuevo.';
+                } finally {
+                    unlockBtn.disabled = false;
+                    unlockBtn.textContent = 'Desbloquear';
+                }
+            } else {
+                unlockError.textContent = 'Código incorrecto. Asegúrate de haber compartido la web.';
+                setTimeout(() => { unlockError.textContent = ''; }, 3000);
+            }
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // AI UTILS (CORRECTOR & VAULT)
+    // ─────────────────────────────────────────────────────────────
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    function initAIUtils() {
+        initPromptEvaluator();
+        initPromptVault();
+    }
+
+    // REUSED FROM COURSE.JS
+    function initPromptEvaluator() {
+        const btnEval = document.getElementById('btn-eval-prompt');
+        const inputEval = document.getElementById('prompt-eval-input');
+        const statusEval = document.getElementById('prompt-eval-status');
+        const displayRemaining = document.getElementById('eval-remaining-attempts');
+        const evalResultContainer = document.getElementById('eval-result-container');
+        const scoreRing = document.getElementById('eval-score-ring');
+        const evalFeedback = document.getElementById('eval-feedback');
+        const scoreTitle = document.getElementById('eval-score-title');
+
+        if (btnEval && !btnEval.dataset.listener) {
+            btnEval.dataset.listener = "true";
+            btnEval.addEventListener('click', async () => {
+                const promptText = inputEval.value.trim();
+                if (!promptText) return alert('Escribe un prompt.');
+
+                btnEval.disabled = true;
+                statusEval.textContent = 'Analizando... 🧠';
+                evalResultContainer.style.display = 'none';
+
+                try {
+                    const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
+                        body: { prompt: promptText, module_id: 'dashboard' }
+                    });
+                    if (error) throw error;
+
+                    evalResultContainer.style.display = 'block';
+                    let score = parseInt(data.score) || 0;
+                    let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
+                    
+                    scoreRing.textContent = score;
+                    scoreRing.style.borderColor = color;
+                    scoreRing.style.color = color;
+                    evalFeedback.textContent = data.feedback;
+                    statusEval.textContent = 'Completado.';
+
+                    if (displayRemaining && data.remaining !== undefined) {
+                      displayRemaining.textContent = `Te quedan ${data.remaining} verificaciones hoy.`;
+                    }
+                } catch (err) {
+                    console.error(err);
+                    statusEval.textContent = 'Error al evaluar.';
+                } finally {
+                    btnEval.disabled = false;
+                }
+            });
+        }
+    }
+
+    function initPromptVault() {
+        const vaultFormState    = document.getElementById('vault-form-state');
+        const vaultResultState  = document.getElementById('vault-result-state');
+        const vaultGrid         = document.getElementById('vault-prompts-grid');
+        const btnGenerateVault  = document.getElementById('btn-generate-vault');
+        const btnRegenerateVault = document.getElementById('btn-regenerate-vault');
+        const vaultGenStatus    = document.getElementById('vault-gen-status');
+        const vaultProfessionInput = document.getElementById('vault-profession');
+        const vaultProblemInput    = document.getElementById('vault-problem');
+        const vaultProfileLabel = document.getElementById('vault-profile-label');
+
+        async function loadVault() {
+            try {
+                const { data, error } = await supabase.from('user_prompt_vault').select('*').eq('user_id', currentUser.id).single();
+                if (data && data.prompts) renderVault(data.prompts, data.profession, data.problem);
+            } catch (err) {}
+        }
+
+        function renderVault(prompts, profession, problem) {
+            vaultFormState.style.display = 'none';
+            vaultResultState.style.display = 'block';
+            vaultProfileLabel.textContent = `✨ Perfil: ${profession}`;
+            vaultGrid.innerHTML = '';
+            prompts.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'vault-prompt-card';
+                card.style.background = 'rgba(168,85,247,0.1)';
+                card.style.border = '1px solid rgba(168,85,247,0.2)';
+                card.style.padding = '15px';
+                card.style.borderRadius = '10px';
+                card.style.marginBottom = '10px';
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+                        <span style="font-weight:bold; color:#fff; font-size:0.9rem;">${escapeHtml(p.title)}</span>
+                        <span style="font-size:0.7rem; background:#a855f7; color:white; padding:2px 6px; border-radius:4px;">${escapeHtml(p.category)}</span>
+                    </div>
+                    <p style="font-size:0.8rem; color:#94a3b8; line-height:1.4;">${escapeHtml(p.prompt)}</p>
+                    <button class="btn-copy-vault" style="width:100%; border:1px solid #a855f7; background:transparent; color:#a855f7; border-radius:6px; padding:5px; font-size:0.8rem; cursor:pointer;" data-text="${escapeHtml(p.prompt)}">Copiar Prompt</button>
+                `;
+                vaultGrid.appendChild(card);
+            });
+
+            vaultGrid.querySelectorAll('.btn-copy-vault').forEach(btn => {
+                btn.addEventListener('click', () => {
+                   navigator.clipboard.writeText(btn.dataset.text).then(() => {
+                        const original = btn.textContent;
+                        btn.textContent = '¡Copiado!';
+                        setTimeout(() => btn.textContent = original, 2000);
+                   });
+                });
+            });
+        }
+
+        if (btnGenerateVault && !btnGenerateVault.dataset.listener) {
+             btnGenerateVault.dataset.listener = "true";
+             btnGenerateVault.addEventListener('click', async () => {
+                const prof = vaultProfessionInput.value.trim();
+                const prob = vaultProblemInput.value.trim();
+                if (!prof || !prob) return alert('Completa los campos.');
+
+                btnGenerateVault.disabled = true;
+                vaultGenStatus.textContent = 'Generando tu bóveda (Aprox. 10s)... ⏳';
+
+                try {
+                    const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
+                        body: { profession: prof, problem: prob }
+                    });
+                    if (error) throw error;
+
+                    await supabase.from('user_prompt_vault').upsert({ user_id: currentUser.id, prompts: data.prompts, profession: prof, problem: prob }, { onConflict: 'user_id' });
+                    renderVault(data.prompts, prof, prob);
+                } catch (err) {
+                    console.error(err);
+                    vaultGenStatus.textContent = 'Error al generar.';
+                } finally {
+                    btnGenerateVault.disabled = false;
+                }
+             });
+        }
+
+        if (btnRegenerateVault && !btnRegenerateVault.dataset.listener) {
+            btnRegenerateVault.dataset.listener = "true";
+            btnRegenerateVault.addEventListener('click', () => {
+                vaultResultState.style.display = 'none';
+                vaultFormState.style.display = 'block';
+            });
+        }
+
+        loadVault();
+    }
 
     // Profile Form Submission
     if (profileForm) {
@@ -251,90 +476,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- PROMPT EVALUATOR LOGIC ---
-    const btnEval = document.getElementById('btn-eval-prompt');
-    const inputEval = document.getElementById('prompt-eval-input');
-    const statusEval = document.getElementById('prompt-eval-status');
-    const displayRemaining = document.getElementById('eval-remaining-attempts');
-    const evalResultContainer = document.getElementById('eval-result-container');
-    const scoreRing = document.getElementById('eval-score-ring');
-    const evalFeedback = document.getElementById('eval-feedback');
-    const scoreTitle = document.getElementById('eval-score-title');
 
-    if (btnEval && inputEval) {
-        btnEval.addEventListener('click', async () => {
-            const promptText = inputEval.value.trim();
-            if (!promptText) {
-                alert('Por favor, escribe un prompt antes de evaluarlo.');
-                return;
-            }
-
-            btnEval.disabled = true;
-            statusEval.textContent = 'Analizando tu prompt con IA... 🧠';
-            evalResultContainer.style.display = 'none';
-
-            try {
-                // Call Supabase Edge Function
-                const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
-                    body: { prompt: promptText, module_id: 'dashboard' }
-                });
-
-                if (error) throw error;
-                
-                evalResultContainer.style.display = 'block';
-                
-                let score = parseInt(data.score) || 0;
-                let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
-                let title = score >= 80 ? '¡Excelente Prompt! 🌟' : (score >= 60 ? 'Buen intento, se puede mejorar 👍' : 'Rechazado: Faltan pilares clave ⚠️');
-
-                scoreTitle.textContent = title;
-                scoreRing.textContent = score;
-                scoreRing.style.borderColor = color;
-                scoreRing.style.color = color;
-                evalResultContainer.style.borderLeftColor = color;
-                
-                evalFeedback.textContent = data.feedback || 'Sin comentarios adicionales de la IA.';
-                statusEval.textContent = 'Evaluación completada.';
-
-                if (displayRemaining && typeof data.remaining !== 'undefined') {
-                    displayRemaining.textContent = `Te quedan ${data.remaining} verificaciones hoy.`;
-                    if (data.remaining <= 0) {
-                        displayRemaining.style.color = '#ef4444';
-                        btnEval.disabled = true;
-                    } else if (data.remaining <= 2) {
-                        displayRemaining.style.color = '#f59e0b';
-                    }
-                }
-
-            } catch (err) {
-                console.error("AI Evaluation Error:", err);
-                
-                let isRateLimited = false;
-                if (err.context && err.context.status === 403) {
-                    isRateLimited = true;
-                } else if (err.message && err.message.includes('RATE_LIMIT_EXCEEDED')) {
-                    isRateLimited = true;
-                }
-                
-                if (isRateLimited) {
-                     statusEval.textContent = 'Límite superado.';
-                     if (displayRemaining) {
-                         displayRemaining.style.color = '#ef4444';
-                         displayRemaining.textContent = 'Te quedan 0 verificaciones hoy.';
-                     }
-                     alert('Has alcanzado tu límite máximo de 5 evaluaciones por día. Por favor, ¡vuelve mañana para seguir practicando!');
-                } else {
-                     statusEval.textContent = 'Error al evaluar. Intenta de nuevo.';
-                     alert('Ocurrió un error consultando al profesor de IA.');
-                     btnEval.disabled = false;
-                }
-            } finally {
-                if (displayRemaining && displayRemaining.textContent.includes(' 0 ')) {
-                     btnEval.disabled = true;
-                } else {
-                     btnEval.disabled = false;
-                }
-            }
-        });
-    }
 });

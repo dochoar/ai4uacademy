@@ -446,4 +446,220 @@ document.addEventListener('DOMContentLoaded', () => {
         placeholder.innerHTML = `<h2 style="color: #00A389">▶ Reproduciendo video...</h2><p>Simulador de carga rápido activo.</p>`;
     });
 
+    // --- PROMPT EVALUATOR LOGIC ---
+    const btnEval = document.getElementById('btn-eval-prompt');
+    const inputEval = document.getElementById('prompt-eval-input');
+    const statusEval = document.getElementById('prompt-eval-status');
+    const displayRemaining = document.getElementById('eval-remaining-attempts');
+    const evalResultContainer = document.getElementById('eval-result-container');
+    const scoreRing = document.getElementById('eval-score-ring');
+    const evalFeedback = document.getElementById('eval-feedback');
+    const scoreTitle = document.getElementById('eval-score-title');
+
+    if (btnEval && inputEval) {
+        btnEval.addEventListener('click', async () => {
+            const promptText = inputEval.value.trim();
+            if (!promptText) {
+                alert('Por favor, escribe un prompt antes de evaluarlo.');
+                return;
+            }
+
+            btnEval.disabled = true;
+            statusEval.textContent = 'Analizando tu prompt con IA... 🧠';
+            evalResultContainer.style.display = 'none';
+
+            try {
+                // Call Supabase Edge Function
+                const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
+                    body: { prompt: promptText, module_id: currentModuleId.toString() }
+                });
+
+                if (error) throw error;
+                
+                evalResultContainer.style.display = 'block';
+                
+                let score = parseInt(data.score) || 0;
+                let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
+                let title = score >= 80 ? '¡Excelente Prompt! 🌟' : (score >= 60 ? 'Buen intento, se puede mejorar 👍' : 'Rechazado: Faltan pilares clave ⚠️');
+
+                scoreTitle.textContent = title;
+                scoreRing.textContent = score;
+                scoreRing.style.borderColor = color;
+                scoreRing.style.color = color;
+                evalResultContainer.style.borderLeftColor = color;
+                
+                evalFeedback.textContent = data.feedback || 'Sin comentarios adicionales de la IA.';
+                statusEval.textContent = 'Evaluación completada.';
+
+                if (displayRemaining && typeof data.remaining !== 'undefined') {
+                    displayRemaining.textContent = `Te quedan ${data.remaining} verificaciones hoy.`;
+                    if (data.remaining <= 0) {
+                        displayRemaining.style.color = '#ef4444';
+                        btnEval.disabled = true;
+                    } else if (data.remaining <= 2) {
+                        displayRemaining.style.color = '#f59e0b';
+                    }
+                }
+
+            } catch (err) {
+                console.error("AI Evaluation Error:", err);
+                
+                let isRateLimited = false;
+                if (err.context && err.context.status === 403) {
+                    isRateLimited = true;
+                } else if (err.message && err.message.includes('RATE_LIMIT_EXCEEDED')) {
+                    isRateLimited = true;
+                }
+                
+                if (isRateLimited) {
+                     statusEval.textContent = 'Límite superado.';
+                     if (displayRemaining) {
+                         displayRemaining.style.color = '#ef4444';
+                         displayRemaining.textContent = 'Te quedan 0 verificaciones hoy.';
+                     }
+                     alert('Has alcanzado tu límite máximo de 5 evaluaciones por día. Por favor, ¡vuelve mañana para seguir practicando!');
+                } else {
+                     statusEval.textContent = 'Error al evaluar. Intenta de nuevo.';
+                     alert('Ocurrió un error consultando al profesor de IA.');
+                     btnEval.disabled = false;
+                }
+            } finally {
+                if (displayRemaining && displayRemaining.textContent.includes(' 0 ')) {
+                     btnEval.disabled = true;
+                } else {
+                     btnEval.disabled = false;
+                }
+            }
+        });
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // BÓVEDA DE PROMPTS PERSONALIZADA
+    // ─────────────────────────────────────────────────────────────
+    const vaultFormState    = document.getElementById('vault-form-state');
+    const vaultResultState  = document.getElementById('vault-result-state');
+    const vaultProfileLabel = document.getElementById('vault-profile-label');
+    const vaultGrid         = document.getElementById('vault-prompts-grid');
+    const btnGenerateVault  = document.getElementById('btn-generate-vault');
+    const btnRegenerateVault = document.getElementById('btn-regenerate-vault');
+    const vaultGenStatus    = document.getElementById('vault-gen-status');
+    const vaultProfessionInput = document.getElementById('vault-profession');
+    const vaultProblemInput    = document.getElementById('vault-problem');
+
+    // Load existing vault on page start
+    async function loadVault() {
+        try {
+            const { data, error } = await supabase
+                .from('user_prompt_vault')
+                .select('*')
+                .eq('user_id', currentUser.id)
+                .single();
+
+            if (data && data.prompts && data.prompts.length > 0) {
+                renderVault(data.prompts, data.profession, data.problem);
+            }
+        } catch (err) {
+            // No vault yet — show form (default state is already visible)
+        }
+    }
+
+    function renderVault(prompts, profession, problem) {
+        vaultFormState.style.display = 'none';
+        vaultResultState.style.display = 'block';
+        vaultProfileLabel.textContent = `✨ Prompts generados para: ${profession} — "${problem}"`;
+        vaultGrid.innerHTML = '';
+
+        prompts.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'vault-prompt-card';
+            card.innerHTML = `
+                <div class="vault-card-top">
+                    <h4 class="vault-card-title">${escapeHtml(p.title)}</h4>
+                    <span class="vault-card-category">${escapeHtml(p.category)}</span>
+                </div>
+                <p class="vault-card-prompt">${escapeHtml(p.prompt)}</p>
+                <div class="vault-card-footer">
+                    <button class="btn-copy-vault" data-prompt="${escapeHtml(p.prompt)}">
+                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        Copiar
+                    </button>
+                </div>
+            `;
+
+            const copyBtn = card.querySelector('.btn-copy-vault');
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(p.prompt).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!`;
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar`;
+                    }, 2000);
+                });
+            });
+
+            vaultGrid.appendChild(card);
+        });
+    }
+
+    async function generateVault() {
+        const profession = vaultProfessionInput ? vaultProfessionInput.value.trim() : '';
+        const problem    = vaultProblemInput ? vaultProblemInput.value.trim() : '';
+
+        if (!profession || !problem) {
+            alert('Por favor, completa ambos campos antes de generar tu bóveda.');
+            return;
+        }
+
+        btnGenerateVault.disabled = true;
+        vaultGenStatus.innerHTML = `<span class="vault-loader"><span class="vault-loader-spinner"></span> La IA está creando tus 10 prompts personalizados... (puede tardar unos segundos)</span>`;
+
+        try {
+            const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
+                body: { profession, problem }
+            });
+
+            if (error) throw error;
+            if (!data.prompts) throw new Error('La IA no devolvió prompts.');
+
+            // Save to DB (upsert by user_id)
+            const { error: dbError } = await supabase
+                .from('user_prompt_vault')
+                .upsert({
+                    user_id: currentUser.id,
+                    profession,
+                    problem,
+                    prompts: data.prompts
+                }, { onConflict: 'user_id' });
+
+            if (dbError) console.warn('Could not save vault to DB:', dbError);
+
+            renderVault(data.prompts, profession, problem);
+            vaultGenStatus.textContent = '';
+
+        } catch (err) {
+            console.error('Vault generation error:', err);
+            vaultGenStatus.textContent = '❌ Error al generar. Intenta de nuevo.';
+            btnGenerateVault.disabled = false;
+        }
+    }
+
+    if (btnGenerateVault) {
+        btnGenerateVault.addEventListener('click', generateVault);
+    }
+
+    if (btnRegenerateVault) {
+        btnRegenerateVault.addEventListener('click', async () => {
+            // Delete existing vault so user can re-enter profession/problem
+            await supabase.from('user_prompt_vault').delete().eq('user_id', currentUser.id);
+            vaultResultState.style.display = 'none';
+            vaultFormState.style.display = 'block';
+            if (vaultProfessionInput) vaultProfessionInput.value = '';
+            if (vaultProblemInput) vaultProblemInput.value = '';
+            if (btnGenerateVault) btnGenerateVault.disabled = false;
+        });
+    }
+
+    loadVault();
+
 });
