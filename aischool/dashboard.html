@@ -221,11 +221,25 @@
                     </div>
 
                     <!-- Evaluation Result -->
-                    <div id="eval-result-container" class="ai-result-panel" style="display: none;">
-                        <div id="eval-score-ring" class="ai-score-ring">0</div>
-                        <div class="ai-feedback-content">
-                            <h5 id="eval-score-title">Métrica de Calidad</h5>
-                            <p id="eval-feedback"></p>
+                    <div id="eval-result-container" class="ai-result-panel" style="display: none; flex-direction: column;">
+                        <!-- Comparator Section -->
+                        <div class="prompt-comparator">
+                            <div class="prompt-panel original">
+                                <div class="panel-header">Mi Prompt Original</div>
+                                <div id="eval-original-prompt" class="panel-body"></div>
+                            </div>
+                            <div class="prompt-panel optimized">
+                                <div class="panel-header">Versión Maestra AI4U</div>
+                                <div id="eval-optimized-prompt" class="panel-body"></div>
+                            </div>
+                        </div>
+
+                        <div class="eval-summary-footer">
+                            <div id="eval-score-ring" class="ai-score-ring">0</div>
+                            <div class="ai-feedback-content" style="flex: 1;">
+                                <h5 id="eval-score-title">Métrica de Calidad</h5>
+                                <p id="eval-feedback"></p>
+                            </div>
                         </div>
                     </div>
                 </div>

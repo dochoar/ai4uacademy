@@ -278,6 +278,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         throw error;
                     }
 
+                    const evalOriginal = document.getElementById('eval-original-prompt');
+                    const evalOptimized = document.getElementById('eval-optimized-prompt');
+                    if (evalOriginal) evalOriginal.textContent = promptText;
+                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'Optimización no disponible.';
+
                     evalResultContainer.style.display = 'flex';
                     let score = parseInt(data.score) || 0;
                     let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
