@@ -355,13 +355,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
                         body: { profession: prof, problem: prob }
                     });
-                    if (error) throw error;
+                    
+                    if (error) {
+                        // Check if it's a rate limit error
+                        if (error.context && error.context.status === 403) {
+                           // Try to get body to show the time message
+                           const errData = await error.context.json();
+                           if (errData.error === 'RATE_LIMIT_EXCEEDED') {
+                               vaultGenStatus.textContent = `❌ ${errData.message}`;
+                               return;
+                           }
+                        }
+                        throw error;
+                    }
 
                     await supabase.from('user_prompt_vault').upsert({ user_id: currentUser.id, prompts: data.prompts, profession: prof, problem: prob }, { onConflict: 'user_id' });
                     renderVault(data.prompts, prof, prob);
                 } catch (err) {
                     console.error(err);
-                    vaultGenStatus.textContent = 'Error al generar.';
+                    vaultGenStatus.textContent = '❌ Error al generar. Intenta de nuevo.';
                 } finally {
                     btnGenerateVault.disabled = false;
                 }

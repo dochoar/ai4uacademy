@@ -619,7 +619,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: { profession, problem }
             });
 
-            if (error) throw error;
+            if (error) {
+                if (error.context && error.context.status === 403) {
+                   const errData = await error.context.json();
+                   if (errData.error === 'RATE_LIMIT_EXCEEDED') {
+                       vaultGenStatus.textContent = `❌ ${errData.message}`;
+                       return;
+                   }
+                }
+                throw error;
+            }
             if (!data.prompts) throw new Error('La IA no devolvió prompts.');
 
             // Save to DB (upsert by user_id)
@@ -640,6 +649,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Vault generation error:', err);
             vaultGenStatus.textContent = '❌ Error al generar. Intenta de nuevo.';
+        } finally {
             btnGenerateVault.disabled = false;
         }
     }
