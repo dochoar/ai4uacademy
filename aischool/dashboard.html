@@ -13,6 +13,7 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/ai-tools.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
@@ -166,91 +167,101 @@
         <!-- AI Tools Section -->
         <section class="dash-content" id="tools-section" style="display: none;">
             <div class="section-title">
-                <h3>Herramientas Especializadas de IA</h3>
-                <p style="color: var(--clr-text-muted); font-size: 0.9rem;">Potencia tu aprendizaje con nuestras herramientas interactivas.</p>
+                <h3>Hub de Inteligencia Artificial</h3>
+                <p style="color: var(--clr-text-muted); font-size: 0.95rem;">Herramientas exclusivas para optimizar tu flujo de trabajo profesional.</p>
             </div>
 
             <!-- Lock State Container -->
-            <div id="tools-locked-overlay" class="glass-panel" style="padding: 40px; text-align: center; border: 2px dashed #a855f7; background: rgba(168, 85, 247, 0.05);">
-                <div style="font-size: 3rem; margin-bottom: 20px;">🛡️</div>
-                <h3 style="color: #fff; margin-bottom: 12px;">Desbloquea el Acceso Único</h3>
-                <p style="color: #94a3b8; max-width: 500px; margin: 0 auto 25px auto; line-height: 1.6;">
-                    Para acceder al <strong>Corrector de Prompts</strong> y la <strong>Bóveda Personalizada</strong>, por favor comparte tu opinión y reseña sobre la academia, y comparte nuestra web en tus redes sociales (LinkedIn, Facebook o Instagram). <br><br>
-                    <strong>Una vez compartido, solicita tu código de acceso y escríbelo aquí:</strong>
+            <div id="tools-locked-overlay" class="ai-tool-card tool-purple" style="text-align: center; border-style: dashed;">
+                <div style="font-size: 3.5rem; margin-bottom: 24px; filter: drop-shadow(0 0 15px rgba(168,85,247,0.3));">🛡️</div>
+                <h3 style="color: #fff; margin-bottom: 16px; font-size: 1.8rem;">Desbloquea tu Arsenal de IA</h3>
+                <p style="color: #94a3b8; max-width: 580px; margin: 0 auto 32px auto; line-height: 1.7; font-size: 1.05rem;">
+                    Para acceder al <strong>Analizador de Prompts</strong> y la <strong>Bóveda Personalizada</strong>, comparte tu experiencia en redes sociales (LinkedIn, FB o Instagram) y solicita tu código de acceso oficial.
                 </p>
-                <div style="display: flex; gap: 10px; justify-content: center; max-width: 400px; margin: 0 auto;">
-                    <input type="text" id="unlock-code-input" placeholder="Escribir código aquí..." style="flex: 1; padding: 12px; border-radius: 8px; border: 1px solid #a855f7; background: rgba(0,0,0,0.3); color: #fff;">
-                    <button id="btn-unlock-tools" class="btn btn-primary" style="background: #a855f7; border: none;">Desbloquear</button>
+                
+                <div style="display: flex; gap: 12px; justify-content: center; max-width: 450px; margin: 0 auto 30px auto;">
+                    <input type="text" id="unlock-code-input" placeholder="Ingresa tu código de acceso..." class="ai-evaluator-textarea" style="margin:0; padding: 12px 20px; min-height: unset; height: 50px;">
+                    <button id="btn-unlock-tools" class="btn btn-primary" style="background: var(--ai-purple); height: 50px; padding: 0 25px; border: none;">Activar Ahora</button>
                 </div>
                 
-                <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(168, 85, 247, 0.2);">
-                    <p style="color: #94a3b8; font-size: 0.85rem; margin-bottom: 15px;">¿Ya compartiste y quieres tu código?</p>
-                    <a id="whatsapp-unlock-link" href="https://wa.me/5212211173457?text=Hola!%20Acabo%20de%20compartir%20mi%20opini%C3%B3n%20sobre%20AI4U%20Academy%20y%20compart%C3%AD%20la%20web%20en%20mis%20redes.%20%C2%BFI%20Podr%C3%ADas%20darme%20mi%20c%C3%B3digo%20para%20desbloquear%20las%20Herramientas%20IA%3F" target="_blank" class="btn" style="background: #25D366; color: white; border: none; display: inline-flex; align-items: center; gap: 10px; padding: 10px 20px; font-weight: 600;">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527"></path></svg>
-                        Enviar comprobante por WhatsApp
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;">
+                    <a id="whatsapp-unlock-link" href="#" target="_blank" class="btn" style="background: #128C7E; color: white; border: none; display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 15px rgba(18,140,126,0.3);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527"></path></svg>
+                        Solicitar mi Código por WhatsApp
                     </a>
+                    <p id="unlock-error-msg" style="color: #ef4444; font-size: 0.9rem; margin-top: 15px; min-height: 20px; font-weight: 500;"></p>
                 </div>
-                <p id="unlock-error-msg" style="color: #ef4444; font-size: 0.85rem; margin-top: 10px; min-height: 20px;"></p>
             </div>
 
             <!-- Unlocked State Container -->
             <div id="tools-unlocked-content" style="display: none;">
                 
-                <!-- Corrector de Prompts (Reused from course.html) -->
-                <div class="glass-panel evaluator-hero" style="padding: 30px; border-left: 4px solid #0ea5e9; background: linear-gradient(145deg, rgba(14, 165, 233, 0.05) 0%, rgba(0,0,0,0.2) 100%); margin-bottom: 30px;">
-                    <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px;">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="#0ea5e9" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        Corrector de Prompts con IA
-                    </h4>
-                    <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px;">
-                        <textarea id="prompt-eval-input" style="width: 100%; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.4); color: white; padding: 15px; border-radius: 8px; min-height: 100px; font-size: 1rem; resize: vertical;" placeholder="Escribe tu prompt aquí..."></textarea>
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 15px;">
-                            <div>
-                                <span id="prompt-eval-status" style="color: #94a3b8; font-size: 0.85rem; display: block;">Esperando instrucción...</span>
-                                <span id="eval-remaining-attempts" style="color: #10b981; font-size: 0.8rem; font-weight: bold; margin-top: 5px; display: block;">Límite diario: 5 verificaciones</span>
-                            </div>
-                            <button id="btn-eval-prompt" class="btn btn-primary" style="background: #0ea5e9;">Evaluar con IA</button>
+                <!-- Corrector de Prompts (Evaluator) -->
+                <div class="ai-tool-card tool-blue">
+                    <div class="ai-tool-header">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-blue)" stroke-width="2.5" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        <div>
+                            <h4>Analizador de Prompts con IA</h4>
+                            <p>Convierte instrucciones simples en comandos maestros de alto impacto.</p>
                         </div>
                     </div>
-                    <div id="eval-result-container" style="display: none; margin-top: 25px; padding: 20px; border-radius: 12px; background: rgba(0,0,0,0.2); border-left: 5px solid #0ea5e9;">
-                        <div style="display: flex; align-items: flex-start; gap: 20px;">
-                            <div id="eval-score-ring" style="width: 60px; height: 60px; min-width: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.3rem; border: 4px solid #0ea5e9; color: #fff;">0</div>
+                    
+                    <div class="ai-tool-inner">
+                        <textarea id="prompt-eval-input" class="ai-evaluator-textarea" placeholder="Escribe o pega aquí el prompt que quieres que la IA evalúe..."></textarea>
+                        <div class="ai-evaluator-footer">
                             <div>
-                                <h5 id="eval-score-title" style="color: #fff; margin:0 0 8px 0; font-size: 1.1rem;">Evaluación Completada</h5>
-                                <p id="eval-feedback" style="color: #cbd5e1; margin: 0; line-height: 1.6; font-size: 0.9rem;"></p>
+                                <span id="prompt-eval-status" class="ai-status-msg">
+                                    <span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; opacity:0.5;"></span>
+                                    Listo para analizar
+                                </span>
+                                <span id="eval-remaining-attempts" class="ai-limit-badge">5 Verificaciones disponibles hoy</span>
                             </div>
+                            <button id="btn-eval-prompt" class="btn btn-primary" style="background: var(--ai-blue); border:none; padding: 12px 32px;">Evaluar Calidad</button>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Result -->
+                    <div id="eval-result-container" class="ai-result-panel" style="display: none;">
+                        <div id="eval-score-ring" class="ai-score-ring">0</div>
+                        <div class="ai-feedback-content">
+                            <h5 id="eval-score-title">Métrica de Calidad</h5>
+                            <p id="eval-feedback"></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Bóveda de Prompts (Reused from course.html) -->
-                <div class="glass-panel vault-section" id="prompt-vault-section" style="padding: 30px; border-left: 4px solid #a855f7; background: linear-gradient(145deg, rgba(168,85,247,0.07) 0%, rgba(0,0,0,0.2) 100%);">
-                    <h4 style="color: #fff; font-size: 1.3rem; margin-bottom: 15px; display: flex; align-items: center; gap: 14px;">
-                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="#a855f7" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                        Bóveda de Prompts Personalizada
-                    </h4>
-
-                    <div id="vault-form-state">
-                        <div style="background: rgba(168,85,247,0.08); border: 1px dashed rgba(168,85,247,0.4); border-radius: 12px; padding: 25px;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-                                <div>
-                                    <label style="display: block; color: #e2e8f0; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase;">Tu profesión</label>
-                                    <input type="text" id="vault-profession" placeholder="Ej. Arquitecto..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(168,85,247,0.4); background: rgba(0,0,0,0.4); color: #fff;">
-                                </div>
-                                <div>
-                                    <label style="display: block; color: #e2e8f0; font-size: 0.8rem; font-weight: 600; margin-bottom: 8px; text-transform: uppercase;">Tu mayor desafío</label>
-                                    <input type="text" id="vault-problem" placeholder="Ej. Presupuestos..." style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(168,85,247,0.4); background: rgba(0,0,0,0.4); color: #fff;">
-                                </div>
-                            </div>
-                            <button id="btn-generate-vault" class="btn btn-primary" style="background: #a855f7; border: none; width: 100%;">Generar mis 10 Prompts con IA</button>
-                            <p id="vault-gen-status" style="color: #94a3b8; font-size: 0.8rem; margin-top: 10px; min-height: 20px;"></p>
+                <!-- Bóveda de Prompts Personalizada -->
+                <div class="ai-tool-card tool-purple">
+                    <div class="ai-tool-header">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-purple)" stroke-width="2.5" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <div>
+                            <h4>Bóveda de Prompts de Élite</h4>
+                            <p>5 Plantillas personalizadas para tu rol profesional (Expira cada 24h).</p>
                         </div>
                     </div>
 
+                    <div id="vault-form-state" class="ai-tool-inner">
+                        <p style="color: #c4b5fd; font-weight: 500; margin-bottom: 24px;">✨ Describe tu entorno profesional y nuestra IA construirá tus herramientas personalizadas.</p>
+                        <div class="ai-vault-form">
+                            <div class="ai-input-group">
+                                <label>Tu Profesión / Cargo</label>
+                                <input type="text" id="vault-profession" placeholder="Ej. Contador, CEO, Diseñador UX...">
+                            </div>
+                            <div class="ai-input-group">
+                                <label>Tu Mayor Reto Actual</label>
+                                <input type="text" id="vault-problem" placeholder="Ej. Escalar ventas, reducir gastos...">
+                            </div>
+                        </div>
+                        <button id="btn-generate-vault" class="btn btn-primary" style="background: var(--ai-purple); width: 100%; border:none; padding: 16px;">
+                            <span style="margin-right:8px;">🔥</span> Generar mis 5 Prompts Premium
+                        </button>
+                        <p id="vault-gen-status" style="color: #94a3b8; font-size: 0.9rem; margin-top: 15px; text-align: center; min-height: 24px;"></p>
+                    </div>
+
                     <div id="vault-result-state" style="display: none;">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                            <p id="vault-profile-label" style="color: #c4b5fd; font-size: 0.85rem; margin: 0;"></p>
-                            <button id="btn-regenerate-vault" style="background: transparent; border: 1px solid #a855f7; color: #a855f7; border-radius: 6px; padding: 4px 10px; font-size: 0.75rem; cursor: pointer;">↺ Regenerar</button>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0 20px 0;">
+                            <p id="vault-profile-label" style="color: #c4b5fd; font-weight: 700; margin: 0; font-size: 1.1rem;"></p>
+                            <button id="btn-regenerate-vault" style="background: rgba(168,85,247,0.1); border: 1.5px solid var(--ai-purple); color: var(--ai-purple); border-radius: 8px; padding: 6px 16px; font-size: 0.85rem; cursor: pointer; font-weight: 700; transition: all 0.2s;">↺ Nueva Bóveda</button>
                         </div>
                         <div id="vault-prompts-grid" class="vault-grid"></div>
                     </div>

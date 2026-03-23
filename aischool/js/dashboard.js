@@ -256,33 +256,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!promptText) return alert('Escribe un prompt.');
 
                 btnEval.disabled = true;
-                statusEval.textContent = 'Analizando... 🧠';
+                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Analizando tu prompt...`;
                 evalResultContainer.style.display = 'none';
 
                 try {
                     const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
                         body: { prompt: promptText, module_id: 'dashboard' }
                     });
-                    if (error) throw error;
+                    if (error) {
+                        // Check for rate limit in response body
+                        if (error.context && error.context.status === 403) {
+                             const errData = await error.context.json();
+                             if (errData.error === 'RATE_LIMIT_EXCEEDED') {
+                                 statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
+                                 displayRemaining.textContent = "Te quedan 0 verificaciones hoy.";
+                                 displayRemaining.style.color = "#ef4444";
+                                 alert(errData.message);
+                                 return;
+                             }
+                        }
+                        throw error;
+                    }
 
-                    evalResultContainer.style.display = 'block';
+                    evalResultContainer.style.display = 'flex';
                     let score = parseInt(data.score) || 0;
                     let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
+                    let title = score >= 80 ? 'Calidad Premium' : (score >= 60 ? 'Buena Estructura' : 'Requiere Mejoras');
                     
                     scoreRing.textContent = score;
                     scoreRing.style.borderColor = color;
                     scoreRing.style.color = color;
+                    scoreTitle.textContent = title;
                     evalFeedback.textContent = data.feedback;
-                    statusEval.textContent = 'Completado.';
+                    statusEval.innerHTML = `<span style="color:#10b981;">✅ Análisis completado</span>`;
 
                     if (displayRemaining && data.remaining !== undefined) {
-                      displayRemaining.textContent = `Te quedan ${data.remaining} verificaciones hoy.`;
+                      displayRemaining.textContent = `${data.remaining} Verificaciones disponibles hoy`;
+                      if (data.remaining <= 0) {
+                          displayRemaining.style.color = '#ef4444';
+                          btnEval.disabled = true;
+                      }
                     }
                 } catch (err) {
                     console.error(err);
-                    statusEval.textContent = 'Error al evaluar.';
+                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al evaluar</span>`;
                 } finally {
-                    btnEval.disabled = false;
+                    if (!btnEval.disabled) btnEval.disabled = false;
                 }
             });
         }
@@ -318,35 +337,37 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderVault(prompts, profession, problem) {
             vaultFormState.style.display = 'none';
             vaultResultState.style.display = 'block';
-            vaultProfileLabel.textContent = `✨ Perfil: ${profession}`;
+            vaultProfileLabel.textContent = `✨ Perfil: ${profession} — Meta: ${problem}`;
             vaultGrid.innerHTML = '';
+
             prompts.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'vault-prompt-card';
-                card.style.background = 'rgba(168,85,247,0.1)';
-                card.style.border = '1px solid rgba(168,85,247,0.2)';
-                card.style.padding = '15px';
-                card.style.borderRadius = '10px';
-                card.style.marginBottom = '10px';
                 card.innerHTML = `
-                    <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
-                        <span style="font-weight:bold; color:#fff; font-size:0.9rem;">${escapeHtml(p.title)}</span>
-                        <span style="font-size:0.7rem; background:#a855f7; color:white; padding:2px 6px; border-radius:4px;">${escapeHtml(p.category)}</span>
+                    <div class="vault-card-header">
+                        <span class="vault-card-title">${escapeHtml(p.title)}</span>
+                        <span class="vault-card-tag">${escapeHtml(p.category)}</span>
                     </div>
-                    <p style="font-size:0.8rem; color:#94a3b8; line-height:1.4;">${escapeHtml(p.prompt)}</p>
-                    <button class="btn-copy-vault" style="width:100%; border:1px solid #a855f7; background:transparent; color:#a855f7; border-radius:6px; padding:5px; font-size:0.8rem; cursor:pointer;" data-text="${escapeHtml(p.prompt)}">Copiar Prompt</button>
+                    <div class="vault-card-body">${escapeHtml(p.prompt)}</div>
+                    <button class="btn-copy-vault">
+                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copiar Prompt Premium</span>
+                    </button>
                 `;
-                vaultGrid.appendChild(card);
-            });
 
-            vaultGrid.querySelectorAll('.btn-copy-vault').forEach(btn => {
-                btn.addEventListener('click', () => {
-                   navigator.clipboard.writeText(btn.dataset.text).then(() => {
-                        const original = btn.textContent;
-                        btn.textContent = '¡Copiado!';
-                        setTimeout(() => btn.textContent = original, 2000);
-                   });
+                const copyBtn = card.querySelector('.btn-copy-vault');
+                copyBtn.addEventListener('click', () => {
+                    navigator.clipboard.writeText(p.prompt).then(() => {
+                        copyBtn.classList.add('copied');
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>¡Copiado!</span>`;
+                        setTimeout(() => {
+                            copyBtn.classList.remove('copied');
+                            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copiar Prompt Premium</span>`;
+                        }, 2000);
+                    });
                 });
+
+                vaultGrid.appendChild(card);
             });
         }
 
@@ -358,7 +379,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (!prof || !prob) return alert('Completa los campos.');
 
                 btnGenerateVault.disabled = true;
-                vaultGenStatus.textContent = 'Generando tu bóveda de 5 prompts maestros (Aprox. 10s)... ⏳';
+                vaultGenStatus.innerHTML = `<span style="color:var(--ai-purple); font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px;"><span class="vault-loader-spinner"></span> La IA está construyendo tu arsenal premium de 5 prompts...</span>`;
 
                 try {
                     const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {

@@ -465,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             btnEval.disabled = true;
-            statusEval.textContent = 'Analizando tu prompt con IA... 🧠';
+            statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Analizando tu prompt...`;
             evalResultContainer.style.display = 'none';
 
             try {
@@ -474,13 +474,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: { prompt: promptText, module_id: currentModuleId.toString() }
                 });
 
-                if (error) throw error;
+                if (error) {
+                    if (error.context && error.context.status === 403) {
+                         const errData = await error.context.json();
+                         if (errData.error === 'RATE_LIMIT_EXCEEDED') {
+                             statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
+                             displayRemaining.textContent = "Te quedan 0 verificaciones hoy.";
+                             displayRemaining.style.color = "#ef4444";
+                             alert(errData.message);
+                             return;
+                         }
+                    }
+                    throw error;
+                }
                 
-                evalResultContainer.style.display = 'block';
+                evalResultContainer.style.display = 'flex';
                 
                 let score = parseInt(data.score) || 0;
                 let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
-                let title = score >= 80 ? '¡Excelente Prompt! 🌟' : (score >= 60 ? 'Buen intento, se puede mejorar 👍' : 'Rechazado: Faltan pilares clave ⚠️');
+                let title = score >= 80 ? 'Calidad Premium ✨' : (score >= 60 ? 'Buen Intento 👍' : 'Requiere Mejoras ⚠️');
 
                 scoreTitle.textContent = title;
                 scoreRing.textContent = score;
@@ -488,11 +500,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 scoreRing.style.color = color;
                 evalResultContainer.style.borderLeftColor = color;
                 
-                evalFeedback.textContent = data.feedback || 'Sin comentarios adicionales de la IA.';
-                statusEval.textContent = 'Evaluación completada.';
+                evalFeedback.textContent = data.feedback || 'Sin comentarios adicionales.';
+                statusEval.innerHTML = `<span style="color:#10b981;">✅ Análisis completado</span>`;
 
                 if (displayRemaining && typeof data.remaining !== 'undefined') {
-                    displayRemaining.textContent = `Te quedan ${data.remaining} verificaciones hoy.`;
+                    displayRemaining.textContent = `${data.remaining} Verificaciones disponibles hoy`;
                     if (data.remaining <= 0) {
                         displayRemaining.style.color = '#ef4444';
                         btnEval.disabled = true;
@@ -503,32 +515,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             } catch (err) {
                 console.error("AI Evaluation Error:", err);
-                
-                let isRateLimited = false;
-                if (err.context && err.context.status === 403) {
-                    isRateLimited = true;
-                } else if (err.message && err.message.includes('RATE_LIMIT_EXCEEDED')) {
-                    isRateLimited = true;
-                }
-                
-                if (isRateLimited) {
-                     statusEval.textContent = 'Límite superado.';
-                     if (displayRemaining) {
-                         displayRemaining.style.color = '#ef4444';
-                         displayRemaining.textContent = 'Te quedan 0 verificaciones hoy.';
-                     }
-                     alert('Has alcanzado tu límite máximo de 5 evaluaciones por día. Por favor, ¡vuelve mañana para seguir practicando!');
-                } else {
-                     statusEval.textContent = 'Error al evaluar. Intenta de nuevo.';
-                     alert('Ocurrió un error consultando al profesor de IA.');
-                     btnEval.disabled = false;
-                }
+                statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al analizar</span>`;
             } finally {
-                if (displayRemaining && displayRemaining.textContent.includes(' 0 ')) {
-                     btnEval.disabled = true;
-                } else {
-                     btnEval.disabled = false;
-                }
+                if (!btnEval.disabled) btnEval.disabled = false;
             }
         });
     }
@@ -575,34 +564,32 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderVault(prompts, profession, problem) {
         vaultFormState.style.display = 'none';
         vaultResultState.style.display = 'block';
-        vaultProfileLabel.textContent = `✨ Prompts generados para: ${profession} — "${problem}"`;
+        vaultProfileLabel.textContent = `✨ Perfil: ${profession} — Meta: ${problem}`;
         vaultGrid.innerHTML = '';
 
         prompts.forEach(p => {
             const card = document.createElement('div');
             card.className = 'vault-prompt-card';
             card.innerHTML = `
-                <div class="vault-card-top">
-                    <h4 class="vault-card-title">${escapeHtml(p.title)}</h4>
-                    <span class="vault-card-category">${escapeHtml(p.category)}</span>
+                <div class="vault-card-header">
+                    <span class="vault-card-title">${escapeHtml(p.title)}</span>
+                    <span class="vault-card-tag">${escapeHtml(p.category)}</span>
                 </div>
-                <p class="vault-card-prompt">${escapeHtml(p.prompt)}</p>
-                <div class="vault-card-footer">
-                    <button class="btn-copy-vault" data-prompt="${escapeHtml(p.prompt)}">
-                        <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        Copiar
-                    </button>
-                </div>
+                <div class="vault-card-body">${escapeHtml(p.prompt)}</div>
+                <button class="btn-copy-vault">
+                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                    <span>Copiar Prompt Premium</span>
+                </button>
             `;
 
             const copyBtn = card.querySelector('.btn-copy-vault');
             copyBtn.addEventListener('click', () => {
                 navigator.clipboard.writeText(p.prompt).then(() => {
                     copyBtn.classList.add('copied');
-                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!`;
+                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>¡Copiado al portapapeles!</span>`;
                     setTimeout(() => {
                         copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar`;
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copiar Prompt Premium</span>`;
                     }, 2000);
                 });
             });
