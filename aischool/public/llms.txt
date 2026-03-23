@@ -1,0 +1,19 @@
+# AI4U Academy
+
+AI4U Academy is an educational platform offering practical courses on Artificial Intelligence (IA) for beginners and professionals, focusing on tools like ChatGPT, Claude, and Midjourney without the need for programming skills.
+
+## Core Offerings
+- **Introduction to AI from Scratch**: A 6-hour video course with practical exercises.
+- **AI for Productivity**: Learn to automate tasks and save time in daily workflows.
+- **Ethics and AI**: Understanding the limits and risks of Artificial Intellingence.
+
+## Key Sections
+- [Homepage](https://ai4uacademy.com/) - Main landing page with course overview and enrollment.
+- [Terms](https://ai4uacademy.com/terminos.html) - Terms of service and privacy.
+
+## Keywords
+- Cursos de IA
+- Inteligencia Artificial
+- AI4U
+- Aprender IA
+- Prompt Engineering

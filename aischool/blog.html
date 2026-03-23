@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog de IA y Productividad | AI4U Academy</title>
+    <meta name="description" content="Aprende sobre Inteligencia Artificial, automatización y productividad con los mejores artículos de AI4U Academy. Cursos de IA y consejos prácticos.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Onest:wght@100..900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .blog-header {
+            background: var(--clr-primary);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 32px;
+            margin: 60px 0;
+        }
+        .post-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--clr-border);
+            display: flex;
+            flex-direction: column;
+        }
+        .post-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        .post-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: #eee;
+        }
+        .post-content {
+            padding: 24px;
+            flex-grow: 1;
+        }
+        .post-category {
+            color: var(--clr-action);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: block;
+        }
+        .post-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            margin-bottom: 12px;
+            color: var(--clr-primary);
+        }
+        .post-excerpt {
+            color: var(--clr-text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+        .post-link {
+            font-weight: 700;
+            color: var(--clr-action);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <div class="logo">
+                <a href="index.html">
+                    <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img" style="height: 45px;">
+                </a>
+            </div>
+            <nav style="display: flex; align-items: center; gap: 24px;">
+                <a href="index.html" style="font-weight: 700;">Inicio</a>
+                <a href="blog.html" style="font-weight: 700; color: var(--clr-action);">Blog</a>
+                <a href="acceso.html" class="btn btn-sm btn-primary">Acceder</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="blog-header">
+        <div class="container">
+            <h1>Blog de AI4U Academy</h1>
+            <p>Aprende a dominar la Inteligencia Artificial con nuestros artículos y guías prácticas.</p>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="blog-grid">
+            <!-- Article 1 -->
+            <article class="post-card">
+                <img src="assets/images/promo/ai-hero.png" alt="IA y Productividad" class="post-img">
+                <div class="post-content">
+                    <span class="post-category">Productividad</span>
+                    <h2 class="post-title">Cómo la IA puede ahorrarte 10 horas de trabajo a la semana</h2>
+                    <p class="post-excerpt">Descubre las herramientas y métodos de automatización que están revolucionando el mundo profesional. Aprende a delegar tareas repetitivas a la IA.</p>
+                    <a href="blog/como-la-ia-ahorra-tiempo.html" class="post-link">Leer más →</a>
+                </div>
+            </article>
+
+            <!-- Article 2 -->
+            <article class="post-card">
+                <img src="assets/images/promo/ai-preview.png" alt="Aprender IA" class="post-img">
+                <div class="post-content">
+                    <span class="post-category">Educación</span>
+                    <h2 class="post-title">Cursos de IA: ¿Por qué deberías aprender ahora mismo?</h2>
+                    <p class="post-excerpt">La brecha digital se está ensanchando. Aquellos que dominen la Inteligencia Artificial hoy tendrán la delantera mañana. Analizamos el mercado de cursos de IA.</p>
+                    <a href="blog/ia-vs-humanos-productividad.html" class="post-link">Leer más →</a>
+                </div>
+            </article>
+
+            <!-- Article 3 -->
+            <article class="post-card">
+                <div style="background: var(--clr-primary); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🤖</div>
+                <div class="post-content">
+                    <span class="post-category">Prompt Engineering</span>
+                    <h2 class="post-title">El arte de hablar con las máquinas: Guía de Prompts</h2>
+                    <p class="post-excerpt">No necesitas programar, necesitas comunicar. Te enseñamos los secretos del Prompt Engineering para obtener resultados perfectos en ChatGPT.</p>
+                    <a href="blog/guia-prompt-engineering.html" class="post-link">Leer más →</a>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 AI4U Academy. Todos los derechos reservados.</p>
+                <div class="footer-links" style="display: flex; gap: 15px;">
+                    <a href="terminos.html" style="color: var(--clr-action); text-decoration: none;">Términos de Servicio</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
