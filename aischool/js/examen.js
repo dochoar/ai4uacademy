@@ -141,6 +141,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const langOptions = { year: 'numeric', month: 'long', day: 'numeric' };
         certDate.textContent = `Otorgado el ${d.toLocaleDateString('es-MX', langOptions)}`;
 
+        // Official Certificate Link
+        const certDownloadLink = document.getElementById('cert-download-link');
+        if (certDownloadLink && record && record.id) {
+            certDownloadLink.href = `certificado.html?id=${record.id}`;
+            certDownloadLink.style.display = 'block';
+        }
+
         setupShareButtons();
     }
 

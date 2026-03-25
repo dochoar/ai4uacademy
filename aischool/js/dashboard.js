@@ -107,37 +107,56 @@ document.addEventListener('DOMContentLoaded', () => {
             if (buyBtn) {
                 buyBtn.style.display = 'block';
                 
-                // Add checkout logic
+                // Access with code (New requirement)
                 buyBtn.addEventListener('click', async (e) => {
                     e.preventDefault();
                     
-                    const originalText = buyBtn.textContent;
-                    buyBtn.disabled = true;
-                    buyBtn.textContent = 'Procesando...';
-                    
-                    try {
-                        const { data, error } = await supabase.functions.invoke('create-checkout', {
-                            body: { 
-                                returnUrl: window.location.href.split('?')[0],
-                                userId: userId,
-                                courseId: COURSE_ID
+                    const code = prompt("Introduce tu código de acceso para desbloquear el curso:");
+                    if (code) {
+                        const originalText = buyBtn.textContent;
+                        buyBtn.disabled = true;
+                        buyBtn.textContent = 'Validando...';
+                        
+                        try {
+                            const { data, error } = await supabase.rpc('enroll_user_with_code', {
+                                p_course_id: COURSE_ID,
+                                p_code: code.trim().toLowerCase()
+                            });
+                            
+                            if (error) throw error;
+                            
+                            if (data.success) {
+                                alert(data.message);
+                                window.location.reload();
+                            } else {
+                                alert(data.message);
+                                buyBtn.disabled = false;
+                                buyBtn.textContent = originalText;
                             }
-                        });
-                        
-                        if (error) throw error;
-                        
-                        if (data.url) {
-                            window.location.href = data.url;
-                        } else {
-                            throw new Error('No checkout URL returned');
+                        } catch (err) {
+                            console.error('Enrollment error:', err);
+                            alert('Error al procesar el código. Por favor intenta de nuevo.');
+                            buyBtn.disabled = false;
+                            buyBtn.textContent = originalText;
                         }
-                    } catch (err) {
-                        console.error('Checkout error:', err);
-                        alert('Hubo un error al iniciar el pago. Por favor intenta de nuevo.');
-                        buyBtn.disabled = false;
-                        buyBtn.textContent = originalText;
+                    } else if (code === "") {
+                        // Empty string but not null (clicked cancel)
+                        alert("Por favor introduce un código válido.");
+                    } else if (code === null) {
+                        // Clicked cancel - show WhatsApp option as fallback
+                        const confirmWA = confirm("¿No tienes un código? Puedes contactarnos por WhatsApp para obtener acceso.");
+                        if (confirmWA) {
+                            const waMessage = encodeURIComponent("Hola! Me interesa adquirir el curso de Introducción a la IA. ¿Me puedes ayudar con el pago?");
+                            window.open(`https://wa.me/5212211173457?text=${waMessage}`, '_blank');
+                        }
                     }
                 });
+                /*
+                // Previous Stripe logic (Paused)
+                buyBtn.addEventListener('click', (e) => {
+                    // ...
+                });
+                */
             }
             return;
         }
