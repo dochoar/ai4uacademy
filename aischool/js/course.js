@@ -82,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
             renderSidebar();
             renderMainView(currentModuleId);
 
+            // Antigravity Entrance Animation
+            gsap.from(".course-header", { y: -50, opacity: 0, duration: 1, ease: "power4.out" });
+            gsap.from(".video-hero", { y: 30, opacity: 0, duration: 1.2, delay: 0.2, ease: "power3.out" });
+            gsap.from(".module-details", { x: -30, opacity: 0, duration: 1, delay: 0.4, ease: "power3.out" });
+            gsap.from(".course-sidebar-wrapper", { x: 30, opacity: 0, duration: 1, delay: 0.6, ease: "power3.out" });
+
             setTimeout(() => {
                 authLoader.classList.add('hidden');
             }, 600);
@@ -170,6 +176,15 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             moduleListEl.appendChild(li);
+        });
+
+        // Staggered entrance for sidebar items
+        gsap.from(".module-item", {
+            x: 20,
+            opacity: 0,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: "power2.out"
         });
 
         // Update Global Progress Bar
