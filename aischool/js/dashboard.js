@@ -102,63 +102,23 @@ document.addEventListener('DOMContentLoaded', () => {
             .eq('course_id', COURSE_ID)
             .maybeSingle();
 
-        if (!enrollment) {
-            // Not enrolled — show purchase button, no progress
-            if (buyBtn) {
-                buyBtn.style.display = 'block';
-                
-                // Access with code (New requirement)
-                buyBtn.addEventListener('click', async (e) => {
-                    e.preventDefault();
-                    
-                    const code = prompt("Introduce tu código de acceso para desbloquear el curso:");
-                    if (code) {
-                        const originalText = buyBtn.textContent;
-                        buyBtn.disabled = true;
-                        buyBtn.textContent = 'Validando...';
-                        
-                        try {
-                            const { data, error } = await supabase.rpc('enroll_user_with_code', {
-                                p_course_id: COURSE_ID,
-                                p_code: code.trim().toLowerCase()
-                            });
-                            
-                            if (error) throw error;
-                            
-                            if (data.success) {
-                                alert(data.message);
-                                window.location.reload();
-                            } else {
-                                alert(data.message);
-                                buyBtn.disabled = false;
-                                buyBtn.textContent = originalText;
-                            }
-                        } catch (err) {
-                            console.error('Enrollment error:', err);
-                            alert('Error al procesar el código. Por favor intenta de nuevo.');
-                            buyBtn.disabled = false;
-                            buyBtn.textContent = originalText;
-                        }
-                    } else if (code === "") {
-                        // Empty string but not null (clicked cancel)
-                        alert("Por favor introduce un código válido.");
-                    } else if (code === null) {
-                        // Clicked cancel - show WhatsApp option as fallback
-                        const confirmWA = confirm("¿No tienes un código? Puedes contactarnos por WhatsApp para obtener acceso.");
-                        if (confirmWA) {
-                            const waMessage = encodeURIComponent("Hola! Me interesa adquirir el curso de Introducción a la IA. ¿Me puedes ayudar con el pago?");
-                            window.open(`https://wa.me/5212211173457?text=${waMessage}`, '_blank');
-                        }
-                    }
-                });
-                /*
-                // Previous Stripe logic (Paused)
-                buyBtn.addEventListener('click', (e) => {
-                    // ...
-                });
-                */
-            }
-            return;
+        /*
+        // TEMPORARILY DISABLED: Public access enabled by user request
+        const { data: enrollment } = await supabase
+            .from('enrollments')
+            .select('id')
+            .eq('user_id', userId)
+            .eq('course_id', COURSE_ID)
+            .maybeSingle();
+
+        if (!enrollment) { ... }
+        */
+
+        // Forced access for 'intro-ia'
+        if (buyBtn) buyBtn.style.display = 'none';
+        if (courseBtn) {
+            courseBtn.style.display = 'flex';
+            courseBtn.href = `course.html?id=${COURSE_ID}`;
         }
 
         // Enrolled — show course button

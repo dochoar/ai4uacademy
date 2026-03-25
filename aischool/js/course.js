@@ -60,7 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 isAdmin = adminUserIds.includes(currentUser.id);
             }
 
-            // Verify the user has a paid enrollment for this course
+            /*
+            // TEMPORARILY DISABLED: Public access enabled by user request
             const { data: enrollment } = await supabase
                 .from('enrollments')
                 .select('id')
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = '/index.html#pricing';
                 return;
             }
+            */
 
             await fetchProgress();
 
