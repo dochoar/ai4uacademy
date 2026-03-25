@@ -59,6 +59,26 @@
                         <h2 id="current-video-title">Cargando Módulo...</h2>
                         <p>Haz clic para simular reproducción</p>
                     </div>
+
+                    <!-- Module Quiz Overlay -->
+                    <div id="quiz-overlay" class="quiz-overlay" style="display: none;">
+                        <div class="quiz-container glass-panel">
+                            <div class="quiz-header">
+                                <h3>Cuestionario de Módulo</h3>
+                                <p id="quiz-step">Pregunta 1 de 5</p>
+                            </div>
+                            <div id="quiz-question-box" class="quiz-content">
+                                <p class="quiz-question" id="quiz-q-text">Cargando pregunta...</p>
+                                <div class="quiz-options" id="quiz-options">
+                                    <!-- Options injected here -->
+                                </div>
+                            </div>
+                            <div id="quiz-feedback" class="quiz-feedback" style="display: none;">
+                                <p id="feedback-text"></p>
+                                <button class="btn btn-primary" id="btn-next-q">Siguiente Pregunta</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 

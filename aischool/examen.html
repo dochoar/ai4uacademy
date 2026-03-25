@@ -35,53 +35,20 @@
             
             <!-- Exam Intro / Quiz Area -->
             <div id="exam-area" class="glass-panel" style="padding: 40px;">
-                <h2 style="font-size: 2rem; color: #fff; margin-bottom: 10px; text-align: center;">Demuestra lo aprendido</h2>
-                <p style="color: #cbd5e1; text-align: center; margin-bottom: 30px;">
-                    Responde las siguientes preguntas. Necesitas al menos un <strong>65% de aciertos</strong> para desbloquear tu Certificado Profesional de AI4U Academy.
+                <h2 style="font-size: 2rem; color: #fff; margin-bottom: 10px; text-align: center;">Examen de Certificación Oficial</h2>
+                <p style="color: #cbd5e1; text-align: center; margin-bottom: 20px;" id="exam-intro-text">
+                    Responde las 20 preguntas basadas en los módulos del curso. Necesitas al menos un <strong>70% de aciertos</strong> (14/20) para obtener tu Certificado Profesional.
                 </p>
+                <div id="attempts-info" style="text-align: center; color: #facc15; font-weight: 500; margin-bottom: 30px;">
+                    Cargando intentos disponibles...
+                </div>
 
                 <form id="quiz-form">
-                    <!-- Q1 -->
-                    <div class="question-block">
-                        <p class="question-text">1. ¿Qué es primordialmente el 'Prompt Engineering'?</p>
-                        <label class="q-option"><input type="radio" name="q1" value="a"> Crear código de programación avanzado para construir IA desde cero.</label>
-                        <label class="q-option"><input type="radio" name="q1" value="b"> El proceso estratégico de redactar instrucciones precisas para que la IA dé las mejores respuestas.</label>
-                        <label class="q-option"><input type="radio" name="q1" value="c"> La forma de instalar inteligencia artificial en circuitos físicos.</label>
+                    <div id="questions-container">
+                        <!-- Dynamic content -->
                     </div>
 
-                    <!-- Q2 -->
-                    <div class="question-block">
-                        <p class="question-text">2. En el entorno laboral, ¿cómo puede una IA para productividad ayudarnos mejor?</p>
-                        <label class="q-option"><input type="radio" name="q2" value="a"> Substituyendo totalmente el proceso de toma de decisiones humanas sin supervisión.</label>
-                        <label class="q-option"><input type="radio" name="q2" value="b"> Ocultando datos financieros para mayor seguridad.</label>
-                        <label class="q-option"><input type="radio" name="q2" value="c"> Automatizando tareas repetitivas como resumir reuniones y redactar correos base.</label>
-                    </div>
-
-                    <!-- Q3 -->
-                    <div class="question-block">
-                        <p class="question-text">3. Cuando hablamos de "Alucinaciones" en modelos de IA nos referimos a:</p>
-                        <label class="q-option"><input type="radio" name="q3" value="a"> Respuestas inventadas u objetivamente incorrectas que la IA presenta como hechos ciertos.</label>
-                        <label class="q-option"><input type="radio" name="q3" value="b"> Efectos visuales generados en pantallas LED.</label>
-                        <label class="q-option"><input type="radio" name="q3" value="c"> Errores del servidor por falta de conexión a internet.</label>
-                    </div>
-
-                    <!-- Q4 -->
-                    <div class="question-block">
-                        <p class="question-text">4. Para mantener la ética y privacidad usando inteligencias virtuales, nunca deberías:</p>
-                        <label class="q-option"><input type="radio" name="q4" value="a"> Compartirle manuales de dominio público.</label>
-                        <label class="q-option"><input type="radio" name="q4" value="b"> Ingresar datos sensibles, financieros o secretos de clientes reales de tu empresa.</label>
-                        <label class="q-option"><input type="radio" name="q4" value="c"> Pedirle a la IA que revise tu ortografía y gramática.</label>
-                    </div>
-
-                    <!-- Q5 -->
-                    <div class="question-block">
-                        <p class="question-text">5. Principal característica de un Prompt (instrucción) de alta calidad:</p>
-                        <label class="q-option"><input type="radio" name="q5" value="a"> Ser extremadamente corto (1 a 3 palabras).</label>
-                        <label class="q-option"><input type="radio" name="q5" value="b"> Proveer contexto claro, un objetivo definido y de preferencia el formato esperado de salida.</label>
-                        <label class="q-option"><input type="radio" name="q5" value="c"> Evitar usar signos de puntuación.</label>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary btn-block mt-4" style="font-size: 1.1rem; padding: 15px;">Entregar Examen</button>
+                    <button type="submit" id="btn-submit-exam" class="btn btn-primary btn-block mt-4" style="font-size: 1.1rem; padding: 15px;">Entregar Examen</button>
                     <div id="quiz-msg" style="text-align: center; margin-top: 15px; font-weight: bold; font-size: 1.1rem;"></div>
                 </form>
             </div>
@@ -105,16 +72,17 @@
                     <div class="diploma-stamp">AI4U Validado</div>
                 </div>
 
-                <a id="cert-download-link" href="#" target="_blank" class="btn btn-primary btn-block" style="background: #152247; font-size: 1.1rem; padding: 15px; display: none; text-decoration: none; text-align: center; width: 100%;">
-                    Ver Certificado Oficial (Listo para imprimir)
+                <a id="cert-download-link" href="#" target="_blank" class="btn btn-primary btn-block" style="background: #152247; font-size: 1.1rem; padding: 18px; display: none; text-decoration: none; text-align: center; width: 100%; border-radius: 12px; font-weight: 700;">
+                    Ver y Descargar Certificado Oficial (Formato PDF)
                 </a>
 
                 <div class="social-share glass-panel" style="width: 100%; text-align: center; padding: 30px;">
                     <h3 style="color: #fff; margin-bottom: 20px;">Comparte tu logro profesional</h3>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-                        <button class="btn btn-share btn-linkedin" id="share-linkedin">Compartir en LinkedIn</button>
-                        <button class="btn btn-share btn-facebook" id="share-facebook">Compartir en Facebook</button>
-                        <button class="btn btn-share btn-twitter" id="share-twitter">Compartir en X / Twitter</button>
+                        <button class="btn btn-share btn-linkedin" id="share-linkedin">LinkedIn</button>
+                        <button class="btn btn-share btn-facebook" id="share-facebook">Facebook</button>
+                        <button class="btn btn-share btn-whatsapp" id="share-whatsapp" style="background: #25d366;">WhatsApp</button>
+                        <button class="btn btn-share btn-twitter" id="share-twitter">X / Twitter</button>
                     </div>
                 </div>
 

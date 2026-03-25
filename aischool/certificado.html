@@ -275,12 +275,44 @@
   }
 
   @media print {
-    body { background: white; }
-    .cert { box-shadow: none; }
+    body { background: white; margin: 0; padding: 0; overflow: hidden; }
+    .cert { box-shadow: none; border: none; margin: 0; transform: scale(1); }
+    #btn-print { display: none; }
   }
+
+  /* Screen only print button */
+  #btn-print {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 15px 30px;
+    background: var(--navy);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #btn-print:hover {
+    transform: translateY(-3px);
+    background: #1c2e61;
+  }
+  #btn-print svg { width: 20px; height: 20px; fill: white; }
 </style>
 </head>
 <body>
+<button id="btn-print" onclick="window.print()">
+  <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
+  Imprimir / Guardar como PDF
+</button>
+
 <div class="cert">
 
   <!-- Border & corners -->

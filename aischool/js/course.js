@@ -4,12 +4,379 @@ const COURSE_META = {
     id: 'intro-ia',
     title: 'Introducción a la IA',
     modules: [
-        { id: 1, title: 'Fundamentos', duration: '45 min', desc: 'Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.' },
-        { id: 2, title: 'Cómo hablar con la IA', duration: '1h 30 min', desc: 'Descubre las mejores prácticas de "Prompt Engineering". Aprende a redactar instrucciones precisas para obtener resultados de altísima calidad.' },
-        { id: 3, title: 'Aplicaciones reales', duration: '1h 30 min', desc: 'Casos prácticos de uso en empresas, desde redacción de correos corporativos hasta análisis de tendencias de mercado sin saber programar.' },
-        { id: 4, title: 'IA para productividad', duration: '1h', desc: 'Automatiza tareas repetitivas. Usa herramientas modernas para transcribir juntas, resumir documentos y crear presentaciones en segundos.' },
-        { id: 5, title: 'Riesgos, ética y límites', duration: '45 min', desc: 'Entiende las alucinaciones de la IA, los sesgos de información y las precauciones necesarias al manejar datos privados de tu empresa.' },
-        { id: 6, title: 'Taller práctico final', duration: 'Taller', desc: 'Aplica todo lo aprendido. Construiremos juntos una solución basada en IA para resolver un problema cotidiano. Evaluaremos tus prompts en tiempo real.' },
+        { 
+            id: 1, 
+            title: 'Fundamentos', 
+            duration: '45 min', 
+            desc: 'Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.',
+            quiz: [
+                {
+                    q: "¿Qué significa la sigla 'IA' en el contexto tecnológico?",
+                    options: { a: "Información Automática", b: "Inteligencia Artificial", c: "Interfaz Avanzada", d: "Integración Algorítmica" },
+                    correct: "b",
+                    feedback: "IA significa Inteligencia Artificial, el campo de la informática que busca crear sistemas capaces de simular capacidades cognitivas humanas."
+                },
+                {
+                    q: "¿Cuál es la relación correcta entre IA, Machine Learning y Deep Learning?",
+                    options: { 
+                        a: "Son tres tecnologías independientes sin relación", 
+                        b: "IA es el campo más amplio; Machine Learning es un subconjunto de IA; Deep Learning es un subconjunto de Machine Learning",
+                        c: "Deep Learning es el campo más amplio que contiene a los demás",
+                        d: "Machine Learning y Deep Learning son lo mismo"
+                    },
+                    correct: "b",
+                    feedback: "Funcionan como muñecas rusas: IA es el concepto general, ML es una forma de lograr IA aprendiendo de datos, y DL es una técnica específica de ML."
+                },
+                {
+                    q: "¿Qué tipo de IA existe actualmente en el mundo real?",
+                    options: { 
+                        a: "IA General (AGI) que puede hacer cualquier tarea humana",
+                        b: "Superinteligencia que supera al humano en todo",
+                        c: "IA Estrecha (Narrow AI), especializada en tareas concretas",
+                        d: "IA con consciencia y emociones propias"
+                    },
+                    correct: "c",
+                    feedback: "Toda la IA que usamos hoy es 'Narrow AI' o IA estrecha: puede hacer muy bien UNA tarea, pero no puede transferir ese conocimiento a otras áreas."
+                },
+                {
+                    q: "¿Cuál de estos es un ejemplo de IA que usamos en la vida cotidiana sin darnos cuenta?",
+                    options: {
+                        a: "Una calculadora básica",
+                        b: "Las recomendaciones de Netflix o Spotify basadas en tus gustos",
+                        c: "Un semáforo con temporizador fijo",
+                        d: "Una hoja de cálculo de Excel"
+                    },
+                    correct: "b",
+                    feedback: "Los sistemas de recomendación usan algoritmos de Machine Learning que analizan tu comportamiento para sugerirte contenido personalizado."
+                },
+                {
+                    q: "¿Qué es la IA generativa?",
+                    options: {
+                        a: "IA que solo puede clasificar datos existentes",
+                        b: "IA que genera contenido nuevo (texto, imágenes, código, audio) a partir de instrucciones",
+                        c: "IA que genera electricidad de forma autónoma",
+                        d: "IA que solo funciona con generadores eléctricos"
+                    },
+                    correct: "b",
+                    feedback: "La IA generativa crea contenido original basándose en patrones aprendidos de grandes cantidades de datos."
+                }
+            ]
+        },
+        { 
+            id: 2, 
+            title: 'Cómo hablar con la IA', 
+            duration: '1h 30 min', 
+            desc: 'Descubre las mejores prácticas de "Prompt Engineering". Aprende a redactar instrucciones precisas para obtener resultados de altísima calidad.',
+            quiz: [
+                {
+                    q: "¿Qué es un 'prompt' y por qué es importante?",
+                    options: { 
+                        a: "Es el nombre del modelo de IA; no tiene importancia práctica", 
+                        b: "Es la instrucción que le das a la IA; su calidad determina directamente la calidad de la respuesta",
+                        c: "Es el resultado que genera la IA; no lo controla el usuario",
+                        d: "Es la contraseña para acceder a ChatGPT"
+                    },
+                    correct: "b",
+                    feedback: "El prompt es tu instrucción a la IA. La regla de oro es: 'basura entra, basura sale'. Un prompt específico da mejores respuestas."
+                },
+                {
+                    q: "¿Cuáles son los elementos clave de un prompt efectivo?",
+                    options: { 
+                        a: "Solo necesitas escribir una palabra y la IA entiende todo", 
+                        b: "Rol + tarea específica + contexto + formato deseado + audiencia",
+                        c: "Escribir en inglés siempre, sin importar el idioma deseado",
+                        d: "Usar emojis y mayúsculas para que la IA preste más atención"
+                    },
+                    correct: "b",
+                    feedback: "Un prompt efectivo incluye: quién quieres que sea la IA (rol), qué necesitas (tarea), contexto, formato y audiencia."
+                },
+                {
+                    q: "¿Qué técnica consiste en pedirle a la IA que razone paso a paso antes de dar una respuesta final?",
+                    options: { 
+                        a: "Role Playing",
+                        b: "Few-Shot Prompting",
+                        c: "Chain of Thought (cadena de pensamiento)",
+                        d: "Zero-Shot Prompting"
+                    },
+                    correct: "c",
+                    feedback: "Chain of Thought le pide a la IA que muestre su razonamiento paso a paso, mejorando la precisión en tareas complejas."
+                },
+                {
+                    q: "¿Qué es el 'Few-Shot Prompting'?",
+                    options: {
+                        a: "Darle a la IA solo unas pocas palabras como instrucción",
+                        b: "Incluir ejemplos concretos del formato o tipo de respuesta que esperas",
+                        c: "Pedirle a la IA que responda en pocas palabras",
+                        d: "Usar la IA solo unas pocas veces al día"
+                    },
+                    correct: "b",
+                    feedback: "Few-Shot significa darle 'pocos ejemplos' a la IA para que entienda el patrón, tono y formato que deseas."
+                },
+                {
+                    q: "¿Cuál es la diferencia entre un mal prompt y un buen prompt?",
+                    options: {
+                        a: "No hay diferencia, la IA siempre responde igual",
+                        b: "El mal prompt es corto y el buen prompt es largo",
+                        c: "El buen prompt es específico, da contexto, define el formato y la audiencia; el mal prompt es vago y genérico",
+                        d: "El buen prompt usa solo palabras técnicas y jerga de programación"
+                    },
+                    correct: "c",
+                    feedback: "La diferencia fundamental es la especificidad y el contexto. Un prompt vago produce resultados vagos; uno detallado produce resultados útiles."
+                }
+            ]
+        },
+        { 
+            id: 3, 
+            title: 'Aplicaciones reales', 
+            duration: '1h 30 min', 
+            desc: 'Casos prácticos de uso en empresas, desde redacción de correos corporativos hasta análisis de tendencias de mercado sin saber programar.',
+            quiz: [
+                {
+                    q: "¿En cuántos sectores profesionales tiene aplicaciones reales la IA actualmente?",
+                    options: { 
+                        a: "Solo en tecnología e informática", 
+                        b: "En 3 o 4 sectores principales como banca y medicina",
+                        c: "En prácticamente todos los sectores: salud, finanzas, marketing, legal, etc.",
+                        d: "Solo en empresas de Silicon Valley"
+                    },
+                    correct: "c",
+                    feedback: "La IA ya tiene presencia en casi todos los sectores productivos, desde diagnóstico médico hasta agricultura de precisión y análisis legal."
+                },
+                {
+                    q: "¿Cómo se usa la IA en el sector salud actualmente?",
+                    options: { 
+                        a: "Robots que operan sin supervisión humana", 
+                        b: "Asistencia en diagnóstico por imágenes, análisis de datos y descubrimiento de medicinas con supervisión médica",
+                        c: "Reemplaza completamente a los doctores en consultas",
+                        d: "Solo se usa para llevar la contabilidad de hospitales"
+                    },
+                    correct: "b",
+                    feedback: "La IA asiste analizando radiografías y detectando patrones clínicos, siempre como herramienta de apoyo bajo supervisión médica."
+                },
+                {
+                    q: "¿Qué herramientas de IA puede usar un pequeño negocio hoy sin necesidad de programar?",
+                    options: { 
+                        a: "Ninguna, la IA requiere equipos de programadores",
+                        b: "ChatGPT para atención, Canva para diseño, chatbots automáticos, etc.",
+                        c: "Solo puede usar Excel avanzado",
+                        d: "Necesita invertir mínimo $100,000 en infraestructura"
+                    },
+                    correct: "b",
+                    feedback: "Existen decenas de herramientas accesibles como ChatGPT, Canva, Tidio o Notion AI que no requieren conocimiento técnico."
+                },
+                {
+                    q: "¿Cuál es un ejemplo real de IA en el marketing digital?",
+                    options: {
+                        a: "Imprimir volantes en una imprenta",
+                        b: "Personalización de anuncios, generación de copy y segmentación automática",
+                        c: "Enviar correos masivos sin ninguna segmentación",
+                        d: "Poner carteles publicitarios en la calle"
+                    },
+                    correct: "b",
+                    feedback: "La IA en marketing permite anuncios personalizados, generación de textos publicitarios y segmentación inteligente de audiencias."
+                },
+                {
+                    q: "¿Cómo puede la IA ayudar en el sector educativo?",
+                    options: {
+                        a: "Reemplazando completamente a los profesores",
+                        b: "Tutores virtuales personalizados, material didáctico y retroalimentación inmediata",
+                        c: "Solo sirviendo como calculadora para los estudiantes",
+                        d: "Eliminando la necesidad de estudiar"
+                    },
+                    correct: "b",
+                    feedback: "La IA en educación personaliza el aprendizaje con tutores que se adaptan al ritmo del estudiante y retroalimentación inmediata."
+                }
+            ]
+        },
+        { 
+            id: 4, 
+            title: 'IA para productividad', 
+            duration: '1h', 
+            desc: 'Automatiza tareas repetitivas. Usa herramientas modernas para transcribir juntas, resumir documentos y crear presentaciones en segundos.',
+            quiz: [
+                {
+                    q: "¿Cuáles son los tres pilares de la IA aplicada a la productividad personal?",
+                    options: { 
+                        a: "Comprar, vender y distribuir", 
+                        b: "Automatizar, acelerar y amplificar",
+                        c: "Copiar, pedir y enviar",
+                        d: "Programar, compilar y ejecutar"
+                    },
+                    correct: "b",
+                    feedback: "Los tres pilares son: AUTOMATIZAR tareas repetitivas, ACELERAR procesos creativos y AMPLIFICAR tus capacidades actuales."
+                },
+                {
+                    q: "Si usas IA para automatizar 2 horas de tareas repetitivas al día, ¿cuánto tiempo liberas al mes?",
+                    options: { 
+                        a: "8 horas", 
+                        b: "20 horas",
+                        c: "40 horas (equivalente a una semana de trabajo)",
+                        d: "100 horas"
+                    },
+                    correct: "c",
+                    feedback: "2 horas al día × 20 días = 40 horas al mes. Es una semana completa redirigida a tareas de mayor valor."
+                },
+                {
+                    q: "¿Cuál es la mejor práctica al usar IA para crear contenido profesional?",
+                    options: { 
+                        a: "Copiar y publicar directamente",
+                        b: "Usar la IA como punto de partida, luego revisar y agregar tu perspectiva",
+                        c: "Nunca usar IA porque todo es inventado",
+                        d: "Pedirle a la IA que lo haga todo sin darle instrucciones"
+                    },
+                    correct: "b",
+                    feedback: "La IA es tu copiloto. Genera borradores rápidos que TÚ revisas, editas y enriqueces con tu experiencia y contexto personal."
+                },
+                {
+                    q: "¿Para cuál de estas tareas la IA puede ahorrarte más tiempo en tu día a día?",
+                    options: {
+                        a: "Caminar al trabajo",
+                        b: "Redactar correos, resumir documentos largos y crear presentaciones",
+                        c: "Hacer ejercicio físico",
+                        d: "Cocinar la cena"
+                    },
+                    correct: "b",
+                    feedback: "La IA destaca en tareas de procesamiento de texto: redactar emails, resumir documentos extensos y generar borradores de reportes."
+                },
+                {
+                    q: "¿Qué significa que la IA 'amplifica' tus capacidades?",
+                    options: {
+                        a: "Que la IA hace todo por ti sin necesidad de intervención",
+                        b: "Que te permite hacer cosas que antes no podías, como analizar muchos datos o crear contenido en otros idiomas",
+                        c: "Que la IA habla más fuerte por el micrófono",
+                        d: "Que duplica tu sueldo automáticamente"
+                    },
+                    correct: "b",
+                    feedback: "Amplificar significa expandir tus límites: analizar miles de reseñas, traducir a 10 idiomas o crear diseños profesionales sin ser diseñador."
+                }
+            ]
+        },
+        { 
+            id: 5, 
+            title: 'Riesgos, ética y límites', 
+            duration: '45 min', 
+            desc: 'Entiende las alucinaciones de la IA, los sesgos de información y las precauciones necesarias al manejar datos privados de tu empresa.',
+            quiz: [
+                {
+                    q: "¿Qué son las 'alucinaciones' de la IA?",
+                    options: { 
+                        a: "Errores de hardware en los servidores", 
+                        b: "Cuando la IA genera información falsa pero la presenta como verdadera con total confianza",
+                        c: "Cuando la IA no entiende el idioma",
+                        d: "Cuando la IA muestra imágenes distorsionadas"
+                    },
+                    correct: "b",
+                    feedback: "La IA puede inventar datos, citas o estadísticas de forma muy convincente. Por eso SIEMPRE se debe verificar la información crítica."
+                },
+                {
+                    q: "¿Qué es el 'sesgo' (bias) en la IA y por qué es peligroso?",
+                    options: { 
+                        a: "Es cuando la IA tiene opiniones políticas propias", 
+                        b: "Es cuando la IA reproduce prejuicios de sus datos de entrenamiento, pudiendo discriminar",
+                        c: "Es cuando la IA solo funciona en un idioma",
+                        d: "Es cuando la IA es demasiado lenta"
+                    },
+                    correct: "b",
+                    feedback: "La IA aprende de datos históricos que pueden contener sesgos. Si no se controla, puede amplificar prejuicios en decisiones críticas."
+                },
+                {
+                    q: "¿Cuál es la práctica ética más importante al usar IA en el trabajo?",
+                    options: { 
+                        a: "Presentar todo el contenido de IA como si fuera tuyo",
+                        b: "Ser transparente, verificar la información y proteger datos personales",
+                        c: "Usar IA para espiar a los compañeros",
+                        d: "Compartir datos privados de clientes sin consentimiento"
+                    },
+                    correct: "b",
+                    feedback: "La ética en IA se basa en: TRANSPARENCIA (decir cuándo usas IA), VERIFICACIÓN y PRIVACIDAD (no subir datos sensibles)."
+                },
+                {
+                    q: "¿Por qué NO debes confiar ciegamente en la información que genera la IA?",
+                    options: {
+                        a: "Porque la IA siempre miente a propósito",
+                        b: "Porque puede tener datos desactualizados, sesgos o 'alucinar', y el humano es responsable",
+                        c: "Porque la IA es una conspiración",
+                        d: "No hay razón, se puede confiar al 100%"
+                    },
+                    correct: "b",
+                    feedback: "La IA trabaja con probabilidades estadísticas, no con la 'verdad'. Puede fallar por datos viejos o errores del modelo. TÚ eres el responsable final."
+                },
+                {
+                    q: "¿Cuál de estos es un caso real donde el mal uso de IA causó problemas?",
+                    options: {
+                        a: "Un abogado presentó ante un juez casos legales inventados por ChatGPT sin verificarlos",
+                        b: "Un robot de IA destruyó una fábrica",
+                        c: "La IA tomó el control del gobierno",
+                        d: "ChatGPT se negó a funcionar por un año"
+                    },
+                    correct: "a",
+                    feedback: "Un abogado en 2023 citó casos judiciales inexistentes inventados por ChatGPT y fue sancionado. Esto demuestra por qué SIEMPRE se debe verificar."
+                }
+            ]
+        },
+        { 
+            id: 6, 
+            title: 'Taller práctico final', 
+            duration: 'Taller', 
+            desc: 'Aplica todo lo aprendido. Construiremos juntos una solución basada en IA para resolver un problema cotidiano. Evaluaremos tus prompts en tiempo real.',
+            quiz: [
+                {
+                    q: "¿Cuál es el primer paso recomendado para integrar la IA en tu flujo de trabajo?",
+                    options: { 
+                        a: "Reemplazar inmediatamente todos tus procesos con IA", 
+                        b: "Identificar tareas repetitivas de poco valor y probar herramientas específicas",
+                        c: "Esperar 10 años hasta que la IA sea perfecta",
+                        d: "Comprar el software de IA más caro del mercado"
+                    },
+                    correct: "b",
+                    feedback: "La adopción exitosa es gradual: identifica dónde pierdes tiempo en tareas repetitivas, prueba herramientas específicas y escala lo que funcione."
+                },
+                {
+                    q: "Cuando creas un prompt para resolver un problema real, ¿qué debes incluir siempre?",
+                    options: { 
+                        a: "Solo la pregunta, sin contexto ni detalles", 
+                        b: "Contexto, resultado específico, formato deseado y audiencia",
+                        c: "Tu nombre completo y dirección",
+                        d: "El código fuente del modelo de IA"
+                    },
+                    correct: "b",
+                    feedback: "Un prompt efectivo siempre contextualiza: quién eres, qué necesitas, formato, audiencia y restricciones. Más contexto = mejor resultado."
+                },
+                {
+                    q: "¿Cuál es la forma correcta de evaluar si una herramienta de IA es útil?",
+                    options: { 
+                        a: "Si es gratis, es buena; si es de pago, es mala",
+                        b: "Probarla con tareas reales, medir tiempo ahorrado, calidad y comparar con tu método actual",
+                        c: "Leer solo los anuncios publicitarios",
+                        d: "Preguntarle a la propia IA si es buena"
+                    },
+                    correct: "b",
+                    feedback: "La evaluación práctica es clave: prueba con TUS tareas reales, mide el tiempo que ahorra y verifica si la calidad es aceptable."
+                },
+                {
+                    q: "Después de este curso, ¿cuál debería ser tu mentalidad respecto a la IA?",
+                    options: {
+                        a: "La IA me va a quitar el trabajo, mejor ignorarla",
+                        b: "Es una herramienta poderosa que potencia mis capacidades; debo usarla de forma ética y estratégica",
+                        c: "La IA es perfecta y puede reemplazar todo el trabajo humano",
+                        d: "Es solo una moda pasajera"
+                    },
+                    correct: "b",
+                    feedback: "La IA no reemplaza personas, potencia personas. Los profesionales que aprendan a usarla de forma ética tendrán una ventaja competitiva enorme."
+                },
+                {
+                    q: "¿Qué plan de acción deberías seguir después de completar este curso?",
+                    options: {
+                        a: "Olvidar todo y volver a mis métodos anteriores",
+                        b: "Elegir 3 tareas reales, aplicar lo aprendido esta semana, medir resultados y expandir",
+                        c: "Intentar automatizar todo de golpe",
+                        d: "Esperar a que alguien me diga qué hacer"
+                    },
+                    correct: "b",
+                    feedback: "El plan ideal es concreto e inmediato: elige 3 tareas, aplica técnicas de prompting, mide ganancias de tiempo/calidad y luego expande."
+                }
+            ]
+        },
         { id: 7, title: 'Examen de Certificación', duration: 'Evaluación Oficial', desc: 'Aprueba este breve desafío con más del 65% para obtener y lucir tu Certificado Profesional Oficial de AI4U Academy.' }
     ]
 };
@@ -36,6 +403,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressFill = document.getElementById('progress-fill');
     const progressText = document.getElementById('progress-text');
     const videoContainer = document.querySelector('.video-container');
+
+    // Quiz Elements
+    const quizOverlay = document.getElementById('quiz-overlay');
+    const quizStepText = document.getElementById('quiz-step');
+    const quizQuestionText = document.getElementById('quiz-q-text');
+    const quizOptionsContainer = document.getElementById('quiz-options');
+    const quizFeedbackContainer = document.getElementById('quiz-feedback');
+    const quizFeedbackText = document.getElementById('feedback-text');
+    const btnNextQuestion = document.getElementById('btn-next-q');
+
+    let currentQuiz = null;
+    let currentQuestionIndex = 0;
 
     initCourse();
 
@@ -445,6 +824,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // Check if module has a quiz and is not yet completed
+        const mod = COURSE_META.modules.find(m => m.id === currentModuleId);
+        if (mod && mod.quiz && !completedModules.includes(currentModuleId)) {
+            startQuiz(mod.quiz);
+            return;
+        }
+
+        await finalizeModuleCompletion(btn);
+    });
+
+    async function finalizeModuleCompletion(btn) {
         btn.disabled = true;
         btn.innerHTML = '<span>Guardando...</span>';
 
@@ -477,7 +867,66 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSidebar();
         renderMainView(currentModuleId);
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    }
+
+    // --- Quiz Engine Logic ---
+
+    function startQuiz(quiz) {
+        currentQuiz = quiz;
+        currentQuestionIndex = 0;
+        quizOverlay.style.display = 'flex';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        const question = currentQuiz[currentQuestionIndex];
+        quizStepText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${currentQuiz.length}`;
+        quizQuestionText.textContent = question.q;
+        quizOptionsContainer.innerHTML = '';
+        quizFeedbackContainer.style.display = 'none';
+
+        Object.entries(question.options).forEach(([key, text]) => {
+            const btn = document.createElement('button');
+            btn.className = 'quiz-opt-btn';
+            btn.innerHTML = `<strong>${key.toUpperCase()})</strong> ${text}`;
+            btn.onclick = () => checkAnswer(key, btn);
+            quizOptionsContainer.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(selectedKey, selectedBtn) {
+        const question = currentQuiz[currentQuestionIndex];
+        const allBtns = quizOptionsContainer.querySelectorAll('.quiz-opt-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        if (selectedKey === question.correct) {
+            selectedBtn.classList.add('correct');
+        } else {
+            selectedBtn.classList.add('wrong');
+            // Highlight correct one
+            const correctBtn = Array.from(allBtns).find(b => b.innerText.startsWith(question.correct.toUpperCase()));
+            if (correctBtn) correctBtn.classList.add('correct');
+        }
+
+        quizFeedbackText.textContent = question.feedback;
+        quizFeedbackContainer.style.display = 'block';
+
+        if (currentQuestionIndex === currentQuiz.length - 1) {
+            btnNextQuestion.textContent = 'Finalizar y Continuar';
+        } else {
+            btnNextQuestion.textContent = 'Siguiente Pregunta';
+        }
+    }
+
+    btnNextQuestion.onclick = () => {
+        if (currentQuestionIndex < currentQuiz.length - 1) {
+            currentQuestionIndex++;
+            loadQuestion();
+        } else {
+            quizOverlay.style.display = 'none';
+            finalizeModuleCompletion(document.getElementById('btn-complete'));
+        }
+    };
 
     // Dummy video click
     videoContainer.addEventListener('click', () => {
