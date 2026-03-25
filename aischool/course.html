@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/course.css">
-    <link rel="stylesheet" href="css/ai-tools.css">
+
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
@@ -38,149 +38,73 @@
 
     <div class="course-container">
         
-        <!-- Main Content Area: Video & Details -->
-        <main class="course-content">
-            <!-- Video Placeholder -->
-            <div class="video-container glass-panel">
-                <div class="video-placeholder" id="video-placeholder">
-                    <svg viewBox="0 0 24 24" width="60" height="60" stroke="#00A389" stroke-width="1.5" fill="rgba(0,163,137,0.1)" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    <h2 id="current-video-title">Cargando Módulo...</h2>
-                    <p>Haz clic para simular reproducción</p>
+        <!-- Main Area -->
+        <div class="course-main">
+            <!-- Hero Video Focus -->
+            <section class="video-hero">
+                <div class="video-container glass-panel">
+                    <div class="video-placeholder" id="video-placeholder">
+                        <svg viewBox="0 0 24 24" width="60" height="60" stroke="#00A389" stroke-width="1.5" fill="rgba(0,163,137,0.1)" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        <h2 id="current-video-title">Cargando Módulo...</h2>
+                        <p>Haz clic para simular reproducción</p>
+                    </div>
                 </div>
+            </section>
+
+            <!-- Module Info & Communication Area -->
+            <div class="course-info-grid">
+                <!-- Left: Description & Progress -->
+                <main class="course-details">
+                    <div class="module-details glass-panel">
+                        <div class="module-header">
+                            <div>
+                                <span class="module-badge" id="module-badge">Módulo 1</span>
+                                <h2 class="module-title" id="module-title">Fundamentos</h2>
+                            </div>
+                            <div class="module-duration">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                <span id="module-time">45 min</span>
+                            </div>
+                        </div>
+                        
+                        <p class="module-description" id="module-desc">
+                            Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.
+                        </p>
+
+                        <div class="module-actions">
+                            <button class="btn btn-primary btn-complete" id="btn-complete" disabled>
+                                <span>Completar Módulo y Siguiente</span>
+                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="comments-section glass-panel">
+                        <h3 class="comments-title">Preguntas y Respuestas</h3>
+                        
+                        <form id="comment-form" class="comment-form">
+                            <textarea id="comment-input" placeholder="¿Tienes alguna duda sobre este módulo? El equipo te responderá pronto."></textarea>
+                            <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Pregunta</button>
+                        </form>
+
+                        <div id="comments-list" class="comments-list">
+                            <!-- Comments injected here -->
+                        </div>
+                    </div>
+                </main>
+
+                <!-- Right: Module Sidebar (Sub-navigation) -->
+                <aside class="course-sidebar-wrapper">
+                    <div class="course-sidebar glass-panel">
+                        <h3 class="sidebar-title">Ruta de Aprendizaje</h3>
+                        <ul class="module-list" id="module-list">
+                            <!-- Modules will be injected via JS -->
+                        </ul>
+                    </div>
+                </aside>
             </div>
-
-            <!-- Module Info & Actions -->
-            <div class="module-details glass-panel">
-                <div class="module-header">
-                    <div>
-                        <span class="module-badge" id="module-badge">Módulo 1</span>
-                        <h2 class="module-title" id="module-title">Fundamentos</h2>
-                    </div>
-                    <div class="module-duration">
-                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        <span id="module-time">45 min</span>
-                    </div>
-                </div>
-                
-                <p class="module-description" id="module-desc">
-                    Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.
-                </p>
-
-                <div class="module-actions">
-                    <button class="btn btn-primary btn-complete" id="btn-complete" disabled>
-                        <span>Marcar como Completado y Continuar</span>
-                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
-                    </button>
-                </div>
-                       <!-- Hub de Herramientas IA -->
-            <div class="ai-tool-card tool-blue" id="evaluator-section">
-                <div class="ai-tool-header">
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-blue)" stroke-width="2.5" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                    <div>
-                        <h4>Revisor de Prompts con IA</h4>
-                        <p>Optimiza tus instrucciones para obtener resultados superiores.</p>
-                    </div>
-                </div>
-                
-                <div class="ai-tool-inner">
-                    <textarea id="prompt-eval-input" class="ai-evaluator-textarea" placeholder="Escribe tu prompt para recibir feedback inmediato..."></textarea>
-                    <div class="ai-evaluator-footer">
-                        <div>
-                            <span id="prompt-eval-status" class="ai-status-msg">
-                                <span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; opacity:0.5;"></span>
-                                Listo para analizar
-                            </span>
-                            <span id="eval-remaining-attempts" class="ai-limit-badge">5 Verificaciones hoy</span>
-                        </div>
-                        <button id="btn-eval-prompt" class="btn btn-primary" style="background: var(--ai-blue); border:none; padding: 12px 32px;">Evaluar Calidad</button>
-                    </div>
-                </div>
-
-                <div id="eval-result-container" class="ai-result-panel" style="display: none; flex-direction: column;">
-                    <!-- Comparator Section -->
-                    <div class="prompt-comparator">
-                        <div class="prompt-panel original">
-                            <div class="panel-header">Mi Prompt Original</div>
-                            <div id="eval-original-prompt" class="panel-body"></div>
-                        </div>
-                        <div class="prompt-panel optimized">
-                            <div class="panel-header">Versión Maestra AI4U</div>
-                            <div id="eval-optimized-prompt" class="panel-body"></div>
-                        </div>
-                    </div>
-
-                    <div class="eval-summary-footer">
-                        <div id="eval-score-ring" class="ai-score-ring">0</div>
-                        <div class="ai-feedback-content" style="flex: 1;">
-                            <h5 id="eval-score-title">Métrica de Calidad</h5>
-                            <p id="eval-feedback"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Bóveda de Prompts Personalizada -->
-            <div class="ai-tool-card tool-purple" id="prompt-vault-section">
-                <div class="ai-tool-header">
-                    <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-purple)" stroke-width="2.5" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    <div>
-                        <h4>Bóveda Profesional de Prompts</h4>
-                        <p>Tu arsenal personalizado de 5 plantillas maestras de IA.</p>
-                    </div>
-                </div>
-
-                <div id="vault-form-state" class="ai-tool-inner">
-                    <p style="color: #c4b5fd; font-weight: 500; margin-bottom: 24px;">✨ Personaliza tu bóveda indicando tu rol y tu objetivo principal.</p>
-                    <div class="ai-vault-form">
-                        <div class="ai-input-group">
-                            <label>Tu Profesión</label>
-                            <input type="text" id="vault-profession" placeholder="Ej. Abogado, Educador...">
-                        </div>
-                        <div class="ai-input-group">
-                            <label>Tu Mayor Desafío</label>
-                            <input type="text" id="vault-problem" placeholder="Ej. Redacción técnica, Planeación...">
-                        </div>
-                    </div>
-                    <button id="btn-generate-vault" class="btn btn-primary" style="background: var(--ai-purple); width: 100%; border:none; padding: 16px;">
-                        Generar mis 5 Prompts Maestros
-                    </button>
-                    <p id="vault-gen-status" style="color: #94a3b8; font-size: 0.9rem; margin-top: 15px; text-align: center; min-height: 24px;"></p>
-                </div>
-
-                <div id="vault-result-state" style="display: none;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0 20px 0;">
-                        <p id="vault-profile-label" style="color: #c4b5fd; font-weight: 700; margin: 0; font-size: 1.1rem;"></p>
-                        <button id="btn-regenerate-vault" style="background: rgba(168,85,247,0.1); border: 1.5px solid var(--ai-purple); color: var(--ai-purple); border-radius: 8px; padding: 6px 16px; font-size: 0.85rem; cursor: pointer; font-weight: 700; transition: all 0.2s;">↺ Nueva Bóveda</button>
-                    </div>
-                    <div id="vault-prompts-grid" class="vault-grid"></div>
-                </div>
-            </div>       </div>
-
-            </div>
-
-            <!-- Comments Section -->
-            <div class="comments-section glass-panel">
-                <h3 class="comments-title">Comentarios y Dudas</h3>
-                
-                <form id="comment-form" class="comment-form">
-                    <textarea id="comment-input" placeholder="¿Tienes alguna duda o aporte sobre este módulo?" required></textarea>
-                    <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Comentario</button>
-                </form>
-
-                <div id="comments-list" class="comments-list">
-                    <!-- Comments injected here -->
-                </div>
-            </div>
-        </main>
-
-        <!-- Sidebar: Modules List -->
-        <aside class="course-sidebar glass-panel">
-            <h3 class="sidebar-title">Contenido del Curso</h3>
-            
-            <ul class="module-list" id="module-list">
-                <!-- Modules will be injected via JS -->
-            </ul>
-        </aside>
+        </div>
 
     </div>
 

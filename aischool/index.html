@@ -75,8 +75,6 @@
     }]
     </script>
 
-    <!-- Global App Context -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co wss://*; connect-src 'self' https://*.supabase.co wss://*; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' data: https:;">
 
 
@@ -86,7 +84,7 @@
 
     <!-- Splash Screen -->
     <div id="splash-screen" class="splash-screen">
-        <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Modal Logo" class="splash-logo">
+        <img src="assets/images/LOGO.png" alt="AI4U Academy Modal Logo" class="splash-logo" width="200" height="60">
     </div>
 
     <!-- Trust Bar -->
@@ -102,7 +100,7 @@
     <header class="site-header fade-in-up" style="animation-delay: 0.1s;">
         <div class="container header-inner">
             <div class="logo" style="gap: 5px;">
-                <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img">
+                <img src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img" width="140" height="40" loading="eager">
             </div>
             <div style="display: flex; align-items: center; gap: 16px;">
                 <a href="acceso.html"
@@ -129,7 +127,7 @@
             </div>
             <div class="hero-visual fade-in-up" style="animation-delay: 0.4s;">
                 <div class="hero-image-container reveal-on-scroll">
-                    <img src="assets/images/promo/ai-hero.png" alt="Aprende con el mejor Curso de Inteligencia Artificial - AI4U Academy" class="hero-real-image" style="border-radius: 12px;">
+                    <img src="assets/images/promo/ai-hero.png" alt="Aprende con el mejor Curso de Inteligencia Artificial - AI4U Academy" class="hero-real-image" style="border-radius: 12px;" width="600" height="450" loading="eager">
                 </div>
             </div>
         </div>
@@ -143,7 +141,7 @@
                 <p>Todo funciona directamente en tu navegador. Entra a nuestra plataforma, mira los videos y empieza a aplicar la IA en minutos sin riesgo de descomponer nada.</p>
             </div>
             <div class="text-center reveal-on-scroll">
-                <img loading="lazy" src="assets/images/promo/ai-preview.png" alt="Plataforma de Cursos de IA y herramientas de Inteligencia Artificial" style="max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img loading="lazy" src="assets/images/promo/ai-preview.png" alt="Plataforma de Cursos de IA y herramientas de Inteligencia Artificial" style="max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" width="1200" height="750">
             </div>
         </div>
     </section>
@@ -385,6 +383,18 @@
                             </div>
                         </a>
                     </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon" style="background: rgba(59,130,246,0.1); color: #3b82f6;">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <a href="mailto:contacto@ai4uacademy.com" style="text-decoration: none; color: inherit;">
+                            <div class="info-text">
+                                <strong>Email de Contacto</strong>
+                                <span style="font-size: 1.1rem; display: block; margin-top: 4px;">contacto@ai4uacademy.com</span>
+                            </div>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="contact-form-container">
@@ -533,23 +543,13 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('signup-modal');
         const btns = document.querySelectorAll('.btn-signup');
-        const closeBtn = document.getElementById('close-signup-modal');
         
         btns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
-                modal.classList.add('active');
+                window.location.href = 'acceso.html';
             });
-        });
-        
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-        
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) modal.classList.remove('active');
         });
     });
 </script>

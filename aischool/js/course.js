@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentUser = null;
     let currentUserFullName = 'Estudiante';
     let isAdmin = false;
+    let adminUserIds = [];
     let completedModules = []; // array of module IDs (e.g. [1, 2])
     let currentModuleId = 1;
 
@@ -47,8 +48,29 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentUser.user_metadata) {
                 currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Estudiante';
             }
-            if (currentUser.email === 'ochoadr@gmail.com' || currentUser.email === 'wgmagnets1@gmail.com') {
-                isAdmin = true;
+
+            // Check admin role from DB — never from client-side email comparison
+            const { data: admins, error: adminsError } = await supabase
+                .from('users')
+                .select('id')
+                .eq('role', 'admin');
+
+            if (!adminsError && admins) {
+                adminUserIds = admins.map(u => u.id);
+                isAdmin = adminUserIds.includes(currentUser.id);
+            }
+
+            // Verify the user has a paid enrollment for this course
+            const { data: enrollment } = await supabase
+                .from('enrollments')
+                .select('id')
+                .eq('user_id', currentUser.id)
+                .eq('course_id', COURSE_META.id)
+                .maybeSingle();
+
+            if (!enrollment) {
+                window.location.href = '/index.html#pricing';
+                return;
             }
 
             await fetchProgress();
@@ -266,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function createCommentHTML(comment, isReply = false) {
         const date = new Date(comment.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        const adminBadge = (comment.user_name.includes('David Ochoa') || comment.user_name.includes('Admin')) ? '<span class="admin-badge">Profesor</span>' : '';
+        const adminBadge = adminUserIds.includes(comment.user_id) ? '<span class="admin-badge">Profesor</span>' : '';
         
         let replyBtnHtml = '';
         let replyFormHtml = '';
@@ -445,232 +467,5 @@ document.addEventListener('DOMContentLoaded', () => {
         const placeholder = document.getElementById('video-placeholder');
         placeholder.innerHTML = `<h2 style="color: #00A389">▶ Reproduciendo video...</h2><p>Simulador de carga rápido activo.</p>`;
     });
-
-    // --- PROMPT EVALUATOR LOGIC ---
-    const btnEval = document.getElementById('btn-eval-prompt');
-    const inputEval = document.getElementById('prompt-eval-input');
-    const statusEval = document.getElementById('prompt-eval-status');
-    const displayRemaining = document.getElementById('eval-remaining-attempts');
-    const evalResultContainer = document.getElementById('eval-result-container');
-    const scoreRing = document.getElementById('eval-score-ring');
-    const evalFeedback = document.getElementById('eval-feedback');
-    const scoreTitle = document.getElementById('eval-score-title');
-
-    if (btnEval && inputEval) {
-        btnEval.addEventListener('click', async () => {
-            const promptText = inputEval.value.trim();
-            if (!promptText) {
-                alert('Por favor, escribe un prompt antes de evaluarlo.');
-                return;
-            }
-
-            btnEval.disabled = true;
-            statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Analizando tu prompt...`;
-            evalResultContainer.style.display = 'none';
-
-            try {
-                // Call Supabase Edge Function
-                const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
-                    body: { prompt: promptText, module_id: currentModuleId.toString() }
-                });
-
-                if (error) {
-                    if (error.context && error.context.status === 403) {
-                         const errData = await error.context.json();
-                         if (errData.error === 'RATE_LIMIT_EXCEEDED') {
-                             statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
-                             displayRemaining.textContent = "Te quedan 0 verificaciones hoy.";
-                             displayRemaining.style.color = "#ef4444";
-                             alert(errData.message);
-                             return;
-                         }
-                    }
-                    throw error;
-                }
-                
-                const evalOriginal = document.getElementById('eval-original-prompt');
-                const evalOptimized = document.getElementById('eval-optimized-prompt');
-                if (evalOriginal) evalOriginal.textContent = promptText;
-                if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'Optimización no disponible.';
-
-                evalResultContainer.style.display = 'flex';
-                
-                let score = parseInt(data.score) || 0;
-                let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
-                let title = score >= 80 ? 'Calidad Premium ✨' : (score >= 60 ? 'Buen Intento 👍' : 'Requiere Mejoras ⚠️');
-
-                scoreTitle.textContent = title;
-                scoreRing.textContent = score;
-                scoreRing.style.borderColor = color;
-                scoreRing.style.color = color;
-                evalResultContainer.style.borderLeftColor = color;
-                
-                evalFeedback.textContent = data.feedback || 'Sin comentarios adicionales.';
-                statusEval.innerHTML = `<span style="color:#10b981;">✅ Análisis completado</span>`;
-
-                if (displayRemaining && typeof data.remaining !== 'undefined') {
-                    displayRemaining.textContent = `${data.remaining} Verificaciones disponibles hoy`;
-                    if (data.remaining <= 0) {
-                        displayRemaining.style.color = '#ef4444';
-                        btnEval.disabled = true;
-                    } else if (data.remaining <= 2) {
-                        displayRemaining.style.color = '#f59e0b';
-                    }
-                }
-
-            } catch (err) {
-                console.error("AI Evaluation Error:", err);
-                statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al analizar</span>`;
-            } finally {
-                if (!btnEval.disabled) btnEval.disabled = false;
-            }
-        });
-    }
-
-    // ─────────────────────────────────────────────────────────────
-    // BÓVEDA DE PROMPTS PERSONALIZADA
-    // ─────────────────────────────────────────────────────────────
-    const vaultFormState    = document.getElementById('vault-form-state');
-    const vaultResultState  = document.getElementById('vault-result-state');
-    const vaultProfileLabel = document.getElementById('vault-profile-label');
-    const vaultGrid         = document.getElementById('vault-prompts-grid');
-    const btnGenerateVault  = document.getElementById('btn-generate-vault');
-    const btnRegenerateVault = document.getElementById('btn-regenerate-vault');
-    const vaultGenStatus    = document.getElementById('vault-gen-status');
-    const vaultProfessionInput = document.getElementById('vault-profession');
-    const vaultProblemInput    = document.getElementById('vault-problem');
-
-    // Load existing vault on page start
-    async function loadVault() {
-        try {
-            const { data, error } = await supabase
-                .from('user_prompt_vault')
-                .select('*')
-                .eq('user_id', currentUser.id)
-                .single();
-
-            if (data && data.prompts && data.prompts.length > 0) {
-                const lastUpdated = new Date(data.updated_at || data.created_at);
-                const hoursSinceUpdate = (new Date() - lastUpdated) / (1000 * 60 * 60);
-                
-                if (hoursSinceUpdate < 24) {
-                    renderVault(data.prompts, data.profession, data.problem);
-                } else {
-                    // Vault expired (24h), show form to regenerate
-                    vaultFormState.style.display = 'block';
-                    vaultResultState.style.display = 'none';
-                }
-            }
-        } catch (err) {
-            // No vault yet — show form (default state is already visible)
-        }
-    }
-
-    function renderVault(prompts, profession, problem) {
-        vaultFormState.style.display = 'none';
-        vaultResultState.style.display = 'block';
-        vaultProfileLabel.textContent = `✨ Perfil: ${profession} — Meta: ${problem}`;
-        vaultGrid.innerHTML = '';
-
-        prompts.forEach(p => {
-            const card = document.createElement('div');
-            card.className = 'vault-prompt-card';
-            card.innerHTML = `
-                <div class="vault-card-header">
-                    <span class="vault-card-title">${escapeHtml(p.title)}</span>
-                    <span class="vault-card-tag">${escapeHtml(p.category)}</span>
-                </div>
-                <div class="vault-card-body">${escapeHtml(p.prompt)}</div>
-                <button class="btn-copy-vault">
-                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                    <span>Copiar Prompt Premium</span>
-                </button>
-            `;
-
-            const copyBtn = card.querySelector('.btn-copy-vault');
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(p.prompt).then(() => {
-                    copyBtn.classList.add('copied');
-                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>¡Copiado al portapapeles!</span>`;
-                    setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copiar Prompt Premium</span>`;
-                    }, 2000);
-                });
-            });
-
-            vaultGrid.appendChild(card);
-        });
-    }
-
-    async function generateVault() {
-        const profession = vaultProfessionInput ? vaultProfessionInput.value.trim() : '';
-        const problem    = vaultProblemInput ? vaultProblemInput.value.trim() : '';
-
-        if (!profession || !problem) {
-            alert('Por favor, completa ambos campos antes de generar tu bóveda.');
-            return;
-        }
-
-        btnGenerateVault.disabled = true;
-        vaultGenStatus.innerHTML = `<span class="vault-loader"><span class="vault-loader-spinner"></span> La IA está creando tus 5 prompts maestros personalizados... (puede tardar unos segundos)</span>`;
-
-        try {
-            const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
-                body: { profession, problem }
-            });
-
-            if (error) {
-                if (error.context && error.context.status === 403) {
-                   const errData = await error.context.json();
-                   if (errData.error === 'RATE_LIMIT_EXCEEDED') {
-                       vaultGenStatus.textContent = `❌ ${errData.message}`;
-                       return;
-                   }
-                }
-                throw error;
-            }
-            if (!data.prompts) throw new Error('La IA no devolvió prompts.');
-
-            // Save to DB (upsert by user_id)
-            const { error: dbError } = await supabase
-                .from('user_prompt_vault')
-                .upsert({
-                    user_id: currentUser.id,
-                    profession,
-                    problem,
-                    prompts: data.prompts
-                }, { onConflict: 'user_id' });
-
-            if (dbError) console.warn('Could not save vault to DB:', dbError);
-
-            renderVault(data.prompts, profession, problem);
-            vaultGenStatus.textContent = '';
-
-        } catch (err) {
-            console.error('Vault generation error:', err);
-            vaultGenStatus.textContent = '❌ Error al generar. Intenta de nuevo.';
-        } finally {
-            btnGenerateVault.disabled = false;
-        }
-    }
-
-    if (btnGenerateVault) {
-        btnGenerateVault.addEventListener('click', generateVault);
-    }
-
-    if (btnRegenerateVault) {
-        btnRegenerateVault.addEventListener('click', async () => {
-            // Delete existing vault so user can re-enter profession/problem
-            await supabase.from('user_prompt_vault').delete().eq('user_id', currentUser.id);
-            vaultResultState.style.display = 'none';
-            vaultFormState.style.display = 'block';
-            if (vaultProfessionInput) vaultProfessionInput.value = '';
-            if (vaultProblemInput) vaultProblemInput.value = '';
-            if (btnGenerateVault) btnGenerateVault.disabled = false;
-        });
-    }
-
-    loadVault();
 
 });

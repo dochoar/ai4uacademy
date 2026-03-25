@@ -127,11 +127,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (data.user && data.user.identities && data.user.identities.length === 0) {
                     showError('Este correo ya está registrado. Por favor, inicia sesión.');
-                } else {
-                    showSuccess('¡Cuenta creada correctamente! Iniciando sesión...');
+                } else if (data.session) {
+                    // Email confirmation disabled — session created immediately
+                    showSuccess('¡Cuenta creada! Entrando a tu dashboard...');
                     setTimeout(() => {
                         window.location.href = '/dashboard.html';
                     }, 1500);
+                } else {
+                    // Email confirmation enabled — user must verify before logging in
+                    showSuccess('¡Cuenta creada! Revisa tu correo electrónico y haz clic en el enlace de confirmación para activar tu cuenta.');
+                    signupForm.reset();
                 }
             } catch (error) {
                 showError('Error al crear cuenta: ' + error.message);

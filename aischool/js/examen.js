@@ -39,6 +39,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Estudiante Especial';
             }
 
+            // Verify paid enrollment before allowing access to the exam
+            const { data: enrollment } = await supabase
+                .from('enrollments')
+                .select('id')
+                .eq('user_id', currentUser.id)
+                .eq('course_id', 'intro-ia')
+                .maybeSingle();
+
+            if (!enrollment) {
+                window.location.href = '/index.html#pricing';
+                return;
+            }
+
             // Check if already passed
             const { data: certObj } = await supabase
                 .from('course_certificates')

@@ -71,7 +71,10 @@ document.addEventListener('DOMContentLoaded', () => {
             // Send initial ping
             sendActivityPing();
 
-            // 3. Hide Loader
+            // 3. Load course enrollment status and real progress
+            await loadCourseCard(currentUser.id);
+
+            // 4. Hide Loader
             setTimeout(() => {
                 if (authLoader) authLoader.classList.add('hidden');
             }, 600); // Small delay for smooth transition
@@ -79,6 +82,86 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (err) {
             console.error('Error initializing dashboard:', err);
             window.location.href = '/acceso.html';
+        }
+    }
+
+    async function loadCourseCard(userId) {
+        const COURSE_ID = 'intro-ia';
+        const TOTAL_MODULES = 7;
+
+        const progressFill = document.getElementById('intro-ia-progress-fill');
+        const progressText = document.getElementById('intro-ia-progress-text');
+        const courseBtn   = document.getElementById('intro-ia-course-btn');
+        const buyBtn      = document.getElementById('intro-ia-buy-btn');
+
+        // Check enrollment
+        const { data: enrollment } = await supabase
+            .from('enrollments')
+            .select('id')
+            .eq('user_id', userId)
+            .eq('course_id', COURSE_ID)
+            .maybeSingle();
+
+        if (!enrollment) {
+            // Not enrolled — show purchase button, no progress
+            if (buyBtn) {
+                buyBtn.style.display = 'block';
+                
+                // Add checkout logic
+                buyBtn.addEventListener('click', async (e) => {
+                    e.preventDefault();
+                    
+                    const originalText = buyBtn.textContent;
+                    buyBtn.disabled = true;
+                    buyBtn.textContent = 'Procesando...';
+                    
+                    try {
+                        const { data, error } = await supabase.functions.invoke('create-checkout', {
+                            body: { 
+                                returnUrl: window.location.href.split('?')[0],
+                                userId: userId,
+                                courseId: COURSE_ID
+                            }
+                        });
+                        
+                        if (error) throw error;
+                        
+                        if (data.url) {
+                            window.location.href = data.url;
+                        } else {
+                            throw new Error('No checkout URL returned');
+                        }
+                    } catch (err) {
+                        console.error('Checkout error:', err);
+                        alert('Hubo un error al iniciar el pago. Por favor intenta de nuevo.');
+                        buyBtn.disabled = false;
+                        buyBtn.textContent = originalText;
+                    }
+                });
+            }
+            return;
+        }
+
+        // Enrolled — show course button
+        if (courseBtn) courseBtn.style.display = 'block';
+
+        // Load real progress
+        const { data: progress } = await supabase
+            .from('course_progress')
+            .select('completed_modules')
+            .eq('user_id', userId)
+            .eq('course_id', COURSE_ID)
+            .maybeSingle();
+
+        const completed = progress?.completed_modules?.length || 0;
+        const percent = Math.round((completed / TOTAL_MODULES) * 100);
+
+        if (progressFill) progressFill.style.width = percent + '%';
+        if (progressText) progressText.textContent = percent + '%';
+
+        // Update button label based on progress
+        if (courseBtn) {
+            courseBtn.textContent = completed === 0 ? 'Comenzar a aprender' : 'Continuar aprendiendo';
         }
     }
 
@@ -194,32 +277,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (unlockBtn) {
         unlockBtn.addEventListener('click', async () => {
-            const code = unlockInput.value.trim().toLowerCase();
-            if (code === 'ai4uacademy') {
-                unlockBtn.disabled = true;
-                unlockBtn.textContent = 'Validando...';
-                
-                try {
-                    // Save to user metadata for persistence
-                    const { data, error } = await supabase.auth.updateUser({
-                        data: { tools_unlocked: true }
-                    });
-                    
-                    if (error) throw error;
-                    
-                    currentUser = data.user; // Update local ref
+            const code = unlockInput.value.trim();
+            if (!code) return;
+
+            unlockBtn.disabled = true;
+            unlockBtn.textContent = 'Validando...';
+            unlockError.textContent = '';
+
+            try {
+                // Validate code server-side — never in client JS
+                const { data, error } = await supabase.functions.invoke('validate-unlock-code', {
+                    body: { code }
+                });
+
+                if (error) throw error;
+
+                if (data?.success) {
+                    // Refresh session to get updated metadata
+                    const { data: refreshed } = await supabase.auth.refreshSession();
+                    if (refreshed?.user) currentUser = refreshed.user;
                     checkToolsUnlockState();
                     alert('¡Acceso concedido! Bienvenido a tus herramientas de élite.');
-                } catch (err) {
-                    console.error(err);
-                    unlockError.textContent = 'Error al activar. Intenta de nuevo.';
-                } finally {
-                    unlockBtn.disabled = false;
-                    unlockBtn.textContent = 'Desbloquear';
+                } else {
+                    unlockError.textContent = 'Código incorrecto. Asegúrate de haber compartido la web.';
+                    setTimeout(() => { unlockError.textContent = ''; }, 3000);
                 }
-            } else {
-                unlockError.textContent = 'Código incorrecto. Asegúrate de haber compartido la web.';
-                setTimeout(() => { unlockError.textContent = ''; }, 3000);
+            } catch (err) {
+                console.error(err);
+                unlockError.textContent = 'Error al validar. Intenta de nuevo.';
+            } finally {
+                unlockBtn.disabled = false;
+                unlockBtn.textContent = 'Activar Ahora';
             }
         });
     }
