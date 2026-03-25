@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Check manual array (Backend is also securing this)
             const email = session.user.email;
-            if (email !== 'ochoadr@gmail.com' && email !== 'wgmagnets1@gmail.com') {
+            if (email !== 'ochoadr@gmail.com' && email !== 'contacto@ai4uacademy.com') {
                 alert('Acceso Denegado. Esta cuenta no tiene permisos de administrador.');
                 window.location.href = '/dashboard.html';
                 return;
