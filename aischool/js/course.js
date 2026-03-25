@@ -403,6 +403,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressFill = document.getElementById('progress-fill');
     const progressText = document.getElementById('progress-text');
     const videoContainer = document.querySelector('.video-container');
+    const btnPrevMod = document.getElementById('btn-prev-mod');
+    const btnNextMod = document.getElementById('btn-next-mod');
 
     // Quiz Elements
     const quizOverlay = document.getElementById('quiz-overlay');
@@ -622,8 +624,40 @@ document.addEventListener('DOMContentLoaded', () => {
             detailsPanel.style.transform = 'translateY(0)';
         }, 50);
 
+        // Update nav buttons visibility
+        if (btnPrevMod) btnPrevMod.style.visibility = (modId > 1) ? 'visible' : 'hidden';
+        if (btnNextMod) {
+            const highestCompleted = completedModules.length > 0 ? Math.max(...completedModules) : 0;
+            const highestUnlocked = highestCompleted + 1;
+            btnNextMod.style.visibility = (modId < COURSE_META.modules.length && modId < highestUnlocked) ? 'visible' : 'hidden';
+        }
+
         // Load comments for module
         loadComments(modId);
+    }
+
+    if (btnPrevMod) {
+        btnPrevMod.addEventListener('click', () => {
+            if (currentModuleId > 1) {
+                currentModuleId--;
+                renderSidebar();
+                renderMainView(currentModuleId);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
+
+    if (btnNextMod) {
+        btnNextMod.addEventListener('click', () => {
+            const highestCompleted = completedModules.length > 0 ? Math.max(...completedModules) : 0;
+            const highestUnlocked = highestCompleted + 1;
+            if (currentModuleId < COURSE_META.modules.length && currentModuleId < highestUnlocked) {
+                currentModuleId++;
+                renderSidebar();
+                renderMainView(currentModuleId);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
     }
 
     // --- Comments Logic ---
@@ -880,7 +914,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadQuestion() {
         const question = currentQuiz[currentQuestionIndex];
-        quizStepText.textContent = `Pregunta ${currentQuestionIndex + 1} de ${currentQuiz.length}`;
+        quizStepText.textContent = `Paso ${currentQuestionIndex + 1} de ${currentQuiz.length}`;
         quizQuestionText.textContent = question.q;
         quizOptionsContainer.innerHTML = '';
         quizFeedbackContainer.style.display = 'none';
@@ -912,9 +946,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizFeedbackContainer.style.display = 'block';
 
         if (currentQuestionIndex === currentQuiz.length - 1) {
-            btnNextQuestion.textContent = 'Finalizar y Continuar';
+            btnNextQuestion.textContent = 'Finalizar Ejercicio y Continuar';
         } else {
-            btnNextQuestion.textContent = 'Siguiente Pregunta';
+            btnNextQuestion.textContent = 'Siguiente Paso';
         }
     }
 
