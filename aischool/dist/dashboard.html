@@ -14,11 +14,13 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <script type="module" crossorigin src="/assets/dashboard-CnolTcaI.js"></script>
+    <link rel="icon" type="image/png" href="/favicon.png">
+  <script type="module" crossorigin src="/assets/dashboard-D93Dm8Rw.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/supabase-config-BEUG5BCn.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-CvIunNDa.css">
-  <link rel="stylesheet" crossorigin href="/assets/dashboard-BGGn5LN5.css">
+  <link rel="stylesheet" crossorigin href="/assets/dashboard-gBX7fBt2.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CItJ6Acp.css">
+  <link rel="stylesheet" crossorigin href="/assets/dashboard-BAAtqLVL.css">
 </head>
 <body class="dash-body">
     <!-- Overlay for mobile menu -->
@@ -41,6 +43,10 @@
                 <span>Mis Cursos</span>
             </a>
             <!-- Agregaremos más secciones aquí en el futuro -->
+            <a href="#" class="nav-item">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                <span>Herramientas IA</span>
+            </a>
             <a href="#" class="nav-item">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                 <span>Mi Perfil</span>
@@ -97,7 +103,7 @@
                     
                     <div class="course-info">
                         <div class="course-meta">
-                            <span>15 Módulos</span>
+                            <span>7 Módulos</span>
                             <span class="dot-separator">•</span>
                             <span>IA Básica</span>
                         </div>
@@ -107,14 +113,15 @@
                         <div class="progress-container">
                             <div class="progress-meta">
                                 <span>Progreso</span>
-                                <span>0%</span>
+                                <span id="intro-ia-progress-text">0%</span>
                             </div>
                             <div class="progress-bar">
-                                <div class="progress-fill" style="width: 5%;"></div>
+                                <div class="progress-fill" id="intro-ia-progress-fill" style="width: 0%;"></div>
                             </div>
                         </div>
 
-                        <a href="course.html?id=intro-ia" class="btn btn-primary btn-block mt-3" style="width: 100%;">Comenzar a aprender</a>
+                        <a href="course.html?id=intro-ia" id="intro-ia-course-btn" class="btn btn-primary btn-block mt-3" style="width: 100%; display: none;">Continuar aprendiendo</a>
+                        <a href="/index.html#pricing" id="intro-ia-buy-btn" class="btn btn-primary btn-block mt-3" style="width: 100%; display: none;">Obtener Acceso</a>
                     </div>
                 </article>
 
@@ -161,6 +168,126 @@
             </div>
         </section>
 
+        <!-- AI Tools Section -->
+        <section class="dash-content" id="tools-section" style="display: none;">
+            <div class="section-title">
+                <h3>Hub de Inteligencia Artificial</h3>
+                <p style="color: var(--clr-text-muted); font-size: 0.95rem;">Herramientas exclusivas para optimizar tu flujo de trabajo profesional.</p>
+            </div>
+
+            <!-- Lock State Container -->
+            <div id="tools-locked-overlay" class="ai-tool-card tool-purple" style="text-align: center; border-style: dashed;">
+                <div style="font-size: 3.5rem; margin-bottom: 24px; filter: drop-shadow(0 0 15px rgba(168,85,247,0.3));">🛡️</div>
+                <h3 style="color: #fff; margin-bottom: 16px; font-size: 1.8rem;">Desbloquea tu Arsenal de IA</h3>
+                <p style="color: #94a3b8; max-width: 580px; margin: 0 auto 32px auto; line-height: 1.7; font-size: 1.05rem;">
+                    Para acceder al <strong>Analizador de Prompts</strong> y la <strong>Bóveda Personalizada</strong>, comparte tu experiencia en redes sociales (LinkedIn, FB o Instagram) y solicita tu código de acceso oficial.
+                </p>
+                
+                <div style="display: flex; gap: 12px; justify-content: center; max-width: 450px; margin: 0 auto 30px auto;">
+                    <input type="text" id="unlock-code-input" placeholder="Ingresa tu código de acceso..." class="ai-evaluator-textarea" style="margin:0; padding: 12px 20px; min-height: unset; height: 50px;">
+                    <button id="btn-unlock-tools" class="btn btn-primary" style="background: var(--ai-purple); height: 50px; padding: 0 25px; border: none;">Activar Ahora</button>
+                </div>
+                
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 24px;">
+                    <a id="whatsapp-unlock-link" href="#" target="_blank" class="btn" style="background: #128C7E; color: white; border: none; display: inline-flex; align-items: center; gap: 12px; padding: 12px 24px; font-weight: 700; border-radius: 12px; box-shadow: 0 4px 15px rgba(18,140,126,0.3);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527"></path></svg>
+                        Solicitar mi Código por WhatsApp
+                    </a>
+                    <p id="unlock-error-msg" style="color: #ef4444; font-size: 0.9rem; margin-top: 15px; min-height: 20px; font-weight: 500;"></p>
+                </div>
+            </div>
+
+            <!-- Unlocked State Container -->
+            <div id="tools-unlocked-content" style="display: none;">
+                
+                <!-- Corrector de Prompts (Evaluator) -->
+                <div class="ai-tool-card tool-blue">
+                    <div class="ai-tool-header">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-blue)" stroke-width="2.5" fill="none"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        <div>
+                            <h4>Analizador de Prompts con IA</h4>
+                            <p>Convierte instrucciones simples en comandos maestros de alto impacto.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="ai-tool-inner">
+                        <textarea id="prompt-eval-input" class="ai-evaluator-textarea" placeholder="Escribe o pega aquí el prompt que quieres que la IA evalúe..."></textarea>
+                        <div class="ai-evaluator-footer">
+                            <div>
+                                <span id="prompt-eval-status" class="ai-status-msg">
+                                    <span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; opacity:0.5;"></span>
+                                    Listo para analizar
+                                </span>
+                                <span id="eval-remaining-attempts" class="ai-limit-badge">5 Verificaciones disponibles hoy</span>
+                            </div>
+                            <button id="btn-eval-prompt" class="btn btn-primary" style="background: var(--ai-blue); border:none; padding: 12px 32px;">Evaluar Calidad</button>
+                        </div>
+                    </div>
+
+                    <!-- Evaluation Result -->
+                    <div id="eval-result-container" class="ai-result-panel" style="display: none; flex-direction: column;">
+                        <!-- Comparator Section -->
+                        <div class="prompt-comparator">
+                            <div class="prompt-panel original">
+                                <div class="panel-header">Mi Prompt Original</div>
+                                <div id="eval-original-prompt" class="panel-body"></div>
+                            </div>
+                            <div class="prompt-panel optimized">
+                                <div class="panel-header">Versión Maestra AI4U</div>
+                                <div id="eval-optimized-prompt" class="panel-body"></div>
+                            </div>
+                        </div>
+
+                        <div class="eval-summary-footer">
+                            <div id="eval-score-ring" class="ai-score-ring">0</div>
+                            <div class="ai-feedback-content" style="flex: 1;">
+                                <h5 id="eval-score-title">Métrica de Calidad</h5>
+                                <p id="eval-feedback"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bóveda de Prompts Personalizada -->
+                <div class="ai-tool-card tool-purple">
+                    <div class="ai-tool-header">
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-purple)" stroke-width="2.5" fill="none"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        <div>
+                            <h4>Bóveda de Prompts de Élite</h4>
+                            <p>5 Plantillas personalizadas para tu rol profesional (Expira cada 24h).</p>
+                        </div>
+                    </div>
+
+                    <div id="vault-form-state" class="ai-tool-inner">
+                        <p style="color: #c4b5fd; font-weight: 500; margin-bottom: 24px;">✨ Describe tu entorno profesional y nuestra IA construirá tus herramientas personalizadas.</p>
+                        <div class="ai-vault-form">
+                            <div class="ai-input-group">
+                                <label>Tu Profesión / Cargo</label>
+                                <input type="text" id="vault-profession" placeholder="Ej. Contador, CEO, Diseñador UX...">
+                            </div>
+                            <div class="ai-input-group">
+                                <label>Tu Mayor Reto Actual</label>
+                                <input type="text" id="vault-problem" placeholder="Ej. Escalar ventas, reducir gastos...">
+                            </div>
+                        </div>
+                        <button id="btn-generate-vault" class="btn btn-primary" style="background: var(--ai-purple); width: 100%; border:none; padding: 16px;">
+                            <span style="margin-right:8px;">🔥</span> Generar mis 5 Prompts Premium
+                        </button>
+                        <p id="vault-gen-status" style="color: #94a3b8; font-size: 0.9rem; margin-top: 15px; text-align: center; min-height: 24px;"></p>
+                    </div>
+
+                    <div id="vault-result-state" style="display: none;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 10px 0 20px 0;">
+                            <p id="vault-profile-label" style="color: #c4b5fd; font-weight: 700; margin: 0; font-size: 1.1rem;"></p>
+                            <button id="btn-regenerate-vault" style="background: rgba(168,85,247,0.1); border: 1.5px solid var(--ai-purple); color: var(--ai-purple); border-radius: 8px; padding: 6px 16px; font-size: 0.85rem; cursor: pointer; font-weight: 700; transition: all 0.2s;">↺ Nueva Bóveda</button>
+                        </div>
+                        <div id="vault-prompts-grid" class="vault-grid"></div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
         <!-- Settings Section -->
         <section class="dash-content" id="settings-section" style="display: none;">
             <div class="section-title">
@@ -176,6 +303,15 @@
                         <input type="checkbox" id="theme-toggle" style="width: 18px; height: 18px; accent-color: var(--clr-action);">
                         <span style="font-weight: 600;">Habilitar Fondo Oscuro</span>
                     </label>
+                </div>
+
+                <div class="setting-group">
+                    <h4 style="margin-bottom: 10px; color: var(--clr-primary);">Soporte</h4>
+                    <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 10px;">Si tienes dudas o problemas con tu cuenta, contáctanos.</p>
+                    <a href="mailto:contacto@ai4uacademy.com" style="color: var(--clr-action); text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        contacto@ai4uacademy.com
+                    </a>
                 </div>
                 
                 <hr style="border: none; border-top: 1px solid #cbd5e1; margin-bottom: 25px; opacity: 0.5;">

@@ -4,16 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprende Inteligencia Artificial Práctica | AI4U Academy</title>
+    <title>AI4U Academy | Formación de Alto Nivel en Inteligencia Artificial</title>
     <meta name="description"
-        content="AI4U Academy Educational Platform">
+        content="Domina la Inteligencia Artificial con AI4U Academy. Formación práctica, estructurada y de alto nivel, desde cero y sin necesidad de programar. Acceso permanente con certificado.">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="canonical" href="https://ai4uacademy.com/">
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="AI4U Academy">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ai4uacademy.com/">
+    <meta property="og:title" content="AI4U Academy | Formación de Alto Nivel en Inteligencia Artificial">
     <meta property="og:description"
-        content="Descubre el poder de la Inteligencia Artificial. Un espacio educativo inclusivo con cursos sobre cómo dominar la IA sin programar.">
-    <meta property="og:image" content="https://AI4U Academy.com/assets/og-image.jpg">
-    <meta property="og:type" content="product">
+        content="Aprende a dominar la IA de forma práctica, estructurada y con acompañamiento real. Sin programar, sin riesgo, con resultados.">
+    <meta property="og:image" content="https://ai4uacademy.com/assets/images/promo/ai-hero.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://ai4uacademy.com/">
+    <meta name="twitter:title" content="AI4U Academy | Formación en Inteligencia Artificial">
+    <meta name="twitter:description" content="Formación de alto nivel en IA, sin programar, con resultados reales desde el primer día.">
+    <meta name="twitter:image" content="https://ai4uacademy.com/assets/images/promo/ai-hero.png">
 
     <!-- Fonts: Fraunces (Headings) and Onest (Body) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,252 +38,1385 @@
 
     <!-- Schema JSON-LD -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org/",
-      "@type": "Product",
-      "name": "Curso de Inteligencia Artificial — AI4U Academy",
-      "description": "Aprende a usar la Inteligencia Artificial desde cero con 6 horas de contenido práctico, ejercicios guiados y acceso de por vida.",
-      "brand": { "@type": "Brand", "name": "AI4U Academy" },
+    [{
+      "@context": "https://schema.org",
+      "@type": "EducationalOrganization",
+      "name": "AI4U Academy",
+      "url": "https://ai4uacademy.com/",
+      "logo": "https://ai4uacademy.com/assets/images/logo.png",
+      "description": "Academia especializada en formación de alto nivel en Inteligencia Artificial para profesionales y principiantes.",
+      "sameAs": [
+        "https://twitter.com/ai4uacademy",
+        "https://www.linkedin.com/school/ai4uacademy/"
+      ]
+    }, {
+      "@context": "https://schema.org",
+      "@type": "Course",
+      "name": "Introducción a la IA desde Cero",
+      "description": "Curso completo de Inteligencia Artificial para principiantes. 6 horas de contenido práctico, ejercicios guiados y soporte garantizado.",
+      "provider": {
+        "@type": "EducationalOrganization",
+        "name": "AI4U Academy",
+        "url": "https://ai4uacademy.com/"
+      },
+      "educationalLevel": "Beginner",
       "offers": {
         "@type": "Offer",
         "priceCurrency": "MXN",
         "price": "1500.00",
-        "priceValidUntil": "2026-12-31",
-        "availability": "https://schema.org/InStock",
-        "url": "https://ai4uacademy.com/"
+        "availability": "https://schema.org/InStock"
       },
       "aggregateRating": {
         "@type": "AggregateRating",
         "ratingValue": "4.8",
         "reviewCount": "127"
       }
-    }
+    }]
     </script>
 
-    <!-- PDF.js Library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co wss://*; connect-src 'self' https://*.supabase.co wss://*; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' data: https:;">
 
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Aprende a usar la Inteligencia Artificial en tu vida diaria y trabajo. Cursos prácticos, desde cero, sin necesidad de saber programar. Únete gratis.">
-    <link rel="canonical" href="https://ai4uacademy.com/">
-    
-    <!-- Open Graph Data -->
-    <meta property="og:title" content="Aprende Inteligencia Artificial Práctica | AI4U Academy">
-    <meta property="og:description" content="Automatiza tareas y ahorra horas a la semana con nuestros cursos de IA. No requiere conocimientos previos.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://ai4uacademy.com/">
-    <meta property="og:image" content="https://ai4uacademy.com/assets/images/promo/ai-hero.png">
-    
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Aprende Inteligencia Artificial Práctica | AI4U Academy">
-    <meta name="twitter:description" content="Aprende a usar IA en tu trabajo sin saber programar.">
-    <meta name="twitter:image" content="https://ai4uacademy.com/assets/images/promo/ai-hero.png">
-    
-    <!-- Schema Markup -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "EducationalOrganization",
-      "name": "AI4U Academy",
-      "url": "https://ai4uacademy.com/",
-      "logo": "https://ai4uacademy.com/assets/images/logo.png",
-      "sameAs": [
-        "https://twitter.com/ai4uacademy",
-        "https://www.linkedin.com/school/ai4uacademy/"
-      ],
-      "offers": {
-        "@type": "Offer",
-        "price": "1500.00",
-        "priceCurrency": "MXN"
-      }
-    }
-    </script>
+    <style>
+        /* ── Estilos adicionales para el rediseño ── */
 
-  <script type="module" crossorigin src="/assets/main-DdaMdRBQ.js"></script>
+        /* Announcement bar */
+        .announce-bar {
+            background: linear-gradient(90deg, #00A389 0%, #007a68 100%);
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            padding: 9px 0;
+            text-align: center;
+            letter-spacing: 0.2px;
+        }
+        .announce-bar a { color: #fff; text-decoration: underline; }
+
+        /* Hero */
+        .hero-v2 {
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #FEF3C7 100%);
+            background-image:
+                radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,163,137,0.08) 0%, transparent 70%);
+            background-size: auto, 22px 22px;
+            padding: 90px 0 80px;
+            border-bottom: 4px solid var(--clr-accent);
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-v2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .hero-v2-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,140,66,0.15);
+            color: var(--clr-accent);
+            border: 1px solid rgba(255,140,66,0.4);
+            padding: 5px 14px;
+            border-radius: 100px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            margin-bottom: 20px;
+        }
+        .hero-v2-badge span { font-size: 1em; }
+        .hero-v2 h1 {
+            font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+            line-height: 1.08;
+            letter-spacing: -1px;
+            color: var(--clr-primary);
+            margin-bottom: 18px;
+        }
+        .hero-v2 h1 em {
+            font-style: italic;
+            color: var(--clr-action);
+        }
+        .hero-v2-sub {
+            font-size: 1.15rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+        .hero-v2-bullets {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 36px;
+            display: grid;
+            gap: 12px;
+        }
+        .hero-v2-bullets li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            color: var(--clr-text-main);
+            font-size: 1rem;
+        }
+        .hero-v2-bullets li::before {
+            content: '✓';
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            background: var(--clr-action);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            font-weight: 900;
+            margin-top: 2px;
+        }
+        .hero-v2-ctas {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+        .hero-v2-ctas .btn-primary { font-size: 1rem; padding: 15px 30px; }
+        .hero-v2-ctas .btn-ghost {
+            background: transparent;
+            border: 2px solid var(--clr-border);
+            color: var(--clr-text-main);
+            font-size: 0.95rem;
+            padding: 13px 26px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .hero-v2-ctas .btn-ghost:hover {
+            border-color: var(--clr-primary);
+            color: var(--clr-primary);
+        }
+        .hero-v2-trust {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-top: 24px;
+            flex-wrap: wrap;
+        }
+        .hero-v2-trust span {
+            font-size: 0.83rem;
+            color: var(--clr-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .hero-v2-trust span strong { color: var(--clr-text-main); }
+        .hero-v2-img {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            position: relative;
+        }
+        .hero-v2-img img { width: 100%; display: block; }
+        .hero-v2-img-badge {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.97);
+            border-radius: 10px;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .hero-v2-img-badge .badge-icon {
+            width: 36px; height: 36px;
+            background: var(--clr-action);
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.1rem;
+        }
+        .hero-v2-img-badge .badge-text strong { display: block; font-size: 0.85rem; color: #0B192C; }
+        .hero-v2-img-badge .badge-text span { font-size: 0.75rem; color: #64748b; }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: #fff;
+            border-bottom: 1px solid var(--clr-border);
+            padding: 28px 0;
+        }
+        .stats-bar-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 0 24px;
+            border-right: 1px solid var(--clr-border);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--clr-primary);
+            line-height: 1;
+            display: block;
+        }
+        .stat-num span { color: var(--clr-action); }
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--clr-text-muted);
+            margin-top: 4px;
+        }
+
+        /* Logotype strip */
+        .brand-strip {
+            background: #F1F5F9;
+            padding: 20px 0;
+            border-bottom: 1px solid var(--clr-border);
+        }
+        .brand-strip-inner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .brand-strip-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr-text-muted);
+            margin-right: 8px;
+        }
+        .brand-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff;
+            border: 1px solid var(--clr-border);
+            border-radius: 8px;
+            padding: 6px 14px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--clr-primary);
+        }
+
+        /* Problem / Solution */
+        .problem-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+        .problem-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .problem-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 0;
+            border-bottom: 1px solid #F1F5F9;
+        }
+        .problem-list li:last-child { border-bottom: none; }
+        .problem-icon {
+            width: 36px; height: 36px; min-width: 36px;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
+        }
+        .problem-icon.bad { background: #FEF2F2; }
+        .problem-icon.good { background: #F0FDF4; }
+        .problem-list li .pl-text strong { display: block; font-size: 0.95rem; color: var(--clr-primary); margin-bottom: 2px; }
+        .problem-list li .pl-text span { font-size: 0.85rem; color: var(--clr-text-muted); }
+        .vs-divider {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 8px;
+        }
+        .vs-badge {
+            background: var(--clr-primary);
+            color: #fff;
+            font-weight: 900;
+            font-size: 0.85rem;
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* How it works */
+        .how-section {
+            padding: 80px 0;
+            background: var(--clr-bg);
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 48px;
+            position: relative;
+        }
+        .steps-grid::before {
+            content: '';
+            position: absolute;
+            top: 36px;
+            left: calc(16.66% + 16px);
+            right: calc(16.66% + 16px);
+            height: 2px;
+            background: linear-gradient(90deg, var(--clr-action), var(--clr-accent));
+            z-index: 0;
+        }
+        .step-card {
+            background: #fff;
+            border-radius: 16px;
+            padding: 32px 24px 28px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            border: 1px solid var(--clr-border);
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .step-card:hover {
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transform: translateY(-4px);
+        }
+        .step-num {
+            width: 52px; height: 52px;
+            background: var(--clr-action);
+            color: #fff;
+            border-radius: 50%;
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 16px;
+            border: 4px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,163,137,0.3);
+        }
+        .step-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+        .step-card p { font-size: 0.88rem; color: var(--clr-text-muted); margin: 0; }
+
+        /* Curriculum */
+        .curriculum-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.6fr;
+            gap: 56px;
+            align-items: start;
+            margin-top: 48px;
+        }
+        .curriculum-sidebar h3 { font-size: 1.3rem; margin-bottom: 16px; }
+        .outcomes-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 32px;
+        }
+        .outcomes-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #F1F5F9;
+            font-size: 0.92rem;
+        }
+        .outcomes-list li:last-child { border-bottom: none; }
+        .outcomes-list li::before {
+            content: '✓';
+            display: flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; min-width: 18px;
+            background: #F0FDF4;
+            color: var(--clr-action);
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 900;
+            margin-top: 2px;
+        }
+        .course-meta-box {
+            background: #F8FAFB;
+            border: 1px solid var(--clr-border);
+            border-radius: 12px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .meta-item { text-align: center; }
+        .meta-item strong { display: block; font-size: 1.1rem; color: var(--clr-primary); }
+        .meta-item span { font-size: 0.78rem; color: var(--clr-text-muted); }
+        .module-list { display: grid; gap: 10px; }
+        .module-item {
+            background: #F8FAFB;
+            border: 1px solid var(--clr-border);
+            border-left: 4px solid var(--clr-action);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: box-shadow 0.2s, background 0.2s;
+        }
+        .module-item:hover { background: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.07); }
+        .module-item-left { display: flex; align-items: center; gap: 14px; }
+        .module-num {
+            width: 32px; height: 32px; min-width: 32px;
+            background: var(--clr-primary);
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .module-item h4 { font-size: 0.92rem; margin: 0; color: var(--clr-primary); font-weight: 600; }
+        .module-item p { font-size: 0.78rem; color: var(--clr-text-muted); margin: 2px 0 0; }
+        .module-duration {
+            font-size: 0.78rem;
+            color: var(--clr-text-muted);
+            background: #E2E8F0;
+            border-radius: 20px;
+            padding: 3px 10px;
+            white-space: nowrap;
+        }
+
+        /* Instructor */
+        .instructor-section {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
+        }
+        .instructor-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 56px;
+            align-items: center;
+        }
+        .instructor-img-wrap {
+            position: relative;
+        }
+        .instructor-img-wrap img {
+            border-radius: 16px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .instructor-content h2 { color: var(--clr-primary); font-size: 2rem; }
+        .instructor-content p { color: var(--clr-text-muted); line-height: 1.75; }
+        .instructor-stats {
+            display: flex;
+            gap: 32px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+        .instructor-stat strong {
+            display: block;
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            color: var(--clr-action);
+            line-height: 1;
+        }
+        .instructor-stat span {
+            font-size: 0.82rem;
+            color: var(--clr-text-muted);
+            margin-top: 2px;
+        }
+
+        /* Pricing */
+        .pricing-v2 {
+            padding: 80px 0;
+            background: var(--clr-bg);
+        }
+        .pricing-v2-grid {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 56px;
+            align-items: start;
+            margin-top: 48px;
+        }
+        .pricing-highlights { list-style: none; padding: 0; margin: 0 0 32px; }
+        .pricing-highlights li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--clr-border);
+            font-size: 0.95rem;
+        }
+        .pricing-highlights li:last-child { border-bottom: none; }
+        .ph-icon {
+            width: 34px; height: 34px; min-width: 34px;
+            border-radius: 8px;
+            background: #F0FDF4;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1rem;
+        }
+        .ph-text strong { display: block; color: var(--clr-primary); font-size: 0.9rem; }
+        .ph-text span { font-size: 0.8rem; color: var(--clr-text-muted); }
+        .pricing-card-v2 {
+            background: #fff;
+            border: 2px solid var(--clr-action);
+            border-radius: 20px;
+            padding: 36px 32px;
+            box-shadow: 0 20px 50px rgba(0,163,137,0.12);
+            position: sticky;
+            top: 100px;
+        }
+        .price-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr-text-muted);
+            margin-bottom: 6px;
+        }
+        .price-old {
+            text-decoration: line-through;
+            color: var(--clr-text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 2px;
+        }
+        .price-main {
+            font-family: var(--font-heading);
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--clr-primary);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .price-main sup { font-size: 1.4rem; vertical-align: super; }
+        .price-main sub { font-size: 1rem; color: var(--clr-text-muted); font-weight: 400; }
+        .price-note {
+            font-size: 0.82rem;
+            color: var(--clr-text-muted);
+            margin-bottom: 24px;
+        }
+        .price-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 24px;
+            border-top: 1px solid var(--clr-border);
+            padding-top: 20px;
+        }
+        .price-features li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            padding: 7px 0;
+        }
+        .price-features li::before {
+            content: '✓';
+            width: 18px; height: 18px; min-width: 18px;
+            background: var(--clr-action);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.62rem;
+            font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .price-cta { width: 100%; font-size: 1.05rem; padding: 16px; margin-bottom: 14px; }
+        .price-guarantee {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--clr-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* Testimonials */
+        .testimonials-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+        .testimonial-card {
+            background: #F8FAFB;
+            border: 1px solid var(--clr-border);
+            border-radius: 16px;
+            padding: 28px 24px;
+        }
+        .testimonial-stars { color: #F59E0B; font-size: 1rem; margin-bottom: 12px; letter-spacing: 2px; }
+        .testimonial-text {
+            font-size: 0.92rem;
+            line-height: 1.65;
+            color: var(--clr-primary);
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .author-avatar {
+            width: 40px; height: 40px; min-width: 40px;
+            border-radius: 50%;
+            background: var(--clr-action);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1rem;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .author-info strong { display: block; font-size: 0.88rem; color: var(--clr-primary); }
+        .author-info span { font-size: 0.78rem; color: var(--clr-text-muted); }
+
+        /* CTA final */
+        .cta-final-v2 {
+            padding: 90px 0;
+            background: linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-final-v2 h2 {
+            color: var(--clr-primary);
+            font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+            margin-bottom: 14px;
+        }
+        .cta-final-v2 p {
+            color: var(--clr-text-muted);
+            font-size: 1.1rem;
+            max-width: 520px;
+            margin: 0 auto 36px;
+        }
+        .cta-price-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--clr-white);
+            border: 1px solid var(--clr-border);
+            border-radius: 100px;
+            padding: 10px 24px;
+            margin-bottom: 28px;
+        }
+        .cta-price-pill .old { font-size: 0.9rem; color: var(--clr-text-muted); text-decoration: line-through; }
+        .cta-price-pill .new { font-size: 1.1rem; font-weight: 800; color: var(--clr-action); }
+        .cta-price-pill .badge-save {
+            background: var(--clr-accent);
+            color: #fff;
+            font-size: 0.72rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+        .cta-final-v2-actions {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .cta-trust-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+        .cta-trust-row span {
+            font-size: 0.82rem;
+            color: var(--clr-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Contact */
+        .contact-v2 {
+            padding: 80px 0;
+            background: #fff;
+        }
+        .contact-v2-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+        .contact-method-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            border: 1px solid var(--clr-border);
+            border-radius: 14px;
+            margin-bottom: 14px;
+            text-decoration: none;
+            color: inherit;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            cursor: pointer;
+        }
+        .contact-method-card:hover {
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+            border-color: var(--clr-action);
+            transform: translateY(-2px);
+        }
+        .contact-method-card.whatsapp-v2 { border-color: #25D366; }
+        .contact-method-card.whatsapp-v2:hover { background: #F0FDF4; }
+        .cm-icon {
+            width: 50px; height: 50px; min-width: 50px;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+        .cm-icon.email-icon { background: #EFF6FF; }
+        .cm-icon.wa-icon { background: #F0FDF4; }
+        .cm-text strong { display: block; font-size: 0.9rem; color: var(--clr-primary); margin-bottom: 2px; }
+        .cm-text span { font-size: 0.83rem; color: var(--clr-text-muted); }
+        .cm-arrow { margin-left: auto; color: var(--clr-text-muted); font-size: 1.2rem; }
+        .contact-section-label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--clr-action);
+            margin-bottom: 10px;
+        }
+
+        /* Footer */
+        .footer-v2 {
+            background: var(--clr-white);
+            padding: 40px 0 28px;
+            border-top: 1px solid var(--clr-border);
+        }
+        .footer-v2-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .footer-v2 p { color: var(--clr-text-muted); font-size: 0.82rem; margin: 0; }
+        .footer-v2 a { color: var(--clr-primary); font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
+        .footer-v2 a:hover { color: var(--clr-action); }
+        .footer-v2-links { display: flex; gap: 20px; flex-wrap: wrap; }
+
+        /* Section header */
+        .section-eyebrow {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--clr-action);
+            margin-bottom: 8px;
+        }
+        .section-title {
+            font-size: clamp(1.6rem, 3vw, 2.2rem);
+            color: var(--clr-primary);
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-size: 1rem;
+            color: var(--clr-text-muted);
+            max-width: 520px;
+            line-height: 1.7;
+        }
+
+        /* Sticky CTA mobile */
+        .sticky-cta-mobile {
+            display: none;
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #fff;
+            border-top: 1px solid var(--clr-border);
+            padding: 12px 20px;
+            z-index: 200;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+        }
+        .sticky-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+        .sticky-price {
+            font-family: var(--font-heading);
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--clr-primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-v2-grid,
+            .problem-grid,
+            .curriculum-grid,
+            .instructor-grid,
+            .pricing-v2-grid,
+            .contact-v2-grid { grid-template-columns: 1fr; }
+            .hero-v2-img { display: none; }
+            .stats-bar-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--clr-border); padding-bottom: 16px; }
+            .stat-item:last-child, .stat-item:nth-child(even) { border-right: none; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .steps-grid::before { display: none; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .instructor-grid { grid-template-columns: 1fr; }
+            .instructor-img-wrap img { max-height: 280px; object-fit: cover; }
+            .footer-v2-inner { flex-direction: column; text-align: center; }
+            .footer-v2-links { justify-content: center; }
+            .sticky-cta-mobile { display: block; }
+            body { padding-bottom: 70px; }
+        }
+        @media (max-width: 640px) {
+            .hero-v2 { padding: 60px 0 50px; }
+            .hero-v2 h1 { font-size: 2rem; }
+            .pricing-card-v2 { position: static; }
+        }
+
+        /* Utilities */
+        .mt-2 { margin-top: 8px; }
+        .mb-0 { margin-bottom: 0; }
+    </style>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co wss://*; connect-src 'self' https://*.supabase.co wss://*; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' data: https:;">
+  <script type="module" crossorigin src="/assets/main-EXbp_aFg.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-CvIunNDa.css">
+  <link rel="stylesheet" crossorigin href="/assets/style-CItJ6Acp.css">
 </head>
 
 <body>
 
     <!-- Splash Screen -->
     <div id="splash-screen" class="splash-screen">
-        <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Modal Logo" class="splash-logo">
+        <img src="assets/images/LOGO.png" alt="AI4U Academy Modal Logo" class="splash-logo" width="200" height="60">
     </div>
 
-    <!-- Trust Bar -->
-    <div class="trust-bar fade-in-up">
-        <div class="container">
-            <span>🎓 +1000 docentes y alumnos ya usan AI4U Academy. ¡Únete a nuestra comunidad!</span>
-            <span class="dot-separator">·</span>
-            <span>🔒 Pago 100% seguro</span>
-        </div>
+    <!-- Announcement Bar -->
+    <div class="announce-bar">
+        🎓 Aprende IA sin programar — Acceso inmediato disponible.
+        <span class="dot-separator">·</span>
+        🔒 Pago seguro con tarjeta o transferencia
     </div>
 
-    <!-- Header Navigation -->
+    <!-- Header -->
     <header class="site-header fade-in-up" style="animation-delay: 0.1s;">
         <div class="container header-inner">
-            <div class="logo" style="gap: 5px;">
-                <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img">
+            <div class="logo">
+                <img src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img" width="140" height="40" loading="eager">
             </div>
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <a href="acceso.html"
-                    style="color: var(--clr-primary); font-weight: bold; font-size: 0.9rem; text-transform: uppercase;">Acceder</a>
-                <a href="#pricing" class="btn btn-primary btn-sm" data-track="cta-nav">Comprar Ahora</a>
-            </div>
+            <nav style="display: flex; align-items: center; gap: 24px;">
+                <a href="#temario" style="font-size: 0.88rem; font-weight: 600; color: var(--clr-text-main);">Temario</a>
+                <a href="#pricing" style="font-size: 0.88rem; font-weight: 600; color: var(--clr-text-main);">Precio</a>
+                <a href="acceso.html" style="font-size: 0.88rem; font-weight: 600; color: var(--clr-action);">Acceder</a>
+                <a href="#pricing" class="btn btn-primary btn-sm" data-track="cta-nav">Inscribirse</a>
+            </nav>
         </div>
     </header>
 
-    <!-- SECTION 1: Hero -->
-    <section class="hero-section pattern-bg">
-        <div class="container hero-grid">
-            <div class="hero-content fade-in-up" style="animation-delay: 0.2s;">
-                <h1>Descubre cómo usar Inteligencia Artificial para simplificar tu vida y tu trabajo.</h1>
-                <ul class="hero-bullets">
-                    <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg><span>Ahorra horas a la semana automatizando tareas repetitivas.</span></li>
-                    <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg><span>No necesitas saber programar, lo explicamos todo paso a paso.</span></li>
-                    <li><svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg><span>Aprende a usar herramientas como ChatGPT para tu día a día.</span></li>
+
+    <!-- ══════════════════════════════════════════
+         HERO
+    ══════════════════════════════════════════ -->
+    <section class="hero-v2 fade-in-up">
+        <div class="container hero-v2-grid">
+
+            <div class="hero-v2-content">
+                <div class="hero-v2-badge">
+                    <span>🚀</span> Aprende IA de forma práctica
+                </div>
+                <h1>Domina la <em>Inteligencia Artificial</em> antes que el resto del mundo lo haga.</h1>
+                <p class="hero-v2-sub">
+                    Formación práctica y estructurada para profesionales y emprendedores que quieren aplicar la IA en su trabajo desde el primer día, sin saber programar.
+                </p>
+                <ul class="hero-v2-bullets">
+                    <li>Ahorra horas a la semana automatizando tareas repetitivas con IA.</li>
+                    <li>Aprende con método: desde los fundamentos hasta casos reales de negocio.</li>
+                    <li>Sin programación. Sin tecnicismos. Solo resultados aplicables.</li>
+                    <li>Acceso durante tu inscripcion + materiales descargables.</li>
                 </ul>
-                <div class="hero-ctas">
-                    <button class="btn btn-primary btn-signup">Obtén acceso inmediato</button>
-                    <a href="#temario" class="btn btn-secondary">Ver temario fácil</a>
+                <div class="hero-v2-ctas">
+                    <button class="btn btn-primary btn-pulse btn-signup">Obtener acceso ahora — $1,500 MXN</button>
+                    <a href="#temario" class="btn-ghost">Ver el programa completo →</a>
+                </div>
+                <div class="hero-v2-trust">
+                    <span>⭐ <strong>4.8/5</strong> valoración media</span>
+                    <span>👥 Comunidad en crecimiento</span>
+                    <span>🎓 <strong>Certificado</strong> incluido</span>
                 </div>
             </div>
-            <div class="hero-visual fade-in-up" style="animation-delay: 0.4s;">
-                <div class="hero-image-container reveal-on-scroll">
-                    <img src="/assets/ai-hero-mveZ2RPn.png" alt="Persona usando Inteligencia Artificial fácilmente" class="hero-real-image" style="border-radius: 12px;">
+
+            <div class="hero-v2-img reveal-on-scroll">
+                <img src="/assets/ai-hero-mveZ2RPn.png" alt="Formación de alto nivel en Inteligencia Artificial — AI4U Academy" width="600" height="450" loading="eager">
+                <div class="hero-v2-img-badge">
+                    <div class="badge-icon">🎯</div>
+                    <div class="badge-text">
+                        <strong>Primer módulo disponible hoy</strong>
+                        <span>Empieza en minutos tras inscribirte</span>
+                    </div>
                 </div>
             </div>
+
         </div>
     </section>
 
-    <!-- SECTION 2: Vista Previa del Material -->
-    <section class="preview-section" id="preview-section">
+
+    <!-- ══════════════════════════════════════════
+         STATS BAR
+    ══════════════════════════════════════════ -->
+    <div class="stats-bar reveal-on-scroll">
+        <div class="container stats-bar-grid">
+            <div class="stat-item">
+                <span class="stat-num">+100<span>+</span></span>
+                <p class="stat-label">Alumnos inscritos</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">6<span>h</span></span>
+                <p class="stat-label">De contenido práctico en video</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">4.8<span>★</span></span>
+                <p class="stat-label">Valoración media del curso</p>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">12<span> meses</span></span>
+                <p class="stat-label">Acceso al curso</p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         BRAND STRIP (Herramientas que aprenderás)
+    ══════════════════════════════════════════ -->
+    <div class="brand-strip reveal-on-scroll">
+        <div class="container brand-strip-inner">
+            <span class="brand-strip-label">Herramientas que dominarás:</span>
+            <span class="brand-tag">🤖 ChatGPT</span>
+            <span class="brand-tag">🔵 Claude</span>
+            <span class="brand-tag">🎨 Midjourney</span>
+            <span class="brand-tag">🔊 ElevenLabs</span>
+            <span class="brand-tag">⚡ Make / Zapier</span>
+            <span class="brand-tag">📊 Copilot</span>
+        </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════
+         PLATFORM PREVIEW
+    ══════════════════════════════════════════ -->
+    <section style="padding: 72px 0; background: #fff;" id="preview-section">
         <div class="container">
-            <div class="section-header text-center reveal-on-scroll">
-                <h2>Plataforma fácil de usar, sin instalaciones complejas.</h2>
-                <p>Todo funciona directamente en tu navegador. Entra a nuestra plataforma, mira los videos y empieza a aplicar la IA en minutos sin riesgo de descomponer nada.</p>
+            <div class="section-header text-center reveal-on-scroll" style="margin-bottom: 40px;">
+                <p class="section-eyebrow">Nuestra plataforma</p>
+                <h2 class="section-title">Estudia a tu ritmo, desde cualquier dispositivo.</h2>
+                <p class="section-desc" style="margin: 0 auto;">Todo funciona en tu navegador. Sin instalaciones, sin complicaciones. Entra, mira los videos y empieza a aplicar la IA en minutos.</p>
             </div>
             <div class="text-center reveal-on-scroll">
-                <img loading="lazy" src="/assets/ai-preview-C2-_uIg1.png" alt="Interfaz fácil de la plataforma IA" style="max-width: 100%; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                <img loading="lazy" src="/assets/ai-preview-C2-_uIg1.png" alt="Plataforma AI4U Academy — Cursos de Inteligencia Artificial online" style="max-width: 100%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.12); border: 1px solid var(--clr-border);" width="1200" height="750">
             </div>
         </div>
     </section>
 
-    <!-- SECTION 3: Nuestros Cursos -->
-    
-    <section class="syllabus-section bg-light" id="temario" style="padding: var(--spacing-xxl) 0;">
+
+    <!-- ══════════════════════════════════════════
+         PROBLEMA vs SOLUCIÓN
+    ══════════════════════════════════════════ -->
+    <section class="problem-section">
         <div class="container">
-            <div class="section-header text-center reveal-on-scroll">
-                <h2>Curso: Introducción a la IA desde Cero</h2>
-                <p>Nadie te explicará la Inteligencia Artificial de forma tan sencilla. Duración total: <strong>6 horas</strong> de contenido en video, ejercicios y acceso de por vida.</p>
+            <div class="text-center reveal-on-scroll" style="margin-bottom: 48px;">
+                <p class="section-eyebrow">¿Por qué AI4U Academy?</p>
+                <h2 class="section-title">El problema de aprender IA por tu cuenta</h2>
+                <p class="section-desc" style="margin: 0 auto;">Hay millones de tutoriales dispersos. Pero pocos tienen método, profundidad y acompañamiento real.</p>
             </div>
-            
-            <div class="flex-wrapper" style="display: flex; flex-wrap: wrap; gap: 32px; justify-content: space-between;">
-                <div class="syllabus-objectives" style="flex: 1; min-width: 300px;">
-                    <h3 style="margin-bottom: 20px;">¿Qué lograrás al terminar?</h3>
-                    <ul class="hero-bullets" style="color: var(--text-body); list-style: none; padding-left: 0;">
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> Entenderás qué es (y qué NO es) la IA.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> Sabrás usar herramientas como ChatGPT efectivamente.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> Evitarás errores comunes, alucinaciones y dependencia ciega.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> Integrarás la IA para ser mejor en tu trabajo y vida diaria.</li>
+            <div class="problem-grid reveal-on-scroll">
+                <div>
+                    <h3 style="color: #DC2626; font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">Sin AI4U Academy</h3>
+                    <ul class="problem-list">
+                        <li>
+                            <div class="problem-icon bad">❌</div>
+                            <div class="pl-text">
+                                <strong>Horas perdidas en YouTube</strong>
+                                <span>Contenido desactualizado, sin estructura ni progresión.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon bad">❌</div>
+                            <div class="pl-text">
+                                <strong>Frustración y abandono</strong>
+                                <span>Sin guía ni soporte, muchos dejan de aprender a mitad de camino.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon bad">❌</div>
+                            <div class="pl-text">
+                                <strong>Conocimiento fragmentado</strong>
+                                <span>Sabes de un par de herramientas pero no cómo integrarlas en tu trabajo.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon bad">❌</div>
+                            <div class="pl-text">
+                                <strong>Sin aplicación práctica</strong>
+                                <span>Mucha teoría, pocos ejercicios reales que puedas usar mañana mismo.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 style="color: var(--clr-action); font-size: 1rem; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 16px;">Con AI4U Academy</h3>
+                    <ul class="problem-list">
+                        <li>
+                            <div class="problem-icon good">✅</div>
+                            <div class="pl-text">
+                                <strong>Método claro y progresivo</strong>
+                                <span>6 módulos diseñados para llevarte de cero a dominar la IA paso a paso.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon good">✅</div>
+                            <div class="pl-text">
+                                <strong>Acompañamiento real</strong>
+                                <span>Nuestro equipo responde tus dudas con paciencia y claridad.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon good">✅</div>
+                            <div class="pl-text">
+                                <strong>Visión integral de la IA</strong>
+                                <span>Entiendes el ecosistema completo: herramientas, riesgos y estrategia.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="problem-icon good">✅</div>
+                            <div class="pl-text">
+                                <strong>Ejercicios aplicables desde el día 1</strong>
+                                <span>Prompts prefabricados y talleres prácticos para tu trabajo real.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         CÓMO FUNCIONA
+    ══════════════════════════════════════════ -->
+    <section class="how-section">
+        <div class="container">
+            <div class="text-center reveal-on-scroll">
+                <p class="section-eyebrow">Proceso simple</p>
+                <h2 class="section-title">Empieza a aprender en 3 pasos</h2>
+            </div>
+            <div class="steps-grid reveal-on-scroll">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Inscríbete</h3>
+                    <p>Completa el pago seguro en segundos y crea tu cuenta con acceso inmediato a toda la plataforma.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Aprende a tu ritmo</h3>
+                    <p>Sigue los módulos en orden o avanza según tus necesidades. Videos, ejercicios y materiales descargables.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Aplica y certifícate</h3>
+                    <p>Pon en práctica lo aprendido en tu trabajo y obtén tu certificado oficial de AI4U Academy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         TEMARIO / CURRICULUM
+    ══════════════════════════════════════════ -->
+    <section class="curriculum-section" id="temario">
+        <div class="container">
+            <div class="reveal-on-scroll">
+                <p class="section-eyebrow">Programa del curso</p>
+                <h2 class="section-title">Contenido completo de la formación</h2>
+                <p class="section-desc">Nadie te explicará la Inteligencia Artificial de forma tan sencilla y aplicada. <strong>6 horas</strong> de video, ejercicios y soporte continuo.</p>
+            </div>
+
+            <div class="curriculum-grid reveal-on-scroll">
+                <div class="curriculum-sidebar">
+                    <h3>¿Qué lograrás al terminar?</h3>
+                    <ul class="outcomes-list">
+                        <li>Entenderás qué es (y qué NO es) la IA — sin mitos ni exageraciones.</li>
+                        <li>Usarás herramientas como ChatGPT, Claude y Copilot con maestría.</li>
+                        <li>Evitarás errores comunes: alucinaciones, dependencia ciega y riesgos éticos.</li>
+                        <li>Integrarás la IA en tu trabajo diario para ser notablemente más productivo.</li>
+                        <li>Automatizarás tareas repetitivas y generarás contenido de alto nivel.</li>
+                    </ul>
+                    <div class="course-meta-box">
+                        <div class="meta-item">
+                            <strong>6 h</strong>
+                            <span>Duración total</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>6</strong>
+                            <span>Módulos</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>12 meses</strong>
+                            <span>Acceso completo</span>
+                        </div>
+                        <div class="meta-item">
+                            <strong>🏅</strong>
+                            <span>Certificado oficial</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 28px;">
+                        <a href="#pricing" class="btn btn-primary btn-pulse" style="width: 100%; justify-content: center;">Inscribirme ahora</a>
+                    </div>
+                </div>
+
+                <div class="module-list">
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">01</div>
+                            <div>
+                                <h4>Fundamentos de la Inteligencia Artificial</h4>
+                                <p>Qué es la IA, cómo funciona y dónde está transformando el mundo.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">45 min</span>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">02</div>
+                            <div>
+                                <h4>Cómo hablar con la IA: el arte del Prompting</h4>
+                                <p>Técnicas avanzadas para obtener respuestas precisas y útiles.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">1h 30 min</span>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">03</div>
+                            <div>
+                                <h4>Aplicaciones reales de la IA</h4>
+                                <p>Casos de uso concretos en negocios, educación, marketing y más.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">1h 30 min</span>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">04</div>
+                            <div>
+                                <h4>IA para productividad y automatización</h4>
+                                <p>Flujos de trabajo con Make, Zapier y agentes de IA autónomos.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">1h</span>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">05</div>
+                            <div>
+                                <h4>Riesgos, ética y límites de la IA</h4>
+                                <p>Cómo usar la IA de forma responsable, detectar sesgos y proteger tu privacidad.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">45 min</span>
+                    </div>
+                    <div class="module-item">
+                        <div class="module-item-left">
+                            <div class="module-num">06</div>
+                            <div>
+                                <h4>Taller práctico final</h4>
+                                <p>Proyecto integrador: aplica todo lo aprendido a tu contexto real.</p>
+                            </div>
+                        </div>
+                        <span class="module-duration">30 min</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         INSTRUCTOR / EQUIPO
+    ══════════════════════════════════════════ -->
+    <section class="instructor-section">
+        <div class="container instructor-grid">
+            <div class="instructor-img-wrap reveal-on-scroll">
+                <img loading="lazy" src="/assets/ai-instructor-Cqjf0n4W.png" alt="Equipo de AI4U Academy — Formación en IA de alto nivel">
+            </div>
+            <div class="instructor-content reveal-on-scroll">
+                <p style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; color: var(--clr-action); margin-bottom: 10px;">Nuestro equipo</p>
+                <h2>Aprende con acompañamiento real, no con videos grabados en frío.</h2>
+                <p>En <strong>AI4U Academy</strong> creemos que la mejor formación es la que tiene un ser humano detrás. Nuestro equipo responde a tus dudas, te guía en los momentos de bloqueo y te asegura de que apliques lo que aprendes.</p>
+                <p>La Inteligencia Artificial no es solo para técnicos. Es para todos. Y nuestra misión es que cualquier persona, sin importar su nivel previo, pueda dominarla con confianza.</p>
+                <div class="instructor-stats">
+                    <div class="instructor-stat">
+                        <strong>+1,000</strong>
+                        <span>Estudiantes formados</span>
+                    </div>
+                    <div class="instructor-stat">
+                        <strong>4.8★</strong>
+                        <span>Valoración media</span>
+                    </div>
+                    <div class="instructor-stat">
+                        <strong>100%</strong>
+                        <span>Soporte garantizado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         TESTIMONIALS
+    ══════════════════════════════════════════ -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="text-center reveal-on-scroll">
+                <p class="section-eyebrow">Lo que dicen nuestros alumnos</p>
+                <h2 class="section-title">Resultados reales desde el primer módulo</h2>
+            </div>
+            <div class="testimonials-grid reveal-on-scroll">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Empecé sin saber nada de IA y en menos de una semana ya estaba usando ChatGPT para hacer informes que antes me tomaban dos días. El método es muy claro."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">LP</div>
+                        <div class="author-info">
+                            <strong>Laura P.</strong>
+                            <span>Coordinadora de proyectos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Lo que más valoré fue el acompañamiento. Pregunté tres veces la misma duda y siempre me respondieron con paciencia. Se nota que se preocupan por el alumno."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MA</div>
+                        <div class="author-info">
+                            <strong>Miguel A.</strong>
+                            <span>Emprendedor digital</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">★★★★★</div>
+                    <p class="testimonial-text">"Recomendé el curso a todo mi equipo. La parte de automatización con Make nos ahorró fácilmente 10 horas semanales en tareas administrativas."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">CR</div>
+                        <div class="author-info">
+                            <strong>Carlos R.</strong>
+                            <span>Director de operaciones</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         PRICING
+    ══════════════════════════════════════════ -->
+    <section class="pricing-v2" id="pricing">
+        <div class="container">
+            <div class="reveal-on-scroll">
+                <p class="section-eyebrow">Inversión</p>
+                <h2 class="section-title">Acceso completo al curso de IA</h2>
+                <p class="section-desc">Una inversión única que se amortiza la primera semana que usas la IA en tu trabajo.</p>
+            </div>
+            <div class="pricing-v2-grid reveal-on-scroll">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin-bottom: 20px; color: var(--clr-primary);">Todo lo que incluye tu acceso:</h3>
+                    <ul class="pricing-highlights">
+                        <li>
+                            <div class="ph-icon">🎬</div>
+                            <div class="ph-text">
+                                <strong>6 horas de video de alta calidad</strong>
+                                <span>Producción cuidada, ritmo ágil y ejemplos reales en cada módulo.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ph-icon">♾️</div>
+                            <div class="ph-text">
+                                <strong>Acceso durante 12 meses</strong>
+                                <span>Contenido disponible por un año completo desde tu inscripcion.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ph-icon">📦</div>
+                            <div class="ph-text">
+                                <strong>Materiales descargables + prompts</strong>
+                                <span>Recursos listos para copiar y usar desde el primer dia.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ph-icon">🔄</div>
+                            <div class="ph-text">
+                                <strong>Actualizaciones del curso</strong>
+                                <span>El contenido se actualiza segun evolucione la IA.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ph-icon">💬</div>
+                            <div class="ph-text">
+                                <strong>Soporte directo con el equipo</strong>
+                                <span>Respuesta a tus dudas vía WhatsApp y email, sin formularios intermedios.</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="ph-icon">🏅</div>
+                            <div class="ph-text">
+                                <strong>Certificado oficial de AI4U Academy</strong>
+                                <span>Demuestra tus conocimientos en IA con un certificado avalado.</span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
 
-                <div class="syllabus-modules" style="flex: 1.5; min-width: 320px;">
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 1: Fundamentos <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(45 min)</span></h4>
-                    </div>
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 2: Cómo hablar con la IA <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(1h 30 min)</span></h4>
-                    </div>
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 3: Aplicaciones reales <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(1h 30 min)</span></h4>
-                    </div>
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 4: IA para productividad <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(1h)</span></h4>
-                    </div>
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 5: Riesgos, ética y límites <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(45 min)</span></h4>
-                    </div>
-                    <div class="module-card" style="background: white; border-left: 4px solid var(--clr-primary); padding: 16px; margin-bottom: 12px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
-                        <h4 style="margin: 0; color: var(--clr-primary);">Módulo 6: Taller práctico final <span style="font-size: 0.8em; color: var(--text-muted); font-weight: normal; float: right;">(30 min)</span></h4>
-                    </div>
-                </div>
-            </div>
-            <div style="text-align: center; margin-top: 32px;">
-                <a href="#pricing" class="btn btn-primary btn-pulse">Inscribirse al Curso</a>
-            </div>
-        </div>
-    </section>
-
-
-
-    <!-- SECTION PROMO: Geometría en Movimiento -->
-    
-
-    <!-- SECTION 4: Precio y Garantía -->
-    
-    <section class="pricing-section" id="pricing">
-        <div class="container">
-            <div class="pricing-wrapper reveal-on-scroll">
-                <div class="pricing-content">
-                    <h2>El futuro es hoy. Aprende Inteligencia Artificial.</h2>
-                    <p class="pricing-context" style="margin-bottom: 24px;">Transforma tu vida profesional hoy con el Curso Oficial "Introducción a la IA desde Cero".</p>
-                    <ul class="pricing-features hero-bullets" style="list-style: none; padding-left:0; color:var(--text-body);">
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> <strong>Curso online (6 horas)</strong> con acceso permanente.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> <strong>Plataforma 24/7</strong> para estudiar a tu ritmo.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> <strong>Materiales descargables</strong> y prompts prefabricados.</li>
-                        <li style="margin-bottom: 12px; display: flex;"><span style="color:var(--clr-primary); margin-right:8px;">✔</span> Ejercicios prácticos reales para tu día a día.</li>
+                <div class="pricing-card-v2">
+                    <p class="price-label">Precio del curso</p>
+                    <div class="price-main"><sup>$</sup>1,500<sub> MXN</sub></div>
+                    <p class="price-note">Pago único · Acceso durante 12 meses · Sin suscripciones</p>
+                    <ul class="price-features">
+                        <li>6h de video + ejercicios practicos</li>
+                        <li>Acceso durante 12 meses</li>
+                        <li>Materiales y prompts descargables</li>
+                        <li>Soporte directo con el equipo</li>
+                        <li>Certificado oficial incluido</li>
                     </ul>
-                </div>
-                <div class="pricing-card" style="border: 2px solid var(--clr-primary); border-radius: 12px; padding: 32px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); background: white;">
-                    
-                    <div class="price-current" style="font-size: 3rem; font-weight: 800; color: var(--clr-dark); margin-bottom: 8px;"><span class="currency" style="font-size: 1.5rem; vertical-align: super;">$</span>1,500<span class="currency" style="font-size: 1rem; color: var(--text-muted);">MXN</span></div>
-                    
-                    
-                    <button class="btn btn-primary btn-block btn-pulse btn-signup" style="width: 100%; font-size: 1.1rem; padding: 14px;">Quiero inscribirme ahora</button>
-                    <p style="font-size: 0.85rem; color: #64748b; margin-top: 16px; text-align: center;"><svg style="width: 16px; height: 16px; display: inline; vertical-align: middle; margin-right: 4px;" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" /></svg> Pago seguro y encriptado.</p>
+                    <button class="btn btn-primary btn-pulse price-cta btn-signup">
+                        Quiero inscribirme ahora
+                    </button>
+                    <p class="price-guarantee">
+                        🔒 Pago seguro y encriptado
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
 
-    <!-- SECTION 5: Cómo Accedes -->
-    
-
-    <!-- SECTION 6: Prueba Social -->
-    
-
-    <!-- SECTION 7: AI4U Academy Legacy -->
-    
-
-    <!-- SECTION 8: DEMO Interactiva (Ruffle) -->
-    
-
-    <!-- SECTION 9: Creador -->
-    <section class="creator-section">
-        <div class="container creator-grid">
-            <div class="creator-image-col reveal-on-scroll">
-                <img loading="lazy" src="/assets/ai-instructor-Cqjf0n4W.png" alt="Instructora amable de IA" style="border-radius: 12px; width: 100%; box-shadow: var(--shadow-xl);">
-            </div>
-            <div class="creator-content reveal-on-scroll">
-                <h2>Aprende con acompañamiento real</h2>
-                <p>Nuestra meta es que te sientas apoyado. En <strong>AI4U Academy</strong>, nuestro equipo responde a tus dudas, te guía y te enseña paso a paso con la mayor paciencia y claridad. La Inteligencia Artificial es para todos.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- SECTION 8: FAQ -->
+    <!-- ══════════════════════════════════════════
+         FAQ
+    ══════════════════════════════════════════ -->
     <section class="faq-section bg-light">
         <div class="container reveal-on-scroll">
-            <div class="section-header text-center">
-                <h2>Tus dudas, respondidas.</h2>
+            <div class="section-header text-center" style="margin-bottom: 40px;">
+                <p class="section-eyebrow">Preguntas frecuentes</p>
+                <h2 class="section-title">Todo lo que necesitas saber</h2>
             </div>
-
             <div class="faq-wrapper">
                 <h3 class="faq-group-title">Para Estudiantes y Profesionales:</h3>
                 <div class="accordion">
@@ -281,27 +1426,34 @@
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>Sí. Actualizamos nuestros cursos periódicamente para cubrir las versiones más recientes de ChatGPT, Claude, Midjourney y otras plataformas clave del mundo de la IA.</p>
+                            <p>Sí. Actualizamos nuestros cursos periódicamente para cubrir las versiones más recientes de ChatGPT, Claude, Midjourney y otras plataformas clave. Tu acceso incluye estas actualizaciones sin costo adicional.</p>
                         </div>
                     </div>
-
                     <div class="faq-item">
                         <button class="faq-btn" aria-expanded="false">
-                            <span class="faq-question">¿Necesito saber programar?</span>
+                            <span class="faq-question">¿Necesito saber programar para tomar este curso?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>¡No! Nuestros cursos están diseñados desde cero y enfocados en resultados prácticos. Aprenderás a dominar la Inteligencia Artificial usando lenguaje natural sin escribir una sola línea de código.</p>
+                            <p>¡No! El curso está diseñado desde cero y enfocado en resultados prácticos. Aprenderás a dominar la IA usando lenguaje natural, sin escribir una sola línea de código.</p>
                         </div>
                     </div>
-
                     <div class="faq-item">
                         <button class="faq-btn" aria-expanded="false">
-                            <span class="faq-question">¿Tengo acceso para siempre?</span>
+                            <span class="faq-question">¿Por cuánto tiempo tengo acceso?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>Sí. Con tu inscripción obtienes acceso de por vida a todo el material del curso en nuestra plataforma, incluyendo futuras actualizaciones esenciales.</p>
+                            <p>Obtienes acceso durante 12 meses a todo el material de la plataforma. El contenido se actualiza periódicamente según evoluciona la IA.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">
+                            <span class="faq-question">¿En cuánto tiempo podré ver resultados?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer" hidden>
+                            <p>La mayoría de los alumnos aplican lo aprendido desde el primer módulo. En el segundo módulo ya tendrás prompts funcionales que puedes usar en tu trabajo real ese mismo día.</p>
                         </div>
                     </div>
                 </div>
@@ -314,89 +1466,101 @@
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>Absolutamente. En lugar de perder horas buscando videos desactualizados, aquí te ofrecemos un método comprobado paso a paso, ejercicios prácticos orientados a tus objetivos y acompañamiento guiado.</p>
+                            <p>Absolutamente. En lugar de perder horas buscando videos desactualizados y desconectados, aquí tienes un método estructurado, ejercicios prácticos y acompañamiento real de un equipo que responde tus dudas.</p>
                         </div>
                     </div>
-
                     <div class="faq-item">
                         <button class="faq-btn" aria-expanded="false">
                             <span class="faq-question">¿Me servirá para ser más productivo en mi trabajo?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>Sí, de hecho esa es la principal ventaja. Aprenderás a automatizar tareas repetitivas, generar y analizar contenido mucho más rápido, y tomar mejores decisiones apoyándote en agentes de Inteligencia Artificial.</p>
+                            <p>Sí, esa es la principal ventaja. Aprenderás a automatizar tareas repetitivas, generar y analizar contenido en minutos, y tomar mejores decisiones apoyándote en herramientas de IA avanzadas.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <button class="faq-btn" aria-expanded="false">
+                            <span class="faq-question">¿Hay descuentos para equipos o empresas?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer" hidden>
+                            <p>Sí. Contáctanos por WhatsApp o email si deseas inscribir a un equipo o empresa. Ofrecemos tarifas grupales y podemos adaptar el contenido a tus necesidades específicas.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="text-center mt-4">
-                    <a href="#contacto" class="btn btn-secondary btn-outline">¿Más dudas? Escríbenos</a>
+                    <a href="#contacto" class="btn btn-secondary btn-outline">¿Más dudas? Escríbenos directamente →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 9: Pre-footer CTA -->
-    <section class="cta-final-section pattern-bg text-center">
+
+    <!-- ══════════════════════════════════════════
+         CTA FINAL
+    ══════════════════════════════════════════ -->
+    <section class="cta-final-v2">
         <div class="container reveal-on-scroll">
-            <h2>La plataforma está lista. Solo falta que empieces.</h2>
-            <p class="cta-subtitle">Acceso de por vida a 6 horas de contenido práctico, recursos descargables y actualizaciones continuas.</p>
-
-            <div class="final-price-box">
-                <span class="strikethrough">$3,000 MXN</span>
-                <span class="final-highlight">$1,500 MXN</span>
-                <p>Pago único — Acceso inmediato</p>
+            <h2>La plataforma está lista.<br>Solo falta que empieces.</h2>
+            <p>Acceso completo a 6 horas de formación práctica, materiales descargables y actualizaciones continuas.</p>
+            <div class="cta-price-pill">
+                <span class="old">$3,000 MXN</span>
+                <span class="new">$1,500 MXN</span>
+                <span class="badge-save">50% OFF</span>
             </div>
-
-            <a href="https://wa.me/5212211173457?text=Hola%20me%20interesa%20adquirir%20el%20curso%20de%20Inteligencia%20Artificial%20por%201500%20MXN"
-                class="btn btn-primary btn-lg" data-track="cta-final">¡Comprar por WhatsApp — $1,500 MXN!</a>
-
-            <div class="mt-3">
-                <a href="#preview-section" class="text-link">¿Aún no estás seguro/a? Explora la vista previa de la plataforma
-                    primero →</a>
+            <div class="cta-final-v2-actions">
+                <a href="https://wa.me/5212211120596?text=Hola%20me%20interesa%20adquirir%20el%20curso%20de%20Inteligencia%20Artificial%20por%201500%20MXN"
+                    class="btn btn-primary btn-lg" data-track="cta-final">
+                    Comprar por WhatsApp — $1,500 MXN
+                </a>
+                <button class="btn btn-secondary btn-signup" style="font-size: 1rem; padding: 16px 28px;">
+                    Pagar con tarjeta →
+                </button>
             </div>
-
-            <div class="trust-icons-row mt-4">
+            <div class="cta-trust-row">
                 <span>🔒 Pago seguro</span>
-                <span class="dot-separator">·</span>
-                <span>🎓 Acceso de por vida</span>
+                <span>🎓 Certificado incluido</span>
+                <span>📚 12 meses de acceso</span>
+                <span>⚡ Acceso inmediato</span>
             </div>
         </div>
     </section>
 
-    <!-- SECTION 10: Contacto -->
-    <section class="contact-section" id="contacto">
-        <div class="container reveal-on-scroll">
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <h2>¿Alguna duda antes de comprar?</h2>
-                    <p>Sin formularios complicados. Si tienes alguna pregunta sobre el material, escríbenos
-                        directamente.</p>
 
-                    <div class="contact-methods">
-                        <a href="mailto:wgmagnets1@gmail.com" class="contact-card">
-                            <div class="icon">📧</div>
-                            <div>
-                                <strong>wgmagnets1@gmail.com</strong>
-                                <span>Respondemos rápido</span>
-                            </div>
-                        </a>
-                        <a href="https://wa.me/5212211173457?text=Hola%20me%20interesa%20el%20AI4U Academy%2C%20me%20gustaría%20más%20información%20y%20saber%20como%20comprar."
-                            target="_blank" class="contact-card whatsapp-card">
-                            <div class="icon-wrapper">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527" />
-                                </svg>
-                            </div>
-                            <div>
-                                <strong>WhatsApp</strong>
-                                <span style="font-size: 1.1rem; display: block; margin-top: 4px;">+52 1 221 117
-                                    3457</span>
-                            </div>
-                        </a>
-                    </div>
+    <!-- ══════════════════════════════════════════
+         CONTACTO
+    ══════════════════════════════════════════ -->
+    <section class="contact-v2" id="contacto">
+        <div class="container">
+            <div class="contact-v2-grid reveal-on-scroll">
+                <div>
+                    <p class="contact-section-label">Contacto directo</p>
+                    <h2 style="font-size: 1.8rem; margin-bottom: 12px;">¿Tienes alguna duda antes de inscribirte?</h2>
+                    <p style="color: var(--clr-text-muted); margin-bottom: 28px; line-height: 1.7;">Sin formularios complicados ni esperas. Escríbenos directamente y te respondemos en minutos con toda la información que necesitas.</p>
+
+                    <a href="https://wa.me/5212211120596?text=Hola%20me%20interesa%20AI4U%20Academy%2C%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n."
+                        target="_blank" class="contact-method-card whatsapp-v2">
+                        <div class="cm-icon wa-icon">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="#25D366" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527" />
+                            </svg>
+                        </div>
+                        <div class="cm-text">
+                            <strong>WhatsApp — Respuesta inmediata</strong>
+                            <span>221 1120596 · Escríbenos ahora mismo</span>
+                        </div>
+                        <div class="cm-arrow">→</div>
+                    </a>
+
+                    <a href="mailto:contacto@ai4uacademy.com" class="contact-method-card">
+                        <div class="cm-icon email-icon">📧</div>
+                        <div class="cm-text">
+                            <strong>Email — Respondemos en menos de 24h</strong>
+                            <span>contacto@ai4uacademy.com</span>
+                        </div>
+                        <div class="cm-arrow">→</div>
+                    </a>
                 </div>
 
                 <div class="contact-form-container">
@@ -408,7 +1572,6 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" id="email" placeholder="tu@email.com" required>
-
                         </div>
                         <div class="form-group">
                             <label for="message">Mensaje</label>
@@ -418,12 +1581,10 @@
                             style="display: flex; align-items: center; justify-content: center; gap: 12px; background: #25D366; color: #fff; border: none; font-size: 1.05rem; font-weight: 700; letter-spacing: 0.5px; padding: 16px 24px; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 18px rgba(37,211,102,0.35); transition: background 0.2s, box-shadow 0.2s, transform 0.15s;"
                             onmouseover="this.style.background='#1ebe5d';this.style.boxShadow='0 6px 24px rgba(37,211,102,0.5)';this.style.transform='translateY(-2px)'"
                             onmouseout="this.style.background='#25D366';this.style.boxShadow='0 4px 18px rgba(37,211,102,0.35)';this.style.transform='translateY(0)'">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527" />
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .011 5.403.01 12.039c0 2.12.541 4.191 1.57 6.012L0 24l6.102-1.6c1.763.96 3.747 1.465 5.765 1.466h.005c6.634 0 12.036-5.405 12.038-12.041a11.905 11.905 0 00-3.395-8.527" />
                             </svg>
-                            📲 ENVIAR MENSAJE POR WHATSAPP
+                            Enviar mensaje por WhatsApp
                         </button>
                     </form>
                 </div>
@@ -431,48 +1592,49 @@
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-bottom">
+
+    <!-- ══════════════════════════════════════════
+         FOOTER
+    ══════════════════════════════════════════ -->
+    <footer class="footer-v2">
+        <div class="container footer-v2-inner">
+            <div>
+                <img src="assets/images/LOGO.png" alt="AI4U Academy" height="32" style="margin-bottom: 6px;">
                 <p>&copy; 2026 AI4U Academy. Todos los derechos reservados.</p>
-                <div class="footer-links" style="display: flex; gap: 15px;">
-                    <a href="terminos.html" style="color: var(--clr-action); text-decoration: none;">Términos de
-                        Servicio y Condiciones</a>
-                </div>
+            </div>
+            <div class="footer-v2-links">
+                <a href="terminos.html">Términos y Condiciones</a>
+                <a href="mailto:contacto@ai4uacademy.com">contacto@ai4uacademy.com</a>
+                <a href="https://wa.me/5212211120596" target="_blank">WhatsApp: 221 1120596</a>
             </div>
         </div>
     </footer>
+
 
     <!-- Modal for Preview -->
     <div class="modal-overlay" id="modal-preview" aria-hidden="true" role="dialog">
         <div class="modal-content">
             <button class="modal-close" id="modal-close" aria-label="Cerrar">&times;</button>
             <div class="modal-body">
-
-            <div class="google-auth-wrapper" style="text-align: center; margin-bottom: 20px;">
-                <button type="button" id="btn-google-auth" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: white; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 1rem; color: #334155; transition: all 0.2s;">
-                    <svg style="width: 24px; height: 24px; margin-right: 12px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-                    </svg>
-                    Continuar con Google
-                </button>
-                <div style="display: flex; align-items: center; margin: 20px 0; color: #94a3b8; font-size: 0.9rem;">
-                    <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
-                    <span style="padding: 0 10px;">o con tu correo</span>
-                    <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                <div class="google-auth-wrapper" style="text-align: center; margin-bottom: 20px;">
+                    <button type="button" id="btn-google-auth" style="display: flex; align-items: center; justify-content: center; width: 100%; padding: 12px; background: white; border: 1px solid #cbd5e1; border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 1rem; color: #334155; transition: all 0.2s;">
+                        <svg style="width: 24px; height: 24px; margin-right: 12px;" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                        </svg>
+                        Continuar con Google
+                    </button>
+                    <div style="display: flex; align-items: center; margin: 20px 0; color: #94a3b8; font-size: 0.9rem;">
+                        <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                        <span style="padding: 0 10px;">o con tu correo</span>
+                        <div style="flex: 1; height: 1px; background: #e2e8f0;"></div>
+                    </div>
                 </div>
-            </div>
-
-
             </div>
         </div>
     </div>
-
-
 
     <!-- Modal for Creator Video -->
     <div class="modal-overlay" id="creator-video-modal" aria-hidden="true" role="dialog">
@@ -493,120 +1655,11 @@
     <div class="sticky-cta-mobile" id="sticky-cta">
         <div class="sticky-inner">
             <div class="sticky-price">$1,500 MXN</div>
-            <a href="#pricing" class="btn btn-primary" data-track="cta-sticky">Inscribirse</a>
+            <a href="#pricing" class="btn btn-primary btn-sm" data-track="cta-sticky">Inscribirse ahora</a>
         </div>
     </div>
 
     <!-- Scripts -->
-    <!-- WhatsApp Sticky Button -->
-    <a href="https://wa.me/5212211173457?text=Hola%20me%20interesa%20el%20AI4U Academy%2C%20me%20gustaría%20más%20información%20y%20saber%20como%20comprar."
-        target="_blank" class="sticky-whatsapp-btn" aria-label="Contactar por WhatsApp">
-        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
-            style="width: 32px; height: 32px;">
-            <path
-                d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766 0-3.181-2.587-5.771-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.984-.365-1.739-.757-2.874-2.513-2.96-2.63-.086-.115-.693-.924-.693-1.762 0-.839.435-1.25.591-1.416.155-.165.338-.207.45-.207.113 0 .225 0 .324.005.102.005.24-.038.375.285.135.323.463 1.13.502 1.21.039.079.065.171.011.281-.054.109-.081.182-.161.276-.081.094-.17.21-.242.281-.081.081-.166.17-.071.332.095.162.423.696.908 1.127.625.557 1.151.73 1.313.811.162.081.257.067.352-.043.095-.109.407-.472.515-.633.109-.162.218-.135.366-.081.148.054.939.444 1.1.524.161.081.268.121.308.188.039.067.039.39-.105.795z"
-                fill="white" />
-            <path
-                d="M12.036 3c-4.964 0-9 4.036-9 9 0 1.587.414 3.125 1.2 4.473l-1.275 4.664 4.773-1.253A8.956 8.956 0 0012.036 21c4.963 0 9-4.037 9-9 0-4.964-4.037-9-9-9zm0 16.5c-1.442 0-2.853-.372-4.101-1.077l-.295-.165-3.047.8 1.111-3-.18-.288c-.776-1.238-1.187-2.68-1.187-4.17 0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5z"
-                fill="#25D366" />
-        </svg>
-    </a>
-    <!-- Image Lightbox Modal -->
-    <div id="image-lightbox" class="image-lightbox" aria-hidden="true">
-        <span class="lightbox-close">&times;</span>
-        <img loading="lazy" class="lightbox-content" id="lightbox-img">
-        <div id="lightbox-caption"></div>
-    </div>
-
-
-<!-- Signup Modal -->
-<div id="signup-modal" class="modal-overlay">
-    <div class="modal-content fade-in-up">
-        <button class="modal-close" id="close-signup-modal">&times;</button>
-        <div class="modal-header">
-            <h3 style="margin-bottom:8px;">Crea tu cuenta gratis</h3>
-            <p style="color:var(--text-muted); font-size:0.95rem; margin-bottom:24px;">Únete a la academia y descubre el poder de la IA en tu vida diaria. Sin compromisos y sin tarjeta de crédito.</p>
-        </div>
-        <form id="auth-form" class="signup-form">
-            <div class="form-group">
-                <label for="name">Tu nombre (cómo te llamaremos)</label>
-                <input type="text" id="name" placeholder="Ej. Ana Pérez" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Correo electrónico</label>
-                <input type="email" id="email" placeholder="ana@ejemplo.com" required>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block" style="padding:14px; font-size:1.1rem; width:100%;">Comenzar mi aprendizaje hoy</button>
-            <p class="privacy-note" style="font-size: 0.8rem; color: #64748b; text-align: center; margin-top: 16px;">Tus datos están seguros. Jamás te enviaremos spam.</p>
-        </form>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const modal = document.getElementById('signup-modal');
-        const btns = document.querySelectorAll('.btn-signup');
-        const closeBtn = document.getElementById('close-signup-modal');
-        
-        btns.forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                modal.classList.add('active');
-            });
-        });
-        
-        closeBtn.addEventListener('click', () => {
-            modal.classList.remove('active');
-        });
-        
-        modal.addEventListener('click', (e) => {
-            if(e.target === modal) modal.classList.remove('active');
-        });
-    });
-</script>
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const googleBtn = document.getElementById('btn-google-auth');
-        if(googleBtn) {
-            googleBtn.addEventListener('click', async () => {
-                if (typeof supabase === 'undefined') {
-                    alert('Supabase no está instanciado.');
-                    return;
-                }
-                const originalText = googleBtn.innerHTML;
-                googleBtn.textContent = 'Conectando con Google...';
-                try {
-                    const { data, error } = await supabase.auth.signInWithOAuth({
-                      provider: 'google',
-                      options: {
-                        redirectTo: window.location.origin
-                      }
-                    });
-                    if (error) throw error;
-                } catch (err) {
-                    console.error('Auth error', err);
-                    alert('Por favor, activa el Proveedor de Google en tu panel de autenticación de Supabase.');
-                    googleBtn.innerHTML = originalText;
-                }
-            });
-            
-            googleBtn.addEventListener('mouseenter', () => {
-                googleBtn.style.backgroundColor = '#f8fafc';
-                googleBtn.style.transform = 'translateY(-1px)';
-                googleBtn.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
-            });
-            googleBtn.addEventListener('mouseleave', () => {
-                googleBtn.style.backgroundColor = 'white';
-                googleBtn.style.transform = 'none';
-                googleBtn.style.boxShadow = 'none';
-            });
-        }
-    });
-</script>
 
 </body>
-
 </html>

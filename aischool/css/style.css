@@ -5,19 +5,20 @@
    ========================================================================== */
 
 :root {
-    /* Colors */
-    --clr-primary: #0B192C;
-    /* Dark Blue - Trust, Authority */
+    /* Colors - Light Mode */
+    --clr-primary: #1E40AF;
+    /* Blue - Primary Brand */
     --clr-action: #00A389;
     /* Emerald - Success, Approved */
     --clr-action-hover: #00846F;
     --clr-accent: #FF8C42;
     /* Warm Orange - Energy, Urgency */
-    --clr-bg: #F8F9FA;
-    /* Soft Light Gray */
+    --clr-bg: #F8FAFC;
+    /* Light Gray Background */
     --clr-white: #FFFFFF;
-    --clr-text-main: #2D3E50;
-    --clr-text-muted: #6B7C93;
+    --clr-text-main: #1E293B;
+    /* Dark Slate Text */
+    --clr-text-muted: #64748B;
     --clr-border: #E2E8F0;
 
     /* Typography */
@@ -129,21 +130,21 @@ img {
 
 /* Patterns & Aesthetics */
 .pattern-bg {
-    background-color: var(--clr-primary);
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-color: #EFF6FF;
+    background-image: radial-gradient(rgba(30, 64, 175, 0.05) 1px, transparent 1px);
     background-size: 20px 20px;
-    color: var(--clr-white);
+    color: var(--clr-text-main);
 }
 
 .pattern-bg h1,
 .pattern-bg h2,
 .pattern-bg h3 {
-    color: var(--clr-white);
+    color: var(--clr-primary);
 }
 
 .pattern-bg-alt {
-    background-color: #E2E8F0;
-    background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, transparent 25%, transparent 75%, rgba(255, 255, 255, 0.4) 75%, rgba(255, 255, 255, 0.4)), repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.4) 25%, var(--clr-bg) 25%, var(--clr-bg) 75%, rgba(255, 255, 255, 0.4) 75%, rgba(255, 255, 255, 0.4));
+    background-color: #F1F5F9;
+    background-image: repeating-linear-gradient(45deg, rgba(30, 64, 175, 0.05) 25%, transparent 25%, transparent 75%, rgba(30, 64, 175, 0.05) 75%, rgba(30, 64, 175, 0.05)), repeating-linear-gradient(45deg, rgba(30, 64, 175, 0.05) 25%, var(--clr-bg) 25%, var(--clr-bg) 75%, rgba(30, 64, 175, 0.05) 75%, rgba(30, 64, 175, 0.05));
     background-position: 0 0, 20px 20px;
     background-size: 40px 40px;
 }
@@ -188,13 +189,13 @@ img {
 
 .btn-secondary {
     background-color: transparent;
-    color: var(--clr-white);
-    border-color: var(--clr-white);
+    color: var(--clr-primary);
+    border-color: var(--clr-primary);
 }
 
 .btn-secondary:hover {
-    background-color: var(--clr-white);
-    color: var(--clr-primary);
+    background-color: var(--clr-primary);
+    color: var(--clr-white);
     transform: translateY(-2px);
 }
 
@@ -287,7 +288,7 @@ img {
     font-family: var(--font-heading);
     font-weight: 800;
     font-size: 1.25rem;
-    color: var(--clr-white);
+    color: var(--clr-primary);
     letter-spacing: -0.5px;
 }
 
@@ -301,6 +302,7 @@ img {
     overflow: hidden;
     position: relative;
     border-bottom: 8px solid var(--clr-accent);
+    background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #FEF3C7 100%);
 }
 
 .hero-grid {
@@ -328,18 +330,18 @@ img {
     font-size: clamp(2.5rem, 5vw, 4rem);
     letter-spacing: -1px;
     margin-bottom: var(--spacing-md);
-    color: var(--clr-white);
+    color: var(--clr-primary);
 }
 
 .hero-subtitle {
     font-size: 1.25rem;
-    color: #A0AEC0;
+    color: var(--clr-text-muted);
     margin-bottom: var(--spacing-md);
 }
 
 .hero-context {
     font-size: 1rem;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--clr-text-main);
     margin-bottom: var(--spacing-md);
 }
 
@@ -355,7 +357,7 @@ img {
     align-items: flex-start;
     gap: 12px;
     font-weight: 500;
-    color: var(--clr-white);
+    color: var(--clr-text-main);
 }
 
 .hero-bullets svg {
@@ -701,13 +703,14 @@ section {
 }
 
 .pricing-wrapper {
-    background: var(--clr-primary);
+    background: var(--clr-white);
     border-radius: 20px;
     display: flex;
     flex-direction: column;
-    color: var(--clr-white);
+    color: var(--clr-text-main);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
+    border: 1px solid var(--clr-border);
 }
 
 .pricing-content {
@@ -715,16 +718,16 @@ section {
 }
 
 .pricing-content h2 {
-    color: var(--clr-white);
+    color: var(--clr-primary);
     font-size: 2rem;
 }
 
 .pricing-context {
     font-size: 1.1rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--clr-text-muted);
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .pricing-features {
@@ -746,7 +749,7 @@ section {
 }
 
 .pricing-card {
-    background: var(--clr-white);
+    background: #EFF6FF;
     color: var(--clr-text-main);
     padding: 40px;
     display: flex;
@@ -835,7 +838,7 @@ section {
     transform: translateX(-50%);
     width: 30px;
     height: 30px;
-    background: var(--clr-primary);
+    background: var(--clr-action);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -1015,12 +1018,12 @@ section {
     width: 100%;
     aspect-ratio: 4/3;
     max-height: 80vh;
-    background: var(--clr-primary);
+    background: #E2E8F0;
     border-radius: var(--radius);
     overflow: hidden;
     position: relative;
     box-shadow: var(--shadow-xl);
-    border: 8px solid var(--clr-text-main);
+    border: 8px solid var(--clr-border);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -1067,14 +1070,14 @@ section {
 
 .creator-photo-placeholder {
     aspect-ratio: 1;
-    background: linear-gradient(135deg, var(--clr-primary) 0%, #1e457d 100%);
+    background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
     border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--clr-primary);
     box-shadow: var(--shadow-lg);
-    border: 8px solid var(--clr-bg);
+    border: 8px solid var(--clr-border);
 }
 
 .user-icon {
@@ -1196,11 +1199,12 @@ section {
 .cta-final-section {
     padding: var(--spacing-xl) 0;
     border-top: 8px solid var(--clr-action);
+    background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
 }
 
 .cta-subtitle {
     font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--clr-text-muted);
     max-width: 600px;
     margin: 0 auto 30px;
 }
@@ -1211,7 +1215,7 @@ section {
 
 .strikethrough {
     text-decoration: line-through;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--clr-text-muted);
     font-size: 1.2rem;
     margin-right: 10px;
 }
@@ -1220,29 +1224,29 @@ section {
     font-family: var(--font-heading);
     font-size: 3rem;
     font-weight: 900;
-    color: var(--clr-accent);
+    color: var(--clr-action);
 }
 
 .final-price-box p {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--clr-text-muted);
     margin-top: 5px;
     font-weight: 500;
 }
 
 .text-link {
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--clr-primary);
     text-decoration: underline;
     font-weight: 500;
     font-size: 0.9rem;
 }
 
 .text-link:hover {
-    color: white;
+    color: var(--clr-action);
 }
 
 .trust-icons-row {
     font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: var(--clr-text-muted);
     display: flex;
     justify-content: center;
     gap: 8px;
@@ -1423,7 +1427,7 @@ section {
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(11, 25, 44, 0.8);
+    background: rgba(30, 41, 59, 0.7);
     backdrop-filter: blur(4px);
     display: flex;
     align-items: center;
@@ -1594,7 +1598,7 @@ section {
     border-radius: var(--radius);
     overflow: hidden;
     box-shadow: var(--shadow-lg);
-    background: var(--clr-primary);
+    background: #E2E8F0;
     aspect-ratio: 16/9;
 }
 
@@ -1840,7 +1844,7 @@ section {
 
 .temario-item {
     display: block;
-    background-color: #f8f9fa;
+    background-color: var(--clr-bg);
     border-radius: 6px;
     padding: 16px 20px;
     text-decoration: none;
@@ -2046,7 +2050,7 @@ section {
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(30, 41, 59, 0.95);
     backdrop-filter: blur(8px);
     opacity: 0;
     transition: opacity 0.3s ease;

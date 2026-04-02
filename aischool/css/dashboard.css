@@ -1,9 +1,9 @@
-/* dashboard.css - Premium Dashboard Styles */
+/* dashboard.css - Premium Dashboard Styles - Light Mode */
 
 :root {
     --sidebar-width: 280px;
-    --dash-bg: #F4F7F9; /* Very light cool gray for app backdrop */
-    --panel-bg: rgba(255, 255, 255, 0.9);
+    --dash-bg: #F8FAFC;
+    --panel-bg: rgba(255, 255, 255, 0.95);
 }
 
 .dash-body {
@@ -17,8 +17,8 @@
 /* Sidebar */
 .dash-sidebar {
     width: var(--sidebar-width);
-    background: #0B192C;
-    color: var(--clr-white);
+    background: var(--clr-white);
+    color: var(--clr-text-main);
     position: fixed;
     top: 0;
     left: 0;
@@ -27,7 +27,8 @@
     display: flex;
     flex-direction: column;
     transition: transform var(--transition-normal);
-    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 4px 0 20px rgba(0, 0, 0, 0.08);
+    border-right: 1px solid var(--clr-border);
 }
 
 .sidebar-header {
@@ -35,7 +36,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--clr-border);
 }
 
 .sidebar-logo {
@@ -46,7 +47,7 @@
     display: none;
     background: none;
     border: none;
-    color: var(--clr-white);
+    color: var(--clr-text-main);
     opacity: 0.7;
     cursor: pointer;
 }
@@ -64,7 +65,7 @@
     align-items: center;
     gap: 16px;
     padding: 14px 20px;
-    color: rgba(255, 255, 255, 0.7);
+    color: var(--clr-text-muted);
     text-decoration: none;
     border-radius: 12px;
     font-weight: 500;
@@ -79,8 +80,8 @@
 }
 
 .nav-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--clr-white);
+    background: rgba(0, 163, 137, 0.08);
+    color: var(--clr-primary);
 }
 
 .nav-item.active {
@@ -91,7 +92,7 @@
 
 .sidebar-footer {
     padding: 24px 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid var(--clr-border);
 }
 
 .text-danger:hover {

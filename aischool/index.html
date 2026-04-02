@@ -94,10 +94,9 @@
 
         /* Hero */
         .hero-v2 {
-            background: #0B192C;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #FEF3C7 100%);
             background-image:
-                radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,163,137,0.12) 0%, transparent 70%),
-                radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
+                radial-gradient(ellipse 80% 60% at 70% 50%, rgba(0,163,137,0.08) 0%, transparent 70%);
             background-size: auto, 22px 22px;
             padding: 90px 0 80px;
             border-bottom: 4px solid var(--clr-accent);
@@ -130,16 +129,16 @@
             font-size: clamp(2.2rem, 4.5vw, 3.6rem);
             line-height: 1.08;
             letter-spacing: -1px;
-            color: #fff;
+            color: var(--clr-primary);
             margin-bottom: 18px;
         }
         .hero-v2 h1 em {
             font-style: italic;
-            color: var(--clr-accent);
+            color: var(--clr-action);
         }
         .hero-v2-sub {
             font-size: 1.15rem;
-            color: rgba(255,255,255,0.72);
+            color: var(--clr-text-muted);
             margin-bottom: 32px;
             line-height: 1.6;
         }
@@ -154,7 +153,7 @@
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            color: rgba(255,255,255,0.88);
+            color: var(--clr-text-main);
             font-size: 1rem;
         }
         .hero-v2-bullets li::before {
@@ -181,8 +180,8 @@
         .hero-v2-ctas .btn-primary { font-size: 1rem; padding: 15px 30px; }
         .hero-v2-ctas .btn-ghost {
             background: transparent;
-            border: 2px solid rgba(255,255,255,0.3);
-            color: rgba(255,255,255,0.8);
+            border: 2px solid var(--clr-border);
+            color: var(--clr-text-main);
             font-size: 0.95rem;
             padding: 13px 26px;
             border-radius: var(--radius);
@@ -191,8 +190,8 @@
             transition: all 0.2s;
         }
         .hero-v2-ctas .btn-ghost:hover {
-            border-color: rgba(255,255,255,0.7);
-            color: #fff;
+            border-color: var(--clr-primary);
+            color: var(--clr-primary);
         }
         .hero-v2-trust {
             display: flex;
@@ -203,12 +202,12 @@
         }
         .hero-v2-trust span {
             font-size: 0.83rem;
-            color: rgba(255,255,255,0.55);
+            color: var(--clr-text-muted);
             display: flex;
             align-items: center;
             gap: 5px;
         }
-        .hero-v2-trust span strong { color: rgba(255,255,255,0.8); }
+        .hero-v2-trust span strong { color: var(--clr-text-main); }
         .hero-v2-img {
             border-radius: 16px;
             overflow: hidden;
@@ -492,9 +491,7 @@
         /* Instructor */
         .instructor-section {
             padding: 80px 0;
-            background: #0B192C;
-            background-image: radial-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
-            background-size: 22px 22px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 100%);
         }
         .instructor-grid {
             display: grid;
@@ -508,10 +505,10 @@
         .instructor-img-wrap img {
             border-radius: 16px;
             width: 100%;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
-        .instructor-content h2 { color: #fff; font-size: 2rem; }
-        .instructor-content p { color: rgba(255,255,255,0.75); line-height: 1.75; }
+        .instructor-content h2 { color: var(--clr-primary); font-size: 2rem; }
+        .instructor-content p { color: var(--clr-text-muted); line-height: 1.75; }
         .instructor-stats {
             display: flex;
             gap: 32px;
@@ -527,7 +524,7 @@
         }
         .instructor-stat span {
             font-size: 0.82rem;
-            color: rgba(255,255,255,0.55);
+            color: var(--clr-text-muted);
             margin-top: 2px;
         }
 
@@ -680,22 +677,18 @@
         /* CTA final */
         .cta-final-v2 {
             padding: 90px 0;
-            background: linear-gradient(135deg, #0B192C 0%, #122340 100%);
-            background-image:
-                radial-gradient(ellipse 70% 60% at 80% 50%, rgba(0,163,137,0.15) 0%, transparent 60%),
-                radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-            background-size: auto, 22px 22px;
+            background: linear-gradient(135deg, #EFF6FF 0%, #E0E7FF 100%);
             text-align: center;
             position: relative;
             overflow: hidden;
         }
         .cta-final-v2 h2 {
-            color: #fff;
+            color: var(--clr-primary);
             font-size: clamp(1.8rem, 3.5vw, 2.8rem);
             margin-bottom: 14px;
         }
         .cta-final-v2 p {
-            color: rgba(255,255,255,0.7);
+            color: var(--clr-text-muted);
             font-size: 1.1rem;
             max-width: 520px;
             margin: 0 auto 36px;
@@ -704,14 +697,14 @@
             display: inline-flex;
             align-items: center;
             gap: 12px;
-            background: rgba(255,255,255,0.08);
-            border: 1px solid rgba(255,255,255,0.15);
+            background: var(--clr-white);
+            border: 1px solid var(--clr-border);
             border-radius: 100px;
             padding: 10px 24px;
             margin-bottom: 28px;
         }
-        .cta-price-pill .old { font-size: 0.9rem; color: rgba(255,255,255,0.4); text-decoration: line-through; }
-        .cta-price-pill .new { font-size: 1.1rem; font-weight: 800; color: #fff; }
+        .cta-price-pill .old { font-size: 0.9rem; color: var(--clr-text-muted); text-decoration: line-through; }
+        .cta-price-pill .new { font-size: 1.1rem; font-weight: 800; color: var(--clr-action); }
         .cta-price-pill .badge-save {
             background: var(--clr-accent);
             color: #fff;
@@ -738,7 +731,7 @@
         }
         .cta-trust-row span {
             font-size: 0.82rem;
-            color: rgba(255,255,255,0.5);
+            color: var(--clr-text-muted);
             display: flex;
             align-items: center;
             gap: 5px;
@@ -797,8 +790,9 @@
 
         /* Footer */
         .footer-v2 {
-            background: #0B192C;
+            background: var(--clr-white);
             padding: 40px 0 28px;
+            border-top: 1px solid var(--clr-border);
         }
         .footer-v2-inner {
             display: flex;
@@ -807,8 +801,8 @@
             flex-wrap: wrap;
             gap: 16px;
         }
-        .footer-v2 p { color: rgba(255,255,255,0.45); font-size: 0.82rem; margin: 0; }
-        .footer-v2 a { color: rgba(255,255,255,0.6); font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
+        .footer-v2 p { color: var(--clr-text-muted); font-size: 0.82rem; margin: 0; }
+        .footer-v2 a { color: var(--clr-primary); font-size: 0.82rem; text-decoration: none; transition: color 0.2s; }
         .footer-v2 a:hover { color: var(--clr-action); }
         .footer-v2-links { display: flex; gap: 20px; flex-wrap: wrap; }
 
@@ -902,9 +896,9 @@
 
     <!-- Announcement Bar -->
     <div class="announce-bar">
-        🎓 Academia en lanzamiento — Precio especial por tiempo limitado.
+        🎓 Aprende IA sin programar — Acceso inmediato disponible.
         <span class="dot-separator">·</span>
-        🔒 Pago 100% seguro y acceso inmediato
+        🔒 Pago seguro con tarjeta o transferencia
     </div>
 
     <!-- Header -->
@@ -931,7 +925,7 @@
 
             <div class="hero-v2-content">
                 <div class="hero-v2-badge">
-                    <span>🚀</span> Academia en lanzamiento · Plazas limitadas
+                    <span>🚀</span> Aprende IA de forma práctica
                 </div>
                 <h1>Domina la <em>Inteligencia Artificial</em> antes que el resto del mundo lo haga.</h1>
                 <p class="hero-v2-sub">
@@ -941,7 +935,7 @@
                     <li>Ahorra horas a la semana automatizando tareas repetitivas con IA.</li>
                     <li>Aprende con método: desde los fundamentos hasta casos reales de negocio.</li>
                     <li>Sin programación. Sin tecnicismos. Solo resultados aplicables.</li>
-                    <li>Acceso de por vida + actualizaciones continuas incluidas.</li>
+                    <li>Acceso durante tu inscripcion + materiales descargables.</li>
                 </ul>
                 <div class="hero-v2-ctas">
                     <button class="btn btn-primary btn-pulse btn-signup">Obtener acceso ahora — $1,500 MXN</button>
@@ -949,7 +943,7 @@
                 </div>
                 <div class="hero-v2-trust">
                     <span>⭐ <strong>4.8/5</strong> valoración media</span>
-                    <span>👥 <strong>+1,000</strong> alumnos</span>
+                    <span>👥 Comunidad en crecimiento</span>
                     <span>🎓 <strong>Certificado</strong> incluido</span>
                 </div>
             </div>
@@ -975,8 +969,8 @@
     <div class="stats-bar reveal-on-scroll">
         <div class="container stats-bar-grid">
             <div class="stat-item">
-                <span class="stat-num">+1,000<span>+</span></span>
-                <p class="stat-label">Alumnos y docentes activos</p>
+                <span class="stat-num">+100<span>+</span></span>
+                <p class="stat-label">Alumnos inscritos</p>
             </div>
             <div class="stat-item">
                 <span class="stat-num">6<span>h</span></span>
@@ -987,8 +981,8 @@
                 <p class="stat-label">Valoración media del curso</p>
             </div>
             <div class="stat-item">
-                <span class="stat-num">∞</span>
-                <p class="stat-label">Acceso permanente de por vida</p>
+                <span class="stat-num">12<span> meses</span></span>
+                <p class="stat-label">Acceso al curso</p>
             </div>
         </div>
     </div>
@@ -1170,8 +1164,8 @@
                             <span>Módulos</span>
                         </div>
                         <div class="meta-item">
-                            <strong>∞</strong>
-                            <span>Acceso de por vida</span>
+                            <strong>12 meses</strong>
+                            <span>Acceso completo</span>
                         </div>
                         <div class="meta-item">
                             <strong>🏅</strong>
@@ -1337,7 +1331,7 @@
         <div class="container">
             <div class="reveal-on-scroll">
                 <p class="section-eyebrow">Inversión</p>
-                <h2 class="section-title">Precio de lanzamiento — Acceso completo</h2>
+                <h2 class="section-title">Acceso completo al curso de IA</h2>
                 <p class="section-desc">Una inversión única que se amortiza la primera semana que usas la IA en tu trabajo.</p>
             </div>
             <div class="pricing-v2-grid reveal-on-scroll">
@@ -1354,22 +1348,22 @@
                         <li>
                             <div class="ph-icon">♾️</div>
                             <div class="ph-text">
-                                <strong>Acceso permanente de por vida</strong>
-                                <span>Vuelve cuando quieras. El contenido siempre estará disponible para ti.</span>
+                                <strong>Acceso durante 12 meses</strong>
+                                <span>Contenido disponible por un año completo desde tu inscripcion.</span>
                             </div>
                         </li>
                         <li>
                             <div class="ph-icon">📦</div>
                             <div class="ph-text">
-                                <strong>Materiales descargables + prompts prefabricados</strong>
-                                <span>Recursos listos para copiar y usar desde el primer día.</span>
+                                <strong>Materiales descargables + prompts</strong>
+                                <span>Recursos listos para copiar y usar desde el primer dia.</span>
                             </div>
                         </li>
                         <li>
                             <div class="ph-icon">🔄</div>
                             <div class="ph-text">
-                                <strong>Actualizaciones continuas incluidas</strong>
-                                <span>La IA evoluciona rápido. Tu acceso también se actualiza sin costo adicional.</span>
+                                <strong>Actualizaciones del curso</strong>
+                                <span>El contenido se actualiza segun evolucione la IA.</span>
                             </div>
                         </li>
                         <li>
@@ -1390,13 +1384,12 @@
                 </div>
 
                 <div class="pricing-card-v2">
-                    <p class="price-label">Precio de lanzamiento</p>
-                    <p class="price-old">$3,000 MXN</p>
+                    <p class="price-label">Precio del curso</p>
                     <div class="price-main"><sup>$</sup>1,500<sub> MXN</sub></div>
-                    <p class="price-note">Pago único · Acceso inmediato · Sin suscripciones</p>
+                    <p class="price-note">Pago único · Acceso durante 12 meses · Sin suscripciones</p>
                     <ul class="price-features">
-                        <li>6h de video + ejercicios prácticos</li>
-                        <li>Acceso de por vida + actualizaciones</li>
+                        <li>6h de video + ejercicios practicos</li>
+                        <li>Acceso durante 12 meses</li>
                         <li>Materiales y prompts descargables</li>
                         <li>Soporte directo con el equipo</li>
                         <li>Certificado oficial incluido</li>
@@ -1445,11 +1438,11 @@
                     </div>
                     <div class="faq-item">
                         <button class="faq-btn" aria-expanded="false">
-                            <span class="faq-question">¿Tengo acceso para siempre?</span>
+                            <span class="faq-question">¿Por cuánto tiempo tengo acceso?</span>
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer" hidden>
-                            <p>Sí. Con tu inscripción obtienes acceso ilimitado a todo el material en nuestra plataforma, incluyendo futuras actualizaciones esenciales. No hay suscripciones ni pagos recurrentes.</p>
+                            <p>Obtienes acceso durante 12 meses a todo el material de la plataforma. El contenido se actualiza periódicamente según evoluciona la IA.</p>
                         </div>
                     </div>
                     <div class="faq-item">
@@ -1526,7 +1519,7 @@
             <div class="cta-trust-row">
                 <span>🔒 Pago seguro</span>
                 <span>🎓 Certificado incluido</span>
-                <span>♾️ Acceso de por vida</span>
+                <span>📚 12 meses de acceso</span>
                 <span>⚡ Acceso inmediato</span>
             </div>
         </div>
@@ -1604,7 +1597,7 @@
     <footer class="footer-v2">
         <div class="container footer-v2-inner">
             <div>
-                <img src="assets/images/LOGO.png" alt="AI4U Academy" height="32" style="margin-bottom: 6px; filter: brightness(0) invert(1) opacity(0.7);">
+                <img src="assets/images/LOGO.png" alt="AI4U Academy" height="32" style="margin-bottom: 6px;">
                 <p>&copy; 2026 AI4U Academy. Todos los derechos reservados.</p>
             </div>
             <div class="footer-v2-links">
