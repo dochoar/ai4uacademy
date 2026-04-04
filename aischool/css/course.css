@@ -1,8 +1,8 @@
 /* course.css - Exclusive Layout for Learning / Light Mode */
 
 .course-body {
-    background-color: #F8FAFC;
-    color: var(--clr-text-main);
+    background-color: #0b0f19;
+    color: #e2e8f0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -10,16 +10,16 @@
 }
 
 .glass-panel {
-    background: rgba(255, 255, 255, 0.95);
-    border: 1px solid var(--clr-border);
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
 }
 
-/* Light Background */
+/* Dark Background */
 .course-bg {
     position: fixed;
     top: 0;
@@ -28,7 +28,7 @@
     height: 100%;
     z-index: -1;
     overflow: hidden;
-    background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #FEFCE8 100%);
+    background: linear-gradient(135deg, #0b0f19 0%, #111827 50%, #0f172a 100%);
 }
 
 .blob {
@@ -58,8 +58,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 15px 30px;
-    background: rgba(255, 255, 255, 0.95);
-    border-bottom: 1px solid var(--clr-border);
+    background: rgba(11, 15, 25, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -76,7 +76,7 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: var(--clr-text-muted);
+    color: #94a3b8;
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
@@ -104,7 +104,7 @@
     display: flex;
     align-items: center;
     gap: 15px;
-    background: rgba(226, 232, 240, 0.5);
+    background: rgba(255, 255, 255, 0.06);
     padding: 8px 16px;
     border-radius: 100px;
 }
@@ -118,7 +118,7 @@
 .progress-track {
     width: 150px;
     height: 6px;
-    background: var(--clr-border);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 100px;
     overflow: hidden;
 }
