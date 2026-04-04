@@ -1,4 +1,13 @@
 /* ==========================================================================
+   GLOBAL OVERRIDE — Remove all blur/backdrop-filter effects
+   ========================================================================== */
+*, *::before, *::after {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
+}
+
+/* ==========================================================================
    MathSessions - Custom CSS based on Blueprint
    Aesthetic: Editorial / Academic + Modern Conversions
    Fonts: Fraunces (Headlines) & Onest (Body)
