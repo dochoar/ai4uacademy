@@ -303,6 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function initAIUtils() {
         initPromptEvaluator();
         initPromptVault();
+        initImagePromptGenerator();
+        initCodePromptGenerator();
     }
 
     // REUSED FROM COURSE.JS
@@ -491,6 +493,148 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         loadVault();
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // GENERADOR DE PROMPTS DE IMÁGENES (Prompt Master)
+    // ─────────────────────────────────────────────────────────────
+    function initImagePromptGenerator() {
+        const btnGen     = document.getElementById('btn-gen-image-prompt');
+        const inputDesc  = document.getElementById('image-prompt-desc');
+        const selTool    = document.getElementById('image-prompt-tool');
+        const selStyle   = document.getElementById('image-prompt-style');
+        const selRatio   = document.getElementById('image-prompt-ratio');
+        const selMood    = document.getElementById('image-prompt-mood');
+        const resultBox  = document.getElementById('image-prompt-result');
+        const outputEl   = document.getElementById('image-prompt-output');
+        const targetEl   = document.getElementById('image-prompt-target');
+        const rationaleEl = document.getElementById('image-prompt-rationale');
+        const statusEl   = document.getElementById('image-prompt-status');
+        const copyBtn    = document.getElementById('btn-copy-image-prompt');
+
+        if (btnGen && !btnGen.dataset.listener) {
+            btnGen.dataset.listener = 'true';
+            btnGen.addEventListener('click', async () => {
+                const desc = inputDesc.value.trim();
+                if (!desc) return alert('Describe la imagen que quieres crear.');
+
+                btnGen.disabled = true;
+                btnGen.textContent = 'Generando...';
+                statusEl.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:var(--ai-green);border-radius:50%;margin-right:8px;animation:pulse-dot 1.5s infinite;"></span> Construyendo tu prompt optimizado...`;
+                resultBox.style.display = 'none';
+
+                try {
+                    const { data, error } = await supabase.functions.invoke('generate-image-prompt', {
+                        body: {
+                            description: desc,
+                            tool: selTool.value,
+                            style: selStyle.value,
+                            ratio: selRatio.value,
+                            mood: selMood.value
+                        }
+                    });
+
+                    if (error) throw error;
+
+                    outputEl.textContent  = data.prompt;
+                    targetEl.textContent  = data.tool || selTool.value;
+                    rationaleEl.textContent = data.rationale ? `💡 ${data.rationale}` : '';
+                    resultBox.style.display = 'block';
+                    statusEl.innerHTML = `<span style="color:var(--ai-green);">✅ Prompt generado</span>`;
+                } catch (err) {
+                    console.error(err);
+                    statusEl.innerHTML = `<span style="color:#ef4444;">❌ Error al generar</span>`;
+                } finally {
+                    btnGen.disabled = false;
+                    btnGen.textContent = 'Generar Prompt';
+                }
+            });
+        }
+
+        if (copyBtn && !copyBtn.dataset.listener) {
+            copyBtn.dataset.listener = 'true';
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(outputEl.textContent).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!`;
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar Prompt de Imagen`;
+                    }, 2000);
+                });
+            });
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // GENERADOR DE PROMPTS DE CÓDIGO (Prompt Master)
+    // ─────────────────────────────────────────────────────────────
+    function initCodePromptGenerator() {
+        const btnGen      = document.getElementById('btn-gen-code-prompt');
+        const inputDesc   = document.getElementById('code-prompt-desc');
+        const selTool     = document.getElementById('code-prompt-tool');
+        const selLang     = document.getElementById('code-prompt-lang');
+        const selType     = document.getElementById('code-prompt-type');
+        const selAutonomy = document.getElementById('code-prompt-autonomy');
+        const resultBox   = document.getElementById('code-prompt-result');
+        const outputEl    = document.getElementById('code-prompt-output');
+        const targetEl    = document.getElementById('code-prompt-target');
+        const rationaleEl = document.getElementById('code-prompt-rationale');
+        const statusEl    = document.getElementById('code-prompt-status');
+        const copyBtn     = document.getElementById('btn-copy-code-prompt');
+
+        if (btnGen && !btnGen.dataset.listener) {
+            btnGen.dataset.listener = 'true';
+            btnGen.addEventListener('click', async () => {
+                const desc = inputDesc.value.trim();
+                if (!desc) return alert('Describe la tarea de código que necesitas.');
+
+                btnGen.disabled = true;
+                btnGen.textContent = 'Generando...';
+                statusEl.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:var(--ai-amber);border-radius:50%;margin-right:8px;animation:pulse-dot 1.5s infinite;"></span> Aplicando routing por herramienta...`;
+                resultBox.style.display = 'none';
+
+                try {
+                    const { data, error } = await supabase.functions.invoke('generate-code-prompt', {
+                        body: {
+                            description: desc,
+                            tool: selTool.value,
+                            language: selLang.value,
+                            taskType: selType.value,
+                            autonomy: selAutonomy.value
+                        }
+                    });
+
+                    if (error) throw error;
+
+                    outputEl.textContent  = data.prompt;
+                    targetEl.textContent  = data.tool || selTool.value;
+                    rationaleEl.textContent = data.rationale ? `💡 ${data.rationale}` : '';
+                    resultBox.style.display = 'block';
+                    statusEl.innerHTML = `<span style="color:var(--ai-green);">✅ Prompt generado</span>`;
+                } catch (err) {
+                    console.error(err);
+                    statusEl.innerHTML = `<span style="color:#ef4444;">❌ Error al generar</span>`;
+                } finally {
+                    btnGen.disabled = false;
+                    btnGen.textContent = 'Generar Prompt';
+                }
+            });
+        }
+
+        if (copyBtn && !copyBtn.dataset.listener) {
+            copyBtn.dataset.listener = 'true';
+            copyBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText(outputEl.textContent).then(() => {
+                    copyBtn.classList.add('copied');
+                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!`;
+                    setTimeout(() => {
+                        copyBtn.classList.remove('copied');
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar Prompt de Código`;
+                    }, 2000);
+                });
+            });
+        }
     }
 
     // Profile Form Submission

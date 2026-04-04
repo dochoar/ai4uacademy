@@ -282,6 +282,226 @@
                     </div>
                 </div>
 
+                <!-- ═══════════════════════════════════════════
+                     Generador de Prompts de Imágenes
+                ═══════════════════════════════════════════ -->
+                <div class="ai-tool-card tool-green" style="animation-delay:0.2s;">
+                    <div class="ai-tool-header">
+                        <div class="ai-tool-icon-wrap">
+                            <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--ai-green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                <polyline points="21 15 16 10 5 21"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Generador de Prompts de Imágenes</h4>
+                            <p>Crea prompts optimizados para Midjourney, DALL-E 3, Stable Diffusion y más.</p>
+                        </div>
+                    </div>
+
+                    <div class="ai-tool-inner">
+                        <div style="background: var(--ai-green-lt); border: 1px solid rgba(5,150,105,0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.88rem; color: var(--ai-green); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Powered by Prompt Master — optimización específica por herramienta
+                        </div>
+
+                        <textarea id="image-prompt-desc" class="ai-evaluator-textarea" placeholder="Describe la imagen que quieres crear... Ej: Un astronauta meditando en la Luna con la Tierra al fondo, estilo cinematográfico, hora dorada" style="min-height: 100px;"></textarea>
+
+                        <div class="ai-generator-form">
+                            <div>
+                                <label class="ai-generator-label">Herramienta destino</label>
+                                <select id="image-prompt-tool" class="ai-generator-select">
+                                    <option value="Midjourney">Midjourney</option>
+                                    <option value="DALL-E 3">DALL-E 3</option>
+                                    <option value="Stable Diffusion">Stable Diffusion</option>
+                                    <option value="Flux">Flux</option>
+                                    <option value="Adobe Firefly">Adobe Firefly</option>
+                                    <option value="SeeDream">SeeDream</option>
+                                    <option value="Kling">Kling (Video)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Estilo artístico</label>
+                                <select id="image-prompt-style" class="ai-generator-select">
+                                    <option value="fotorrealista">Fotorrealista</option>
+                                    <option value="cinematográfico">Cinematográfico</option>
+                                    <option value="anime">Anime / Ilustración japonesa</option>
+                                    <option value="pintura al óleo">Pintura al óleo</option>
+                                    <option value="acuarela">Acuarela</option>
+                                    <option value="ilustración digital">Ilustración digital</option>
+                                    <option value="minimalista">Minimalista</option>
+                                    <option value="cyberpunk">Cyberpunk / Sci-Fi</option>
+                                    <option value="fantasy">Fantasy / Épico</option>
+                                    <option value="vintage">Vintage / Retro</option>
+                                    <option value="abstracto">Abstracto</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Relación de aspecto</label>
+                                <select id="image-prompt-ratio" class="ai-generator-select">
+                                    <option value="1:1">1:1 — Cuadrado</option>
+                                    <option value="16:9">16:9 — Panorámico</option>
+                                    <option value="9:16">9:16 — Vertical (Reels)</option>
+                                    <option value="4:3">4:3 — Clásico</option>
+                                    <option value="3:2">3:2 — Fotografía</option>
+                                    <option value="21:9">21:9 — Ultrawide</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Iluminación / Mood</label>
+                                <select id="image-prompt-mood" class="ai-generator-select">
+                                    <option value="">— Automático —</option>
+                                    <option value="hora dorada">Hora dorada</option>
+                                    <option value="hora azul">Hora azul / Crepúsculo</option>
+                                    <option value="luz de estudio">Luz de estudio suave</option>
+                                    <option value="neón">Iluminación neón</option>
+                                    <option value="luz natural">Luz natural difusa</option>
+                                    <option value="dramático">Dramático y contrastado</option>
+                                    <option value="oscuro">Oscuro y misterioso</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="ai-evaluator-footer">
+                            <span id="image-prompt-status" class="ai-status-msg">
+                                <span class="ai-status-dot"></span>
+                                Listo para generar
+                            </span>
+                            <button id="btn-gen-image-prompt" class="btn btn-primary btn-generate">
+                                Generar Prompt
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div id="image-prompt-result" class="ai-result-panel" style="display: none;">
+                        <div class="prompt-meta-row">
+                            <span>Optimizado para</span>
+                            <span id="image-prompt-target" class="prompt-meta-badge"></span>
+                            <span class="pm-badge">
+                                <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Prompt Master
+                            </span>
+                        </div>
+                        <div id="image-prompt-output" class="prompt-output-box"></div>
+                        <div id="image-prompt-rationale" style="font-size: 0.82rem; color: var(--ai-text-muted); margin-bottom: 14px; line-height: 1.6;"></div>
+                        <button id="btn-copy-image-prompt" class="btn-copy-prompt">
+                            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copiar Prompt de Imagen
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ═══════════════════════════════════════════
+                     Generador de Prompts de Código
+                ═══════════════════════════════════════════ -->
+                <div class="ai-tool-card tool-amber" style="animation-delay:0.3s;">
+                    <div class="ai-tool-header">
+                        <div class="ai-tool-icon-wrap">
+                            <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--ai-amber)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="16 18 22 12 16 6"></polyline>
+                                <polyline points="8 6 2 12 8 18"></polyline>
+                            </svg>
+                        </div>
+                        <div>
+                            <h4>Generador de Prompts de Código</h4>
+                            <p>Prompts precisos para Cursor, Claude Code, GitHub Copilot, ChatGPT y más.</p>
+                        </div>
+                    </div>
+
+                    <div class="ai-tool-inner">
+                        <div style="background: var(--ai-amber-lt); border: 1px solid rgba(217,119,6,0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.88rem; color: var(--ai-amber); font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                            Routing por herramienta: parámetros de archivo, estado inicial, condiciones de parada
+                        </div>
+
+                        <textarea id="code-prompt-desc" class="ai-evaluator-textarea" placeholder="Describe la tarea de código... Ej: Quiero crear una función en JavaScript que valide emails y retorne true/false, con tests unitarios" style="min-height: 100px;"></textarea>
+
+                        <div class="ai-generator-form">
+                            <div>
+                                <label class="ai-generator-label">Herramienta destino</label>
+                                <select id="code-prompt-tool" class="ai-generator-select">
+                                    <option value="Cursor">Cursor</option>
+                                    <option value="Claude Code">Claude Code</option>
+                                    <option value="GitHub Copilot">GitHub Copilot</option>
+                                    <option value="ChatGPT">ChatGPT / GPT-4</option>
+                                    <option value="Claude">Claude (claude.ai)</option>
+                                    <option value="Gemini">Gemini</option>
+                                    <option value="Cline">Cline (VS Code)</option>
+                                    <option value="v0">v0 by Vercel</option>
+                                    <option value="Bolt">Bolt.new</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Lenguaje / Stack</label>
+                                <select id="code-prompt-lang" class="ai-generator-select">
+                                    <option value="JavaScript">JavaScript</option>
+                                    <option value="TypeScript">TypeScript</option>
+                                    <option value="Python">Python</option>
+                                    <option value="React">React / Next.js</option>
+                                    <option value="Node.js">Node.js</option>
+                                    <option value="HTML/CSS">HTML / CSS</option>
+                                    <option value="SQL">SQL</option>
+                                    <option value="Java">Java</option>
+                                    <option value="Go">Go</option>
+                                    <option value="Rust">Rust</option>
+                                    <option value="otro">Otro (describir en tarea)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Tipo de tarea</label>
+                                <select id="code-prompt-type" class="ai-generator-select">
+                                    <option value="nueva función">Nueva función / Feature</option>
+                                    <option value="corregir bug">Corregir bug</option>
+                                    <option value="refactorizar">Refactorizar código</option>
+                                    <option value="explicar código">Explicar código</option>
+                                    <option value="escribir tests">Escribir tests</option>
+                                    <option value="optimizar rendimiento">Optimizar rendimiento</option>
+                                    <option value="integrar API">Integrar API externa</option>
+                                    <option value="crear componente UI">Crear componente UI</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="ai-generator-label">Nivel de autonomía</label>
+                                <select id="code-prompt-autonomy" class="ai-generator-select">
+                                    <option value="guiado">Guiado — pide confirmación</option>
+                                    <option value="semi-autónomo">Semi-autónomo — checkpoint final</option>
+                                    <option value="autónomo">Autónomo — ejecuta completo</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="ai-evaluator-footer">
+                            <span id="code-prompt-status" class="ai-status-msg">
+                                <span class="ai-status-dot" style="background: var(--ai-amber); box-shadow: 0 0 6px var(--ai-amber);"></span>
+                                Listo para generar
+                            </span>
+                            <button id="btn-gen-code-prompt" class="btn btn-primary btn-generate">
+                                Generar Prompt
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Result -->
+                    <div id="code-prompt-result" class="ai-result-panel" style="display: none;">
+                        <div class="prompt-meta-row">
+                            <span>Optimizado para</span>
+                            <span id="code-prompt-target" class="prompt-meta-badge"></span>
+                            <span class="pm-badge">
+                                <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                Prompt Master
+                            </span>
+                        </div>
+                        <div id="code-prompt-output" class="prompt-output-box"></div>
+                        <div id="code-prompt-rationale" style="font-size: 0.82rem; color: var(--ai-text-muted); margin-bottom: 14px; line-height: 1.6;"></div>
+                        <button id="btn-copy-code-prompt" class="btn-copy-prompt">
+                            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            Copiar Prompt de Código
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </section>
 

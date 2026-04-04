@@ -18,6 +18,16 @@
     --ai-text-main:  #0f172a;
     --ai-text-muted: #64748b;
     --ai-text-light: #94a3b8;
+
+    /* New: image generator (green) */
+    --ai-green:      #059669;
+    --ai-green-lt:   #d1fae5;
+    --ai-green-glow: rgba(5, 150, 105, 0.18);
+
+    /* New: code generator (amber) */
+    --ai-amber:      #d97706;
+    --ai-amber-lt:   #fef3c7;
+    --ai-amber-glow: rgba(217, 119, 6, 0.18);
 }
 
 /* ==============================
@@ -51,8 +61,10 @@
     top: 0; left: 0; right: 0;
     height: 3px;
 }
-.tool-blue::before  { background: linear-gradient(90deg, var(--ai-blue) 0%, #06b6d4 100%); }
+.tool-blue::before   { background: linear-gradient(90deg, var(--ai-blue)   0%, #06b6d4 100%); }
 .tool-purple::before { background: linear-gradient(90deg, var(--ai-purple) 0%, #ec4899 100%); }
+.tool-green::before  { background: linear-gradient(90deg, var(--ai-green)  0%, #06b6d4 100%); }
+.tool-amber::before  { background: linear-gradient(90deg, var(--ai-amber)  0%, #ef4444 100%); }
 
 /* ==============================
    Tool Header
@@ -74,8 +86,10 @@
     justify-content: center;
     flex-shrink: 0;
 }
-.tool-blue  .ai-tool-icon-wrap { background: var(--ai-blue-lt);   }
+.tool-blue   .ai-tool-icon-wrap { background: var(--ai-blue-lt);   }
 .tool-purple .ai-tool-icon-wrap { background: var(--ai-purple-lt); }
+.tool-green  .ai-tool-icon-wrap { background: var(--ai-green-lt);  }
+.tool-amber  .ai-tool-icon-wrap { background: var(--ai-amber-lt);  }
 
 .ai-tool-header h4 {
     color: var(--ai-text-main);
@@ -548,4 +562,147 @@
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .ai-generator-form { grid-template-columns: 1fr; }
+    .prompt-output-box { max-height: 200px; }
+}
+
+/* ==============================
+   Generator Form (image & code)
+   ============================== */
+.ai-generator-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.ai-generator-label {
+    display: block;
+    color: var(--ai-text-muted);
+    font-size: 0.73rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+}
+
+.ai-generator-select {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2.5'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E") no-repeat right 12px center;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 11px 36px 11px 14px;
+    color: var(--ai-text-main);
+    font-family: var(--font-body);
+    font-size: 0.93rem;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.ai-generator-select:focus {
+    outline: none;
+}
+
+.tool-green .ai-generator-select:focus { border-color: var(--ai-green); box-shadow: 0 0 0 3px var(--ai-green-glow); }
+.tool-amber .ai-generator-select:focus { border-color: var(--ai-amber); box-shadow: 0 0 0 3px var(--ai-amber-glow); }
+.tool-green .ai-evaluator-textarea:focus { border-color: var(--ai-green); box-shadow: 0 0 0 3px var(--ai-green-glow); }
+.tool-amber .ai-evaluator-textarea:focus { border-color: var(--ai-amber); box-shadow: 0 0 0 3px var(--ai-amber-glow); }
+
+/* Result panels overrides for new themes */
+.tool-green .ai-result-panel { border-left-color: var(--ai-green); }
+.tool-amber .ai-result-panel { border-left-color: var(--ai-amber); }
+
+/* ==============================
+   Prompt Output Box
+   ============================== */
+.prompt-output-box {
+    background: #fff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    padding: 18px;
+    font-size: 0.92rem;
+    line-height: 1.75;
+    color: var(--ai-text-main);
+    white-space: pre-wrap;
+    max-height: 280px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    margin-bottom: 14px;
+    font-family: var(--font-body);
+}
+
+.prompt-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    color: var(--ai-text-muted);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+}
+
+.prompt-meta-badge {
+    font-weight: 700;
+    padding: 3px 11px;
+    border-radius: 100px;
+    border: 1px solid;
+    font-size: 0.75rem;
+}
+
+.tool-green .prompt-meta-badge { color: var(--ai-green); background: var(--ai-green-lt); border-color: rgba(5,150,105,0.25); }
+.tool-amber .prompt-meta-badge { color: var(--ai-amber); background: var(--ai-amber-lt); border-color: rgba(217,119,6,0.25); }
+
+/* ==============================
+   Copy Prompt Button
+   ============================== */
+.btn-copy-prompt {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1.5px solid;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: var(--font-body);
+    background: transparent;
+}
+
+.tool-green .btn-copy-prompt { border-color: rgba(5,150,105,0.5); color: var(--ai-green); }
+.tool-green .btn-copy-prompt:hover { background: var(--ai-green); border-color: var(--ai-green); color: #fff; }
+.tool-amber .btn-copy-prompt { border-color: rgba(217,119,6,0.5); color: var(--ai-amber); }
+.tool-amber .btn-copy-prompt:hover { background: var(--ai-amber); border-color: var(--ai-amber); color: #fff; }
+.btn-copy-prompt.copied { background: var(--ai-emerald) !important; border-color: var(--ai-emerald) !important; color: #fff !important; }
+
+/* Generate buttons for new tools */
+.tool-green .btn-generate { background: var(--ai-green); border: none; padding: 13px 32px; }
+.tool-green .btn-generate:hover { background: #047857; }
+.tool-amber .btn-generate { background: var(--ai-amber); border: none; padding: 13px 32px; }
+.tool-amber .btn-generate:hover { background: #b45309; }
+
+/* Tool header icons colored */
+.tool-green .ai-tool-header h4 { color: var(--ai-text-main); }
+.tool-amber .ai-tool-header h4 { color: var(--ai-text-main); }
+
+/* Prompt-master badge — visible in result */
+.pm-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--ai-text-light);
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 3px 10px;
+    border-radius: 100px;
 }
