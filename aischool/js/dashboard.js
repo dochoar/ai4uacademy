@@ -540,49 +540,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Settings logic (Night Mode & Lang)
-    const themeToggle = document.getElementById('theme-toggle');
+    // Settings logic (Lang only — dark mode removed)
+    // Clear any previously stored dark mode preference
+    localStorage.removeItem('themePref');
+
     const langSelect = document.getElementById('lang-select');
-    
-    if (themeToggle) {
-        // Load preference
-        const isDark = localStorage.getItem('themePref') === 'dark';
-        themeToggle.checked = isDark;
-        if (isDark) applyDarkMode();
-
-        themeToggle.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                applyDarkMode();
-                localStorage.setItem('themePref', 'dark');
-            } else {
-                removeDarkMode();
-                localStorage.setItem('themePref', 'light');
-            }
-        });
-    }
-
-    function applyDarkMode() {
-        document.body.style.backgroundColor = '#0b0f19';
-        document.body.style.color = '#e2e8f0';
-        // Let's invert header texts and cards
-        document.documentElement.style.setProperty('--dash-bg', '#0b0f19');
-        document.documentElement.style.setProperty('--panel-bg', 'rgba(255, 255, 255, 0.05)');
-        document.querySelectorAll('.glass-panel').forEach(el => {
-            el.style.borderColor = 'rgba(255,255,255,0.1)';
-        });
-        document.querySelectorAll('h3, h2, h4').forEach(h => h.style.color = '#fff');
-    }
-
-    function removeDarkMode() {
-        document.body.style.backgroundColor = '';
-        document.body.style.color = '';
-        document.documentElement.style.setProperty('--dash-bg', '#F4F7F9');
-        document.documentElement.style.setProperty('--panel-bg', 'rgba(255, 255, 255, 0.9)');
-        document.querySelectorAll('.glass-panel').forEach(el => {
-            el.style.borderColor = 'rgba(255,255,255,0.5)';
-        });
-        document.querySelectorAll('h3, h2, h4').forEach(h => h.style.color = '');
-    }
 
     if (langSelect) {
         langSelect.addEventListener('change', (e) => {
