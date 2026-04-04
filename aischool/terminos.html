@@ -10,12 +10,12 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Onest:wght@100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" href="css/design-system.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/landing.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
 
@@ -94,27 +94,25 @@
 
 <body class="bg-light">
 
-    <!-- Header Navigation -->
-    <header class="site-header">
-        <div class="container header-inner" style="justify-content: center; position: relative;">
+    <!-- Header -->
+    <header class="header">
+        <div class="container header-container">
             <div class="logo">
                 <a href="index.html">
-                    <img src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img"
-                        style="height: 45px;">
+                    <img src="LOGO.png" alt="AI4U Academy Logo" class="logo-img">
                 </a>
             </div>
-            <div
-                style="position: absolute; right: 20px; display: flex; gap: 20px; font-weight: bold; font-size: 0.85rem;">
-                <a href="index.html" style="color: var(--clr-white);">INICIO</a>
-                <a href="dashboard.html" style="color: var(--clr-white);">MI CUENTA</a>
-            </div>
+            <nav class="nav-links">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="dashboard.html" class="nav-link">Mi Cuenta</a>
+            </nav>
         </div>
     </header>
 
-    <div class="container">
-        <div class="terms-content">
-            <h1 class="text-center" style="font-size: 2.5rem; margin-bottom: 10px;">Términos de Servicio</h1>
-            <p class="text-center text-muted" style="margin-bottom: 30px;">Última actualización: 5 de Mayo de 2024</p>
+    <div class="container" style="margin-top: 120px;">
+        <div class="terms-content glass-panel">
+            <h1 class="text-center text-gradient" style="font-size: 3rem; margin-bottom: 10px;">Términos de Servicio</h1>
+            <p class="text-center text-muted" style="margin-bottom: 40px; font-weight: 600;">Última actualización: 5 de Mayo de 2024</p>
 
             <p>Bienvenido a AI4U Academy. Al acceder y utilizar nuestros materiales, cursos y plataforma, usted acepta
                 cumplir con los siguientes Términos de Servicio. Por favor, léalos cuidadosamente.</p>
@@ -125,8 +123,8 @@
                 modalidad) es <strong>estrictamente personal e intransferible</strong>. El usuario es el único
                 responsable de mantener la confidencialidad de sus credenciales de acceso.</p>
 
-            <div class="alert-box">
-                <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <div class="alert-box" style="background: #fff1f2; border-left: 4px solid var(--clr-error);">
+                <h4 style="color: var(--clr-error);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path
                             d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
@@ -134,7 +132,7 @@
                         <line x1="12" y1="9" x2="12" y2="13"></line>
                         <line x1="12" y1="17" x2="12.01" y2="17"></line>
                     </svg> POLÍTICA DE TOLERANCIA CERO</h4>
-                <p style="margin-bottom: 0;">Está <strong>estrictamente prohibido</strong> compartir contraseñas,
+                <p style="margin-bottom: 0; color: #991b1b;">Está <strong>estrictamente prohibido</strong> compartir contraseñas,
                     credenciales de acceso, o de cualquier forma permitir que terceros accedan a su cuenta. Cualquier
                     actividad sospechosa, como inicios de sesión simultáneos desde diferentes ubicaciones, resultará en
                     el <strong>BLOQUEO PERMANENTE INMEDIATO DE LA CUENTA</strong> sin derecho a reembolso.</p>
@@ -147,16 +145,16 @@
                 autor internacionales. AI4U Academy posee todos los
                 derechos de propiedad intelectual sobre este material.</p>
 
-            <div class="alert-box">
-                <h4><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            <div class="alert-box" style="background: var(--brand-primary-light); border-left: 4px solid var(--brand-primary);">
+                <h4 style="color: var(--brand-primary);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
                         stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                     </svg> PROTECCIÓN DEL CONTENIDO</h4>
-                <p>Queda terminantemente prohibida la <strong>reproducción total o parcial, distribución, publicación,
+                <p style="color: var(--brand-primary);">Queda terminantemente prohibida la <strong>reproducción total o parcial, distribución, publicación,
                         reventa, sublicencia o modificación</strong> de cualquier material adquirido en AI4U Academy por
                     cualquier medio, ya sea impreso, digital, en redes sociales, plataformas de video o discos en la
                     nube.</p>
-                <p style="margin-bottom: 0; margin-top: 10px;">La violación de esta cláusula no solo causará el
+                <p style="margin-bottom: 0; margin-top: 10px; color: var(--brand-primary);">La violación de esta cláusula no solo causará el
                     <strong>bloqueo permanente</strong> de la cuenta y pérdida de todos los beneficios y accesos (drive,
                     plataforma, etc.), sino que también podrá ser sujeta a las acciones legales pertinentes por
                     infracción de derechos de autor.</p>
