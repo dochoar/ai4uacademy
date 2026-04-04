@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let adminSession = null;
     let usersData = [];
     let modalAction = null; // { type: 'ban'|'unban'|'password', userId: '', userEmail: '' }
+    let trafficData = null; // cache for traffic analytics
+    let trafficLoaded = false;
 
     initAdmin();
 
@@ -135,10 +137,15 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             navItems.forEach(nav => nav.classList.remove('active'));
             item.classList.add('active');
-            
+
             const targetId = item.getAttribute('data-target');
             sections.forEach(sec => sec.style.display = sec.id === targetId ? 'block' : 'none');
-            
+
+            // Lazy-load traffic data on first visit
+            if (targetId === 'admin-traffic' && !trafficLoaded) {
+                loadTrafficStats();
+            }
+
             if (window.innerWidth <= 768) {
                 toggleMobileMenu();
             }
@@ -234,6 +241,111 @@ document.addEventListener('DOMContentLoaded', () => {
             modalConfirm.disabled = false;
         }
     });
+
+    // ─────────────────────────────────────────────────────────────
+    // TRAFFIC ANALYTICS
+    // ─────────────────────────────────────────────────────────────
+    async function loadTrafficStats() {
+        trafficLoaded = true;
+
+        try {
+            const { data, error } = await supabase.rpc('get_pageview_stats');
+            if (error) throw error;
+
+            trafficData = typeof data === 'string' ? JSON.parse(data) : data;
+
+            // Fill summary cards
+            document.getElementById('tv-total').textContent  = Number(trafficData.total_all_time || 0).toLocaleString('es-MX');
+            document.getElementById('tv-today').textContent  = Number(trafficData.total_today   || 0).toLocaleString('es-MX');
+            document.getElementById('tv-week').textContent   = Number(trafficData.total_week    || 0).toLocaleString('es-MX');
+            document.getElementById('tv-month').textContent  = Number(trafficData.total_month   || 0).toLocaleString('es-MX');
+
+            // Render default chart (7 days)
+            renderBarChart(7);
+            renderPagesBreakdown();
+
+            // Period buttons
+            document.querySelectorAll('.tv-period-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.tv-period-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderBarChart(parseInt(btn.dataset.days));
+                });
+            });
+
+        } catch (err) {
+            console.error('Traffic stats error:', err);
+            document.getElementById('tv-bar-chart').innerHTML = '<div class="tv-chart-empty">Error al cargar datos de tráfico.</div>';
+        }
+    }
+
+    function renderBarChart(days) {
+        const container = document.getElementById('tv-bar-chart');
+        const rangeLabel = document.getElementById('tv-chart-range');
+        rangeLabel.textContent = `(últimos ${days} días)`;
+
+        if (!trafficData?.by_day || trafficData.by_day.length === 0) {
+            container.innerHTML = '<div class="tv-chart-empty">Sin datos aún. Las vistas aparecerán aquí en cuanto haya tráfico.</div>';
+            return;
+        }
+
+        // Filter to the requested days window
+        const cutoff = new Date();
+        cutoff.setDate(cutoff.getDate() - days);
+
+        const filtered = trafficData.by_day.filter(d => new Date(d.day) >= cutoff);
+
+        // Fill missing days with 0
+        const dayMap = {};
+        filtered.forEach(d => { dayMap[d.day] = Number(d.views); });
+
+        const allDays = [];
+        for (let i = days - 1; i >= 0; i--) {
+            const d = new Date();
+            d.setDate(d.getDate() - i);
+            const key = d.toISOString().split('T')[0];
+            allDays.push({ day: key, views: dayMap[key] || 0 });
+        }
+
+        const maxViews = Math.max(...allDays.map(d => d.views), 1);
+
+        container.innerHTML = allDays.map(d => {
+            const heightPct = Math.round((d.views / maxViews) * 100);
+            const label = new Date(d.day + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
+            return `
+                <div class="tv-bar-wrap">
+                    <div class="tv-bar" style="height: ${Math.max(heightPct, 2)}%;">
+                        <div class="tv-bar-tooltip">${d.views} vistas<br>${label}</div>
+                    </div>
+                    <span class="tv-bar-label">${label}</span>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderPagesBreakdown() {
+        const container = document.getElementById('tv-pages-list');
+
+        if (!trafficData?.by_page || trafficData.by_page.length === 0) {
+            container.innerHTML = '<div class="tv-chart-empty">Sin datos aún.</div>';
+            return;
+        }
+
+        const maxViews = Math.max(...trafficData.by_page.map(p => Number(p.views)), 1);
+
+        container.innerHTML = trafficData.by_page.map(p => {
+            const pct = Math.round((Number(p.views) / maxViews) * 100);
+            return `
+                <div class="tv-page-row">
+                    <span class="tv-page-name">${escapeHtml(p.page)}</span>
+                    <div class="tv-page-bar-wrap">
+                        <div class="tv-page-bar-fill" style="width: ${pct}%;"></div>
+                    </div>
+                    <span class="tv-page-count">${Number(p.views).toLocaleString('es-MX')}</span>
+                </div>
+            `;
+        }).join('');
+    }
 
     function escapeHtml(unsafe) {
         return (unsafe || '').replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");

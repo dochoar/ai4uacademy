@@ -821,4 +821,226 @@
     .comments-section {
         padding: 20px;
     }
+
+    .lab-card { padding: 20px; }
+    .llm-modal-title { display: none; }
+}
+
+/* ══════════════════════════════════════════════
+   LAB CARD — Actividad Interactiva
+══════════════════════════════════════════════ */
+.lab-card {
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Accent stripe on the left */
+.lab-card::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #0B1647, #48E5E5);
+    border-radius: 4px 0 0 4px;
+}
+
+.lab-card-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.lab-icon-wrap {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #0B1647, #152966);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: #48E5E5;
+    box-shadow: 0 4px 12px rgba(11, 22, 71, 0.2);
+}
+
+.lab-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: 2px;
+}
+
+.lab-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #48E5E5;
+    background: rgba(11, 22, 71, 0.06);
+    border: 1px solid rgba(72, 229, 229, 0.3);
+    padding: 2px 8px;
+    border-radius: 100px;
+}
+
+.lab-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0;
+    line-height: 1.3;
+    font-family: var(--font-heading);
+}
+
+.lab-desc {
+    color: #475569;
+    font-size: 0.93rem;
+    line-height: 1.65;
+    margin-bottom: 20px;
+    max-width: 680px;
+}
+
+.lab-open-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #0B1647;
+    color: #48E5E5;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 24px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 14px rgba(11, 22, 71, 0.2);
+}
+
+.lab-open-btn:hover {
+    background: #152966;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(11, 22, 71, 0.3);
+}
+
+.lab-open-btn:active {
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════
+   LLM DEMO MODAL
+══════════════════════════════════════════════ */
+.llm-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(11, 22, 71, 0.7);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: none;
+    align-items: stretch;
+    justify-content: center;
+    animation: fadeInOverlay 0.2s ease;
+}
+
+.llm-modal-overlay.open {
+    display: flex;
+}
+
+@keyframes fadeInOverlay {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.llm-modal-shell {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 960px;
+    margin: 16px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #f8fafc;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    animation: slideUpModal 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUpModal {
+    from { transform: translateY(20px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.llm-modal-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 20px;
+    background: #0B1647;
+    flex-shrink: 0;
+}
+
+.llm-modal-back {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 10px;
+    padding: 7px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: all 0.15s;
+    white-space: nowrap;
+}
+
+.llm-modal-back:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.llm-modal-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    flex: 1;
+}
+
+.llm-modal-fs {
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.llm-modal-fs:hover {
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+}
+
+.llm-modal-iframe {
+    flex: 1;
+    width: 100%;
+    border: none;
+    display: block;
+    min-height: 0;
+}
+
+/* Full-screen mode */
+.llm-modal-overlay.fullscreen .llm-modal-shell {
+    max-width: 100%;
+    margin: 0;
+    border-radius: 0;
 }

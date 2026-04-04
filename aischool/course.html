@@ -124,6 +124,62 @@
                         </div>
                     </div>
 
+                    <!-- ═══ Actividad Interactiva — LLM Demo ═══ -->
+                    <div class="lab-card glass-panel" id="llm-lab-card">
+                        <div class="lab-card-header">
+                            <div class="lab-icon-wrap">
+                                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 2a10 10 0 1 0 10 10" />
+                                    <path d="M12 6v6l4 2" />
+                                    <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5" stroke-width="2"/>
+                                </svg>
+                            </div>
+                            <div class="lab-header-text">
+                                <span class="lab-badge">Actividad Interactiva</span>
+                                <h3 class="lab-title">Simulación: ¿Cómo predice un LLM?</h3>
+                            </div>
+                        </div>
+                        <p class="lab-desc">
+                            Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.
+                            Sin magia — solo operaciones matemáticas sobre tokens.
+                        </p>
+                        <button id="btn-open-llm-demo" class="lab-open-btn">
+                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                            </svg>
+                            Explorar Simulación
+                        </button>
+                    </div>
+
+                    <!-- LLM Demo Modal (fullscreen overlay with iframe) -->
+                    <div id="llm-demo-modal" class="llm-modal-overlay" aria-hidden="true">
+                        <div class="llm-modal-shell">
+                            <header class="llm-modal-bar">
+                                <button id="btn-close-llm-demo" class="llm-modal-back">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="19" y1="12" x2="5" y2="12"></line>
+                                        <polyline points="12 19 5 12 12 5"></polyline>
+                                    </svg>
+                                    Volver al módulo
+                                </button>
+                                <span class="llm-modal-title">Simulación Interactiva — AI4U Academy</span>
+                                <button id="btn-fullscreen-llm" class="llm-modal-fs" title="Pantalla completa">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
+                                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                                    </svg>
+                                </button>
+                            </header>
+                            <iframe
+                                id="llm-demo-iframe"
+                                src=""
+                                class="llm-modal-iframe"
+                                title="Simulación LLM"
+                                loading="lazy"
+                                allow="same-origin"
+                            ></iframe>
+                        </div>
+                    </div>
+
                     <!-- Comments Section -->
                     <div class="comments-section glass-panel">
                         <h3 class="comments-title">Preguntas y Respuestas</h3>
@@ -175,5 +231,49 @@
     </div>
 
     <script type="module" src="js/course.js"></script>
+    <script type="module" src="js/tracker.js"></script>
+
+    <!-- LLM Demo Modal Logic -->
+    <script>
+      (function () {
+        const modal   = document.getElementById('llm-demo-modal');
+        const iframe  = document.getElementById('llm-demo-iframe');
+        const btnOpen = document.getElementById('btn-open-llm-demo');
+        const btnClose= document.getElementById('btn-close-llm-demo');
+        const btnFs   = document.getElementById('btn-fullscreen-llm');
+
+        function openModal() {
+          // Lazy-load the iframe src on first open
+          if (!iframe.src || iframe.src === window.location.href) {
+            iframe.src = 'llm-visualizer.html';
+          }
+          modal.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+          modal.classList.remove('open', 'fullscreen');
+          document.body.style.overflow = '';
+        }
+
+        function toggleFullscreen() {
+          modal.classList.toggle('fullscreen');
+        }
+
+        if (btnOpen)  btnOpen.addEventListener('click', openModal);
+        if (btnClose) btnClose.addEventListener('click', closeModal);
+        if (btnFs)    btnFs.addEventListener('click', toggleFullscreen);
+
+        // Close on overlay click (outside the shell)
+        modal.addEventListener('click', function (e) {
+          if (e.target === modal) closeModal();
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
+      })();
+    </script>
 </body>
 </html>
