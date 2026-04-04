@@ -8,7 +8,7 @@
     position: relative;
     padding: var(--spacing-md);
     overflow: hidden;
-    background: #F8FAFC;
+    background: linear-gradient(135deg, #EFF6FF 0%, #F8FAFC 50%, #FEF3C7 100%);
 }
 
 /* Add animated glowing orbs behind the glass card */
@@ -24,13 +24,13 @@
 }
 
 .auth-body::before {
-    background: rgba(0, 21, 77, 0.08); /* brand-primary */
+    background: rgba(0, 163, 137, 0.2);
     top: 20%;
     left: 20%;
 }
 
 .auth-body::after {
-    background: rgba(59, 130, 246, 0.1); /* brand-accent */
+    background: rgba(255, 140, 66, 0.2);
     bottom: 20%;
     right: 20%;
     animation-delay: -5s;
@@ -69,14 +69,14 @@
 /* Glassmorphic Card - Light Mode */
 .auth-glass-card {
     width: 100%;
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--clr-border);
-    border-radius: 24px;
-    padding: 3rem;
-    box-shadow: var(--shadow-lg), 
-                inset 0 1px 0 rgba(255,255,255,1);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 
+                inset 0 1px 0 rgba(255,255,255,0.8);
     color: var(--clr-text-main);
 }
 
@@ -126,9 +126,9 @@
 }
 
 .auth-tab.active {
-    background: var(--brand-primary);
+    background: var(--clr-action);
     color: var(--clr-white);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 10px rgba(0, 163, 137, 0.3);
 }
 
 /* Forms */

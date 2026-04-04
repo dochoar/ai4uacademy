@@ -5,28 +5,28 @@
    ========================================================================== */
 
 :root {
-    /* Brand Colors - Navy Blue Identity */
-    --clr-primary: #00154D;
-    --clr-primary-light: #002586;
-    --clr-primary-dark: #000B29;
-    
-    --clr-action: #3B82F6; /* Modern Action Blue */
-    --clr-action-hover: #2563EB;
-    
-    --clr-accent: #6366F1; /* Indigo Accent */
-    
+    /* Colors - Light Mode */
+    --clr-primary: #1E40AF;
+    /* Blue - Primary Brand */
+    --clr-action: #00A389;
+    /* Emerald - Success, Approved */
+    --clr-action-hover: #00846F;
+    --clr-accent: #FF8C42;
+    /* Warm Orange - Energy, Urgency */
     --clr-bg: #F8FAFC;
+    /* Light Gray Background */
     --clr-white: #FFFFFF;
-    --clr-text-main: #0F172A;
-    --clr-text-muted: #475569;
+    --clr-text-main: #1E293B;
+    /* Dark Slate Text */
+    --clr-text-muted: #64748B;
     --clr-border: #E2E8F0;
 
-    /* Typography - Professional Pair */
-    --font-heading: 'Manrope', sans-serif;
-    --font-body: 'Inter', sans-serif;
+    /* Typography */
+    --font-heading: 'Fraunces', serif;
+    --font-body: 'Onest', sans-serif;
 
     /* Spacing & Layout */
-    --container-max: 1200px;
+    --container-max: 1100px;
     --spacing-xs: 8px;
     --spacing-sm: 16px;
     --spacing-md: 24px;
@@ -35,14 +35,14 @@
     --radius: 12px;
 
     /* Shadows & Effects */
-    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 20px 25px -5px rgba(0, 15, 77, 0.1);
-    --shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.4);
+    --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-focus: 0 0 0 3px rgba(0, 163, 137, 0.4);
 
     /* Transitions */
-    --transition-fast: 0.2s ease;
-    --transition-normal: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Base Styles */

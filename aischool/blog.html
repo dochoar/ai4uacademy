@@ -9,11 +9,9 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Onest:wght@100..900&display=swap" rel="stylesheet">
     
-    <link rel="stylesheet" href="css/design-system.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/landing.css">
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
     <style>
@@ -84,61 +82,61 @@
 </head>
 
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-container">
+    <!-- Header Navigation -->
+    <header class="site-header">
+        <div class="container header-inner">
             <div class="logo">
                 <a href="index.html">
-                    <img src="LOGO.png" alt="AI4U Academy Logo" class="logo-img">
+                    <img loading="lazy" src="assets/images/LOGO.png" alt="AI4U Academy Logo" class="header-logo-img" style="height: 45px;">
                 </a>
             </div>
-            <nav class="nav-links">
-                <a href="index.html" class="nav-link">Inicio</a>
-                <a href="blog.html" class="nav-link active">Blog</a>
-                <a href="acceso.html" class="nav-cta">Acceder</a>
+            <nav style="display: flex; align-items: center; gap: 24px;">
+                <a href="index.html" style="font-weight: 700;">Inicio</a>
+                <a href="blog.html" style="font-weight: 700; color: var(--clr-action);">Blog</a>
+                <a href="acceso.html" class="btn btn-sm btn-primary">Acceder</a>
             </nav>
         </div>
     </header>
 
-    <div class="blog-header" style="background: var(--brand-primary); padding: 120px 0 80px 0;">
+    <div class="blog-header">
         <div class="container">
-            <h1 class="text-gradient" style="font-size: 3.5rem; margin-bottom: 20px;">Blog de AI4U Academy</h1>
-            <p style="font-size: 1.25rem; opacity: 0.9; max-width: 700px; margin: 0 auto;">Aprende a dominar la Inteligencia Artificial con nuestros artículos y guías de vanguardia.</p>
+            <h1>Blog de AI4U Academy</h1>
+            <p>Aprende a dominar la Inteligencia Artificial con nuestros artículos y guías prácticas.</p>
         </div>
     </div>
 
     <main class="container">
         <div class="blog-grid">
             <!-- Article 1 -->
-            <article class="post-card glass-panel">
+            <article class="post-card">
                 <img src="assets/images/promo/ai-hero.png" alt="IA y Productividad" class="post-img">
                 <div class="post-content">
-                    <span class="post-category" style="color: var(--brand-accent);">Productividad</span>
-                    <h2 class="post-title" style="color: var(--brand-primary);">Cómo la IA puede ahorrarte 10 horas de trabajo a la semana</h2>
-                    <p class="post-excerpt">Descubre las herramientas y métodos de automatización que están revolucionando el mundo profesional.</p>
-                    <a href="blog/como-la-ia-ahorra-tiempo.html" class="post-link" style="color: var(--brand-accent);">Leer más →</a>
+                    <span class="post-category">Productividad</span>
+                    <h2 class="post-title">Cómo la IA puede ahorrarte 10 horas de trabajo a la semana</h2>
+                    <p class="post-excerpt">Descubre las herramientas y métodos de automatización que están revolucionando el mundo profesional. Aprende a delegar tareas repetitivas a la IA.</p>
+                    <a href="blog/como-la-ia-ahorra-tiempo.html" class="post-link">Leer más →</a>
                 </div>
             </article>
 
             <!-- Article 2 -->
-            <article class="post-card glass-panel">
+            <article class="post-card">
                 <img src="assets/images/promo/ai-preview.png" alt="Aprender IA" class="post-img">
                 <div class="post-content">
-                    <span class="post-category" style="color: var(--brand-accent);">Educación</span>
-                    <h2 class="post-title" style="color: var(--brand-primary);">Cursos de IA: ¿Por qué deberías aprender ahora mismo?</h2>
-                    <p class="post-excerpt">La brecha digital se está ensanchando. Aquellos que dominen la IA hoy tendrán la delantera mañana.</p>
-                    <a href="blog/ia-vs-humanos-productividad.html" class="post-link" style="color: var(--brand-accent);">Leer más →</a>
+                    <span class="post-category">Educación</span>
+                    <h2 class="post-title">Cursos de IA: ¿Por qué deberías aprender ahora mismo?</h2>
+                    <p class="post-excerpt">La brecha digital se está ensanchando. Aquellos que dominen la Inteligencia Artificial hoy tendrán la delantera mañana. Analizamos el mercado de cursos de IA.</p>
+                    <a href="blog/ia-vs-humanos-productividad.html" class="post-link">Leer más →</a>
                 </div>
             </article>
 
             <!-- Article 3 -->
-            <article class="post-card glass-panel">
-                <div style="background: var(--brand-primary); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🤖</div>
+            <article class="post-card">
+                <div style="background: var(--clr-primary); height: 200px; display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">🤖</div>
                 <div class="post-content">
-                    <span class="post-category" style="color: var(--brand-accent);">Prompt Engineering</span>
-                    <h2 class="post-title" style="color: var(--brand-primary);">El arte de hablar con las máquinas: Guía de Prompts</h2>
-                    <p class="post-excerpt">No necesitas programar, necesitas comunicar. Te enseñamos los secretos del Prompt Engineering.</p>
-                    <a href="blog/guia-prompt-engineering.html" class="post-link" style="color: var(--brand-accent);">Leer más →</a>
+                    <span class="post-category">Prompt Engineering</span>
+                    <h2 class="post-title">El arte de hablar con las máquinas: Guía de Prompts</h2>
+                    <p class="post-excerpt">No necesitas programar, necesitas comunicar. Te enseñamos los secretos del Prompt Engineering para obtener resultados perfectos en ChatGPT.</p>
+                    <a href="blog/guia-prompt-engineering.html" class="post-link">Leer más →</a>
                 </div>
             </article>
         </div>
