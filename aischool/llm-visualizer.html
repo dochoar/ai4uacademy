@@ -370,20 +370,21 @@
    CORE LLM SIMULATION — deterministic, no randomness
 ══════════════════════════════════════════════════════════════ */
 
-const VOCAB = ['duerme', 'come', 'corre', 'mucho'];
+const VOCAB = ['duerme', 'come', 'corre', 'mucho', 'salta', 'mira', 'bebe', 'juega', 'rueda', 'maúlla'];
 
 const SCORE_MAP = {
-  gato:     { duerme: 8.0, come: 4.5, corre: 3.5, mucho: 0.8 },
-  duerme:   { duerme: 0.3, come: 1.5, corre: 1.5, mucho: 9.0 },
-  come:     { duerme: 1.5, come: 0.3, corre: 2.5, mucho: 7.5 },
-  corre:    { duerme: 2.0, come: 2.0, corre: 0.3, mucho: 7.0 },
-  mucho:    { duerme: 5.0, come: 4.0, corre: 3.5, mucho: 1.5 },
-  _default: { duerme: 3.0, come: 2.5, corre: 2.0, mucho: 1.5 },
+  gato:     { duerme: 8.0, come: 4.5, corre: 3.5, mucho: 0.8, salta: 5.0, mira: 6.0, bebe: 1.5, juega: 7.0, rueda: 2.0, maúlla: 9.0 },
+  duerme:   { duerme: 0.3, come: 1.5, corre: 1.5, mucho: 9.0, salta: 0.5, mira: 0.5, bebe: 0.2, juega: 0.3, rueda: 0.1, maúlla: 0.4 },
+  come:     { duerme: 1.5, come: 0.3, corre: 2.5, mucho: 7.5, salta: 0.5, mira: 1.0, bebe: 2.0, juega: 0.5, rueda: 0.2, maúlla: 0.3 },
+  corre:    { duerme: 2.0, come: 2.0, corre: 0.3, mucho: 7.0, salta: 4.0, mira: 0.5, bebe: 0.5, juega: 1.5, rueda: 0.8, maúlla: 0.2 },
+  mucho:    { duerme: 5.0, come: 4.0, corre: 3.5, mucho: 1.5, salta: 2.0, mira: 2.5, bebe: 1.0, juega: 2.0, rueda: 1.2, maúlla: 1.8 },
+  _default: { duerme: 3.0, come: 2.5, corre: 2.0, mucho: 1.5, salta: 1.0, mira: 1.0, bebe: 0.5, juega: 1.0, rueda: 0.5, maúlla: 0.8 },
 };
 
 function getScore(context, word) {
   const last = context[context.length - 1] || '_default';
-  return (SCORE_MAP[last] || SCORE_MAP._default)[word] ?? 2.0;
+  const scores = SCORE_MAP[last] || SCORE_MAP._default;
+  return scores[word] ?? 0.5;
 }
 
 function softmax(items, temp) {
@@ -508,6 +509,11 @@ function renderRight() {
   const preds = predict(sentence, temp);
   const panel = document.getElementById('right-panel');
 
+  // Probability threshold to consider a word as a "candidate"
+  // At low temp, many words will have near-zero prob.
+  const threshold = 0.005; 
+  const activePreds = preds.filter(p => p.prob >= threshold);
+
   if (step === 0) {
     panel.innerHTML = `
       <div class="placeholder fade-up">
@@ -516,24 +522,32 @@ function renderRight() {
           Presiona <strong>Siguiente</strong> para ver el cálculo de probabilidades
         </div>
         <div class="placeholder-chips">
-          ${VOCAB.map(w => `<span class="vocab-chip">${w}</span>`).join('')}
+          ${VOCAB.slice(0, 6).map(w => `<span class="vocab-chip">${w}</span>`).join('')}
+          <span class="vocab-chip">...</span>
         </div>
-        <div style="font-size:10px;color:var(--light);margin-top:2px;">${VOCAB.length} candidatos posibles</div>
+        <div style="font-size:10px;color:var(--light);margin-top:2px;">${VOCAB.length} palabras en vocabulario</div>
       </div>
     `;
     return;
   }
 
+  // Show only top 6 or all active candidates
+  const displayPreds = preds.slice(0, 6);
+
   // Build bars HTML
-  const barsHTML = preds.map((item, i) => {
+  const barsHTML = displayPreds.map((item, i) => {
     const isTop = i === 0;
-    const pct   = Math.max(Math.round(item.prob * 100), 1);
+    const isActive = item.prob >= threshold;
+    const pct   = Math.max(Math.round(item.prob * 100), 0);
+    
+    // If not active, we might want to dim it or skip it, 
+    // but showing it dim communicates "low probability".
     return `
-      <div class="prob-row fade-up" style="animation-delay:${i * 60}ms">
+      <div class="prob-row fade-up" style="animation-delay:${i * 60}ms; opacity: ${isActive ? 1 : 0.4}">
         <div class="prob-meta">
           <div style="display:flex;align-items:center;gap:6px;">
             ${isTop ? '<span class="top-badge">TOP</span>' : ''}
-            <span class="prob-word ${isTop ? '' : 'dim'}">"${item.word}"</span>
+            <span class="prob-word ${isActive ? '' : 'dim'}">"${item.word}"</span>
           </div>
           <div class="prob-right">
             <span class="prob-score">score: ${item.score.toFixed(1)}</span>
@@ -544,7 +558,7 @@ function renderRight() {
           <div class="bar-fill ${isTop ? 'top' : 'dim'}" data-pct="${pct}" style="width:0%">
             ${pct >= 20 ? `<span class="bar-pct-inside">${pct}%</span>` : ''}
           </div>
-          ${pct < 20 ? `<span class="bar-pct-outside">${pct}%</span>` : ''}
+          ${pct < 20 && pct > 0 ? `<span class="bar-pct-outside">${pct}%</span>` : ''}
         </div>
       </div>
     `;
@@ -561,11 +575,13 @@ function renderRight() {
         </div>
       `;
     } else {
+      // For selection, show words above threshold
+      const selectPreds = activePreds.slice(0, 6);
       wordSelectorHTML = `
         <div class="word-selector">
-          <div class="word-selector-label">Selecciona el siguiente token:</div>
+          <div class="word-selector-label">Selecciona el siguiente token (${activePreds.length} candidatos viables):</div>
           <div class="word-grid">
-            ${preds.map((item, i) => `
+            ${selectPreds.map((item, i) => `
               <button class="btn-word ${i === 0 ? 'top-word' : ''}"
                       onclick="addWord('${item.word}')">
                 <span>${item.word}</span>
@@ -573,6 +589,7 @@ function renderRight() {
               </button>
             `).join('')}
           </div>
+          ${activePreds.length > 6 ? `<div style="font-size:10px; color:var(--light); text-align:center; margin-top:8px;">+ ${activePreds.length - 6} más con T=${temp.toFixed(1)}</div>` : ''}
         </div>
       `;
     }
@@ -580,7 +597,7 @@ function renderRight() {
 
   panel.innerHTML = `
     <div class="prob-header">
-      <span class="prob-header-label">P(token | contexto)</span>
+      <span class="prob-header-label">P(token | contexto) — ${activePreds.length} candidatos</span>
       <span class="prob-header-formula">T = ${temp.toFixed(1)}</span>
     </div>
     ${barsHTML}
