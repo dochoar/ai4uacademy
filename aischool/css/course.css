@@ -613,8 +613,8 @@
     }
 }
 
-/* Quiz Overlay */
-.quiz-overlay {
+/* Quiz Section */
+.quiz-section {
     position: absolute;
     top: 0;
     left: 0;

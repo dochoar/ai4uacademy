@@ -4,555 +4,640 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Simulación LLM — AI4U Academy</title>
-
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/framer-motion@7.10.3/dist/framer-motion.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-
   <style>
+    /* ── Reset & Base ────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html, body { height: 100%; }
     body {
-      font-family: ui-sans-serif, system-ui, -apple-system, 'Inter', sans-serif;
-      -webkit-font-smoothing: antialiased;
+      font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
       background: #f8fafc;
+      color: #1e293b;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
     }
-    /* Range slider — cross-browser */
+
+    /* ── Design tokens ──────────────────────────────────── */
+    :root {
+      --navy:   #0B1647;
+      --navy2:  #152966;
+      --cyan:   #48E5E5;
+      --cyan2:  #2cc4c4;
+      --bg:     #f8fafc;
+      --card:   #ffffff;
+      --border: #e2e8f0;
+      --muted:  #64748b;
+      --light:  #94a3b8;
+      --radius: 14px;
+    }
+
+    /* ── Top bar ────────────────────────────────────────── */
+    .topbar {
+      background: var(--navy);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .topbar-left { display: flex; align-items: center; gap: 12px; }
+    .topbar-icon {
+      width: 34px; height: 34px;
+      background: var(--cyan);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .topbar-icon svg { display: block; }
+    .topbar-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .1em; color: var(--cyan); display: block; margin-bottom: 2px;
+    }
+    .topbar-title { font-size: 13px; font-weight: 700; color: #fff; line-height: 1.2; }
+    .topbar-note  { font-size: 11px; color: rgba(255,255,255,.35); display: none; }
+    @media(min-width:600px){ .topbar-note { display: block; } }
+
+    /* ── Body scroll area ───────────────────────────────── */
+    .body-scroll { flex: 1; overflow-y: auto; padding: 14px; }
+    .inner { max-width: 700px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+    /* ── Step tabs ──────────────────────────────────────── */
+    .step-tabs { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+    .step-tab {
+      padding: 9px 6px;
+      border-radius: 10px;
+      font-size: 12px; font-weight: 700;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      color: var(--light);
+      cursor: pointer;
+      transition: all .18s;
+      text-align: center;
+    }
+    .step-tab.active { background: var(--navy); color: var(--cyan); border-color: var(--navy); }
+    .step-tab.done   { background: rgba(11,22,71,.07); color: rgba(11,22,71,.45); border-color: transparent; }
+
+    /* ── Cards ──────────────────────────────────────────── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.04);
+    }
+
+    /* ── Step info card ─────────────────────────────────── */
+    .step-info-title {
+      font-size: 11px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--navy); margin-bottom: 6px;
+    }
+    .step-info-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+    .step-formula {
+      margin-top: 8px; padding: 7px 12px;
+      background: rgba(11,22,71,.05); border-radius: 8px;
+      font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700;
+      color: var(--navy);
+    }
+
+    /* ── Two column layout ──────────────────────────────── */
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media(max-width:560px){ .cols { grid-template-columns: 1fr; } }
+
+    /* ── Col label ──────────────────────────────────────── */
+    .col-label {
+      font-size: 10px; font-weight: 800; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--light); margin-bottom: 10px;
+    }
+
+    /* ── Sentence display ───────────────────────────────── */
+    .sentence-area {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      min-height: 44px; align-items: center;
+      margin-bottom: 10px;
+    }
+    .token {
+      padding: 5px 12px; border-radius: 8px;
+      font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700;
+      border: 1.5px solid;
+      animation: tokenIn .28s cubic-bezier(.34,1.56,.64,1) both;
+    }
+    .token.seed  { background: rgba(11,22,71,.05); color: var(--navy); border-color: rgba(11,22,71,.12); }
+    .token.added { background: rgba(72,229,229,.18); color: var(--navy); border-color: rgba(72,229,229,.45); }
+    @keyframes tokenIn {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1);  opacity: 1; }
+    }
+    .cursor {
+      font-size: 18px; color: #cbd5e1; line-height: 1;
+      animation: blink 1.1s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
+
+    /* ── Token index row (step 0) ───────────────────────── */
+    .token-idx-row {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      padding-top: 10px; border-top: 1px solid var(--border);
+      margin-top: 2px;
+    }
+    .token-idx-wrap { text-align: center; }
+    .token-idx-chip {
+      background: rgba(11,22,71,.06); border-radius: 6px;
+      padding: 4px 8px; font-family: 'Courier New', monospace;
+      font-size: 11px; font-weight: 700; color: var(--navy);
+    }
+    .token-idx-chip.next {
+      background: transparent; border: 1.5px dashed var(--cyan); color: var(--cyan);
+    }
+    .token-idx-pos { font-size: 10px; color: var(--light); margin-top: 3px; }
+
+    /* ── Temperature ────────────────────────────────────── */
+    .temp-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .temp-value {
+      font-family: 'Courier New', monospace; font-size: 13px; font-weight: 900;
+      background: rgba(11,22,71,.07); color: var(--navy);
+      padding: 2px 8px; border-radius: 7px;
+    }
     input[type=range] {
       -webkit-appearance: none; appearance: none;
-      width: 100%; height: 6px; border-radius: 3px; outline: none; cursor: pointer;
+      width: 100%; height: 6px; border-radius: 3px;
+      outline: none; cursor: pointer; margin-bottom: 4px;
     }
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 20px; height: 20px; border-radius: 50%;
-      background: #0B1647; border: 3px solid #48E5E5;
-      cursor: pointer; margin-top: -7px;
-      box-shadow: 0 2px 6px rgba(11,22,71,0.3);
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--navy); border: 3px solid var(--cyan);
+      cursor: pointer; margin-top: -6px;
+      box-shadow: 0 2px 6px rgba(11,22,71,.3);
     }
     input[type=range]::-moz-range-thumb {
-      width: 20px; height: 20px; border-radius: 50%;
-      background: #0B1647; border: 3px solid #48E5E5;
-      cursor: pointer;
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--navy); border: 3px solid var(--cyan); cursor: pointer;
     }
     input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; }
-    input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; }
-    /* Scrollbar slim */
-    ::-webkit-scrollbar { width: 4px; }
-    ::-webkit-scrollbar-track { background: transparent; }
-    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+    .temp-ends { display: flex; justify-content: space-between; font-size: 10px; color: var(--light); margin-bottom: 8px; }
+    .temp-note {
+      padding: 7px 11px; border-radius: 9px; font-size: 12px; font-weight: 600;
+      background: rgba(72,229,229,.1); color: var(--navy);
+      border: 1px solid rgba(72,229,229,.28);
+    }
+
+    /* ── Step nav buttons ───────────────────────────────── */
+    .step-nav { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .btn-nav {
+      flex: 1; padding: 10px; border-radius: 11px; font-size: 13px; font-weight: 700;
+      cursor: pointer; border: 1.5px solid var(--border); transition: all .15s;
+      font-family: inherit;
+    }
+    .btn-nav.prev { background: var(--card); color: var(--muted); }
+    .btn-nav.prev:hover:not(:disabled) { background: #f1f5f9; }
+    .btn-nav.next { background: var(--navy); color: var(--cyan); border-color: var(--navy); }
+    .btn-nav.next:hover:not(:disabled) { background: var(--navy2); }
+    .btn-nav:disabled { opacity: .3; cursor: not-allowed; }
+    .step-counter { font-size: 11px; color: var(--light); font-family: monospace; white-space: nowrap; }
+
+    /* ── Right panel: placeholder ───────────────────────── */
+    .placeholder {
+      display: flex; flex-direction: column; align-items: center;
+      justify-content: center; min-height: 180px; text-align: center; gap: 10px;
+    }
+    .placeholder-emoji { font-size: 42px; }
+    .placeholder-text  { font-size: 13px; color: var(--light); max-width: 170px; line-height: 1.5; }
+    .placeholder-chips { display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; margin-top: 4px; }
+    .vocab-chip {
+      font-family: 'Courier New', monospace; font-size: 11px; font-weight: 700;
+      background: #f1f5f9; color: var(--light); padding: 4px 10px; border-radius: 6px;
+    }
+
+    /* ── Probability bars ───────────────────────────────── */
+    .prob-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .prob-header-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--light); }
+    .prob-header-formula {
+      font-size: 10px; font-family: monospace; font-weight: 700;
+      background: #f1f5f9; color: var(--muted); padding: 2px 7px; border-radius: 5px;
+    }
+    .prob-row { margin-bottom: 10px; }
+    .prob-row:last-of-type { margin-bottom: 0; }
+    .prob-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
+    .prob-word { font-family: 'Courier New', monospace; font-size: 13px; font-weight: 700; color: var(--navy); }
+    .prob-word.dim { color: var(--muted); }
+    .prob-right { display: flex; gap: 10px; align-items: center; }
+    .prob-score { font-size: 11px; font-family: monospace; color: var(--light); }
+    .prob-val { font-family: monospace; font-size: 12px; font-weight: 900; min-width: 42px; text-align: right; }
+    .prob-val.top { color: var(--navy); }
+    .prob-val.dim { color: var(--light); }
+    .top-badge {
+      font-size: 9px; font-weight: 900; text-transform: uppercase; letter-spacing: .06em;
+      background: var(--navy); color: var(--cyan); padding: 1px 5px; border-radius: 4px;
+    }
+    .bar-track { height: 26px; background: #f1f5f9; border-radius: 8px; overflow: hidden; position: relative; }
+    .bar-fill {
+      height: 100%; border-radius: 8px;
+      display: flex; align-items: center; justify-content: flex-end; padding-right: 7px;
+      transition: width .65s cubic-bezier(.4,0,.2,1);
+      width: 0%;
+    }
+    .bar-fill.top { background: linear-gradient(90deg, var(--navy), var(--cyan)); }
+    .bar-fill.dim { background: linear-gradient(90deg, #cbd5e1, #94a3b8); }
+    .bar-pct-inside { font-size: 11px; font-weight: 900; color: #fff; }
+    .bar-pct-outside {
+      position: absolute; left: 8px; top: 50%; transform: translateY(-50%);
+      font-size: 11px; font-weight: 900; color: var(--muted);
+    }
+
+    /* ── Word selector (step 2) ─────────────────────────── */
+    .word-selector { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border); }
+    .word-selector-label { font-size: 11px; font-weight: 700; color: var(--muted); margin-bottom: 8px; }
+    .word-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .btn-word {
+      padding: 10px 8px; border-radius: 11px; border: 2px solid var(--border);
+      background: var(--card); font-size: 13px; font-weight: 700;
+      cursor: pointer; transition: all .15s; font-family: inherit;
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      color: var(--muted);
+    }
+    .btn-word:hover { border-color: #cbd5e1; background: #f8fafc; transform: translateY(-1px); }
+    .btn-word.top-word { background: var(--cyan); color: var(--navy); border-color: var(--cyan); }
+    .btn-word.top-word:hover { background: var(--cyan2); border-color: var(--cyan2); }
+    .btn-word-pct { font-size: 11px; font-family: monospace; opacity: .7; }
+    .btn-reset {
+      width: 100%; padding: 11px; border-radius: 11px;
+      background: var(--navy); color: var(--cyan); border: none;
+      font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: background .15s;
+    }
+    .btn-reset:hover { background: var(--navy2); }
+    .complete-msg { text-align: center; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+
+    /* ── Footer ─────────────────────────────────────────── */
+    .footer {
+      background: var(--card); border-top: 1px solid var(--border);
+      padding: 10px 16px; flex-shrink: 0;
+    }
+    .footer p { font-size: 11px; color: var(--light); text-align: center; line-height: 1.5; }
+    .footer strong { color: var(--navy); }
+
+    /* ── Fade animation for content changes ─────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(7px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp .22s ease both; }
   </style>
 </head>
-
 <body>
-  <div id="root"></div>
 
-  <script type="text/babel">
-    const { useState, useMemo, useCallback } = React;
-    const { motion, AnimatePresence } = FramerMotion;
+  <!-- Top Bar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B1647" stroke-width="2.5" stroke-linecap="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div>
+        <span class="topbar-label">AI4U Academy — Simulación</span>
+        <span class="topbar-title">¿Cómo predice el siguiente token un LLM?</span>
+      </div>
+    </div>
+    <span class="topbar-note">solo matemáticas — sin comprensión</span>
+  </div>
 
-    /* ═══════════════════════════════════════════════════════════
-       CORE LLM SIMULATION
-       Deterministic scoring — NO randomness
-    ═══════════════════════════════════════════════════════════ */
+  <!-- Scrollable body -->
+  <div class="body-scroll">
+    <div class="inner">
 
-    const VOCAB = ['duerme', 'come', 'corre', 'mucho'];
+      <!-- Step tabs -->
+      <div class="step-tabs" id="step-tabs"></div>
 
-    // Simulates trained weights / attention patterns
-    const SCORE_MAP = {
-      gato:     { duerme: 8.0, come: 4.5, corre: 3.5, mucho: 0.8 },
-      duerme:   { duerme: 0.3, come: 1.5, corre: 1.5, mucho: 9.0 },
-      come:     { duerme: 1.5, come: 0.3, corre: 2.5, mucho: 7.5 },
-      corre:    { duerme: 2.0, come: 2.0, corre: 0.3, mucho: 7.0 },
-      mucho:    { duerme: 5.0, come: 4.0, corre: 3.5, mucho: 1.5 },
-      _default: { duerme: 3.0, come: 2.5, corre: 2.0, mucho: 1.5 },
-    };
+      <!-- Step info card -->
+      <div class="card" id="step-info-card"></div>
 
-    function getScore(context, word) {
-      const last = context[context.length - 1] || '_default';
-      return (SCORE_MAP[last] || SCORE_MAP._default)[word] ?? 2.0;
-    }
+      <!-- Two columns -->
+      <div class="cols">
 
-    function softmax(items, temp) {
-      const t = Math.max(temp, 0.05);
-      const maxS = Math.max(...items.map(i => i.score));
-      const exps = items.map(i => ({ ...i, exp: Math.exp((i.score - maxS) / t) }));
-      const total = exps.reduce((s, i) => s + i.exp, 0);
-      return exps.map(i => ({ ...i, prob: i.exp / total }));
-    }
+        <!-- LEFT -->
+        <div style="display:flex;flex-direction:column;gap:12px;">
 
-    function predict(context, temp) {
-      const scored = VOCAB.map(w => ({ word: w, score: getScore(context, w) }));
-      return softmax(scored, temp).sort((a, b) => b.prob - a.prob);
-    }
+          <!-- Sentence card -->
+          <div class="card">
+            <div class="col-label">Oración actual</div>
+            <div class="sentence-area" id="sentence-area"></div>
+            <div id="token-idx-row" class="token-idx-row" style="display:none;"></div>
+          </div>
 
-    /* ═══════════════════════════════════════════════════════════
-       COMPONENTS
-    ═══════════════════════════════════════════════════════════ */
-
-    // Animated probability bar
-    function ProbBar({ item, rank, sentenceKey }) {
-      const isTop = rank === 0;
-      const pct = Math.max(Math.round(item.prob * 100), 1);
-
-      return (
-        <motion.div
-          className="mb-3 last:mb-0"
-          initial={{ opacity: 0, x: -14 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: rank * 0.06, duration: 0.3 }}
-        >
-          {/* Label row */}
-          <div className="flex items-center justify-between mb-1.5">
-            <div className="flex items-center gap-2">
-              {isTop && (
-                <span style={{ fontSize: '9px', background: '#0B1647', color: '#48E5E5' }}
-                  className="font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md">
-                  TOP
-                </span>
-              )}
-              <span className={`font-mono text-sm font-bold ${isTop ? 'text-[#0B1647]' : 'text-slate-500'}`}>
-                "{item.word}"
-              </span>
+          <!-- Temperature card -->
+          <div class="card">
+            <div class="temp-header">
+              <div class="col-label" style="margin:0;">Temperatura T</div>
+              <span class="temp-value" id="temp-value">0.8</span>
             </div>
-            <div className="flex items-center gap-3 text-xs font-mono">
-              <span className="text-slate-400 hidden sm:inline">puntuación: {item.score.toFixed(1)}</span>
-              <span className={`font-black tabular-nums w-12 text-right ${isTop ? 'text-[#0B1647]' : 'text-slate-400'}`}>
-                {item.prob.toFixed(3)}
-              </span>
-            </div>
+            <input type="range" id="temp-slider" min="0.2" max="2.0" step="0.1" value="0.8">
+            <div class="temp-ends"><span>0.2 · Determinista</span><span>2.0 · Aleatorio</span></div>
+            <div class="temp-note" id="temp-note"></div>
           </div>
 
-          {/* Bar track */}
-          <div className="relative h-7 bg-slate-100 rounded-lg overflow-hidden">
-            <motion.div
-              className="absolute inset-y-0 left-0 rounded-lg flex items-center justify-end pr-2"
-              style={{
-                background: isTop
-                  ? 'linear-gradient(90deg, #0B1647 0%, #48E5E5 100%)'
-                  : 'linear-gradient(90deg, #cbd5e1 0%, #94a3b8 100%)',
-              }}
-              key={`${sentenceKey}-${item.word}`}
-              initial={{ width: 0 }}
-              animate={{ width: `${pct}%` }}
-              transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1], delay: rank * 0.06 }}
-            >
-              {pct >= 20 && (
-                <span className="text-xs font-black text-white z-10">{pct}%</span>
-              )}
-            </motion.div>
-            {pct < 20 && (
-              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-600 z-10">
-                {pct}%
-              </span>
-            )}
+          <!-- Nav -->
+          <div class="step-nav">
+            <button class="btn-nav prev" id="btn-prev">← Anterior</button>
+            <span class="step-counter" id="step-counter">1 / 3</span>
+            <button class="btn-nav next" id="btn-next">Siguiente →</button>
           </div>
-        </motion.div>
-      );
-    }
-
-    /* ── Step metadata ───────────────────────────────────────── */
-    const STEPS = [
-      {
-        icon: '🔤',
-        label: 'Tokenizar',
-        title: 'Paso 1 — Tokenización y contexto',
-        desc: 'La oración se divide en tokens (unidades mínimas). El modelo analiza el contexto completo — cada posición influye en la predicción.',
-        formula: null,
-      },
-      {
-        icon: '📐',
-        label: 'Calcular',
-        title: 'Paso 2 — Puntuaciones y softmax',
-        desc: 'Los patrones del entrenamiento asignan una puntuación a cada token candidato. La función softmax las convierte en probabilidades que suman exactamente 1.0.',
-        formula: 'P(w) = exp(score(w) / T) / Σ exp(score(wᵢ) / T)',
-      },
-      {
-        icon: '✋',
-        label: 'Seleccionar',
-        title: 'Paso 3 — Selección del siguiente token',
-        desc: 'La temperatura T controla la "confianza". Temperatura baja → distribución concentrada. Temperatura alta → distribución uniforme. Elige una palabra para continuar.',
-        formula: null,
-      },
-    ];
-
-    /* ── Main App ────────────────────────────────────────────── */
-    function App() {
-      const [sentence, setSentence] = useState(['el', 'gato']);
-      const [step, setStep] = useState(0);
-      const [temp, setTemp] = useState(0.8);
-      const MAX_WORDS = 6;
-      const canAdd = sentence.length < MAX_WORDS;
-      const sentenceKey = sentence.join('-');
-
-      // Recompute predictions whenever sentence or temp changes
-      const preds = useMemo(() => predict(sentence, temp), [sentenceKey, temp]);
-
-      const addWord = useCallback((w) => {
-        setSentence(s => [...s, w]);
-        setStep(0);
-      }, []);
-
-      const reset = () => { setSentence(['el', 'gato']); setStep(0); };
-
-      const tempInfo = temp <= 0.5
-        ? { label: '🎯 Muy determinista', note: 'La palabra más probable domina fuertemente.' }
-        : temp <= 0.9
-        ? { label: '⚖️ Balanceado', note: 'Buen equilibrio entre certeza y variedad.' }
-        : temp <= 1.4
-        ? { label: '🎲 Diverso', note: 'Las opciones menos probables ganan peso.' }
-        : { label: '🌀 Muy aleatorio', note: 'Todas las probabilidades se aplanan.' };
-
-      const trackGradient = `linear-gradient(to right, #0B1647 0%, #48E5E5 ${((temp - 0.2) / 1.8) * 100}%, #e2e8f0 ${((temp - 0.2) / 1.8) * 100}%)`;
-
-      return (
-        <div className="min-h-screen flex flex-col" style={{ background: '#f8fafc' }}>
-
-          {/* ── Top Bar ─────────────────────────────────── */}
-          <div style={{ background: '#0B1647' }} className="px-4 py-3 flex items-center justify-between flex-shrink-0">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
-                   style={{ background: '#48E5E5' }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B1647" strokeWidth="2.5">
-                  <path d="M12 2a10 10 0 1 0 10 10" strokeLinecap="round"/>
-                  <path d="M12 6v6l4 2" strokeLinecap="round"/>
-                  <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5"/>
-                </svg>
-              </div>
-              <div>
-                <p className="text-xs font-black uppercase tracking-widest" style={{ color: '#48E5E5' }}>
-                  AI4U Academy — Simulación Interactiva
-                </p>
-                <h1 className="text-sm font-bold text-white leading-tight">
-                  ¿Cómo predice el siguiente token un LLM?
-                </h1>
-              </div>
-            </div>
-            <p className="text-xs hidden md:block" style={{ color: 'rgba(255,255,255,0.35)' }}>
-              solo matemáticas — sin comprensión
-            </p>
-          </div>
-
-          {/* ── Body ────────────────────────────────────── */}
-          <div className="flex-1 overflow-y-auto p-3 sm:p-4">
-            <div className="max-w-2xl mx-auto space-y-3">
-
-              {/* Step Tabs */}
-              <div className="grid grid-cols-3 gap-1.5">
-                {STEPS.map((s, i) => (
-                  <button
-                    key={s.id}
-                    onClick={() => setStep(i)}
-                    className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all duration-200 border ${
-                      step === i
-                        ? 'text-white border-transparent'
-                        : step > i
-                        ? 'border-transparent'
-                        : 'bg-white border-slate-200 text-slate-400'
-                    }`}
-                    style={step === i
-                      ? { background: '#0B1647', borderColor: '#0B1647' }
-                      : step > i
-                      ? { background: 'rgba(11,22,71,0.08)', color: 'rgba(11,22,71,0.5)' }
-                      : {}
-                    }
-                  >
-                    <span className="mr-1">{s.icon}</span>
-                    <span>{s.label}</span>
-                  </button>
-                ))}
-              </div>
-
-              {/* Step Description Card */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={step}
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.2 }}
-                  className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm"
-                >
-                  <p className="text-xs font-black uppercase tracking-widest mb-1.5"
-                     style={{ color: '#0B1647' }}>
-                    {STEPS[step].title}
-                  </p>
-                  <p className="text-sm text-slate-500 leading-relaxed">
-                    {STEPS[step].desc}
-                  </p>
-                  {STEPS[step].formula && (
-                    <div className="mt-2 px-3 py-2 rounded-lg text-xs font-mono font-bold"
-                         style={{ background: 'rgba(11,22,71,0.05)', color: '#0B1647' }}>
-                      {STEPS[step].formula}
-                    </div>
-                  )}
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Two-Column Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
-                {/* ── LEFT: Sentence + Temperature + Nav ── */}
-                <div className="space-y-3">
-
-                  {/* Sentence Builder */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
-                      Oración actual
-                    </p>
-                    {/* Token chips */}
-                    <div className="flex flex-wrap gap-1.5 min-h-[48px] items-center mb-3">
-                      <AnimatePresence>
-                        {sentence.map((w, i) => (
-                          <motion.span
-                            key={`tok-${i}-${w}`}
-                            initial={{ scale: 0.5, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ type: 'spring', stiffness: 500, damping: 28 }}
-                            className="px-3 py-1.5 rounded-lg font-mono text-sm font-bold border"
-                            style={i < 2
-                              ? { background: 'rgba(11,22,71,0.05)', color: '#0B1647', borderColor: 'rgba(11,22,71,0.12)' }
-                              : { background: 'rgba(72,229,229,0.15)', color: '#0B1647', borderColor: 'rgba(72,229,229,0.4)' }
-                            }
-                          >
-                            {w}
-                          </motion.span>
-                        ))}
-                        {canAdd && (
-                          <motion.span
-                            animate={{ opacity: [1, 0.15, 1] }}
-                            transition={{ repeat: Infinity, duration: 1.1 }}
-                            className="font-mono text-slate-300 text-xl leading-none select-none"
-                          >
-                            |
-                          </motion.span>
-                        )}
-                      </AnimatePresence>
-                    </div>
-
-                    {/* Token index view — Step 0 only */}
-                    <AnimatePresence>
-                      {step === 0 && (
-                        <motion.div
-                          initial={{ opacity: 0, height: 0 }}
-                          animate={{ opacity: 1, height: 'auto' }}
-                          exit={{ opacity: 0, height: 0 }}
-                          transition={{ duration: 0.2 }}
-                          className="pt-3 border-t border-slate-100"
-                        >
-                          <p className="text-xs text-slate-400 mb-2">Representación interna:</p>
-                          <div className="flex flex-wrap gap-1.5">
-                            {sentence.map((w, i) => (
-                              <div key={i} className="text-center">
-                                <div className="rounded-md px-2 py-1 font-mono text-xs font-bold"
-                                     style={{ background: 'rgba(11,22,71,0.06)', color: '#0B1647' }}>
-                                  {w}
-                                </div>
-                                <div className="text-[10px] text-slate-400 mt-0.5">pos_{i}</div>
-                              </div>
-                            ))}
-                            <div className="text-center">
-                              <div className="rounded-md px-2 py-1 font-mono text-xs font-bold border-dashed border"
-                                   style={{ color: '#48E5E5', borderColor: '#48E5E5', background: 'transparent' }}>
-                                ???
-                              </div>
-                              <div className="text-[10px] text-slate-400 mt-0.5">pos_{sentence.length}</div>
-                            </div>
-                          </div>
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Temperature Slider */}
-                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Temperatura T</p>
-                      <span className="font-mono text-sm font-black rounded-lg px-2 py-0.5"
-                            style={{ background: 'rgba(11,22,71,0.07)', color: '#0B1647' }}>
-                        {temp.toFixed(1)}
-                      </span>
-                    </div>
-
-                    <input
-                      type="range" min="0.2" max="2.0" step="0.1"
-                      value={temp}
-                      onChange={e => setTemp(+e.target.value)}
-                      style={{ background: trackGradient }}
-                    />
-
-                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 mb-2.5">
-                      <span>0.2 — Determinista</span>
-                      <span>2.0 — Aleatorio</span>
-                    </div>
-
-                    <div className="rounded-lg px-3 py-2 text-xs font-semibold border"
-                         style={{ background: 'rgba(72,229,229,0.08)', color: '#0B1647', borderColor: 'rgba(72,229,229,0.25)' }}>
-                      <span className="font-black">{tempInfo.label}</span>
-                      <span className="text-slate-500"> — {tempInfo.note}</span>
-                    </div>
-                  </div>
-
-                  {/* Step Navigation */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setStep(s => Math.max(0, s - 1))}
-                      disabled={step === 0}
-                      className="flex-1 py-2.5 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                    >
-                      ← Anterior
-                    </button>
-                    <span className="text-xs text-slate-400 font-mono whitespace-nowrap">{step + 1} / 3</span>
-                    <button
-                      onClick={() => setStep(s => Math.min(2, s + 1))}
-                      disabled={step === 2}
-                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
-                      style={{ background: '#0B1647' }}
-                    >
-                      Siguiente →
-                    </button>
-                  </div>
-                </div>
-
-                {/* ── RIGHT: Probability Bars + Word Selector ── */}
-                <div>
-                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
-                    <AnimatePresence mode="wait">
-
-                      {/* Step 0: placeholder */}
-                      {step === 0 && (
-                        <motion.div
-                          key="step0-right"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                          className="flex flex-col items-center justify-center py-8 text-center"
-                        >
-                          <div className="text-5xl mb-4">🧮</div>
-                          <p className="text-sm text-slate-400 leading-relaxed max-w-[180px]">
-                            Presiona <strong style={{ color: '#0B1647' }}>Siguiente</strong> para ver el cálculo de probabilidades
-                          </p>
-                          <div className="mt-5 flex flex-wrap gap-1.5 justify-center">
-                            {VOCAB.map(w => (
-                              <div key={w}
-                                   className="font-mono text-xs rounded-lg px-2.5 py-1.5 font-bold"
-                                   style={{ background: '#f1f5f9', color: '#94a3b8' }}>
-                                {w}
-                              </div>
-                            ))}
-                          </div>
-                          <p className="text-[10px] text-slate-400 mt-1.5">{VOCAB.length} candidatos posibles</p>
-                        </motion.div>
-                      )}
-
-                      {/* Steps 1 & 2: probability bars */}
-                      {(step === 1 || step === 2) && (
-                        <motion.div
-                          key={`step12-${sentenceKey}`}
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          exit={{ opacity: 0 }}
-                        >
-                          <div className="flex justify-between items-center mb-4">
-                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
-                              P(token | contexto)
-                            </p>
-                            <span className="text-[10px] font-mono rounded-md px-1.5 py-0.5"
-                                  style={{ background: '#f1f5f9', color: '#64748b' }}>
-                              T = {temp.toFixed(1)}
-                            </span>
-                          </div>
-
-                          {preds.map((item, i) => (
-                            <ProbBar
-                              key={item.word}
-                              item={item}
-                              rank={i}
-                              sentenceKey={sentenceKey + temp}
-                            />
-                          ))}
-
-                          {/* Word selector buttons — Step 3 */}
-                          <AnimatePresence>
-                            {step === 2 && (
-                              <motion.div
-                                initial={{ opacity: 0, y: 8 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, y: 4 }}
-                                transition={{ delay: 0.35 }}
-                                className="mt-4 pt-4 border-t border-slate-100"
-                              >
-                                {!canAdd ? (
-                                  <div className="text-center">
-                                    <div className="text-3xl mb-2">✅</div>
-                                    <p className="text-xs text-slate-500 mb-3">
-                                      Límite de {MAX_WORDS} tokens alcanzado
-                                    </p>
-                                    <button
-                                      onClick={reset}
-                                      className="w-full py-2.5 text-sm font-bold text-white rounded-xl transition-all hover:opacity-90"
-                                      style={{ background: '#0B1647' }}
-                                    >
-                                      🔄 Reiniciar simulación
-                                    </button>
-                                  </div>
-                                ) : (
-                                  <div>
-                                    <p className="text-xs text-slate-400 mb-2.5 font-semibold">
-                                      Selecciona el siguiente token:
-                                    </p>
-                                    <div className="grid grid-cols-2 gap-2">
-                                      {preds.map((item, i) => (
-                                        <motion.button
-                                          key={item.word}
-                                          whileHover={{ scale: 1.04, y: -1 }}
-                                          whileTap={{ scale: 0.96 }}
-                                          onClick={() => addWord(item.word)}
-                                          className="py-3 px-3 rounded-xl text-sm font-bold transition-all border-2"
-                                          style={i === 0
-                                            ? { background: '#48E5E5', color: '#0B1647', borderColor: '#48E5E5' }
-                                            : { background: '#fff', color: '#475569', borderColor: '#e2e8f0' }
-                                          }
-                                        >
-                                          <span className="block">{item.word}</span>
-                                          <span className="block text-[11px] font-mono mt-0.5"
-                                                style={{ color: i === 0 ? 'rgba(11,22,71,0.6)' : '#94a3b8' }}>
-                                            {(item.prob * 100).toFixed(1)}%
-                                          </span>
-                                        </motion.button>
-                                      ))}
-                                    </div>
-                                  </div>
-                                )}
-                              </motion.div>
-                            )}
-                          </AnimatePresence>
-                        </motion.div>
-                      )}
-
-                    </AnimatePresence>
-                  </div>
-                </div>
-
-              </div>{/* end grid */}
-            </div>{/* end max-w */}
-          </div>{/* end body */}
-
-          {/* ── Educational Footer ─────────────────────── */}
-          <div className="flex-shrink-0 border-t border-slate-200 bg-white px-4 py-2.5">
-            <p className="text-xs text-center text-slate-400">
-              <span className="font-black" style={{ color: '#0B1647' }}>💡 Principio fundamental:</span>
-              {' '}Un LLM ejecuta <strong>operaciones matriciales</strong> sobre representaciones numéricas.
-              No razona, no entiende, no tiene intención. Solo calcula probabilidades.
-            </p>
-          </div>
-
         </div>
-      );
-    }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-  </script>
+        <!-- RIGHT -->
+        <div>
+          <div class="card" id="right-panel" style="min-height:240px;"></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>
+      <strong>💡 Principio fundamental:</strong>
+      Un LLM ejecuta operaciones matriciales sobre vectores numéricos.
+      No razona, no entiende, no tiene intención. Solo calcula probabilidades.
+    </p>
+  </div>
+
+<script>
+/* ══════════════════════════════════════════════════════════════
+   CORE LLM SIMULATION — deterministic, no randomness
+══════════════════════════════════════════════════════════════ */
+
+const VOCAB = ['duerme', 'come', 'corre', 'mucho'];
+
+const SCORE_MAP = {
+  gato:     { duerme: 8.0, come: 4.5, corre: 3.5, mucho: 0.8 },
+  duerme:   { duerme: 0.3, come: 1.5, corre: 1.5, mucho: 9.0 },
+  come:     { duerme: 1.5, come: 0.3, corre: 2.5, mucho: 7.5 },
+  corre:    { duerme: 2.0, come: 2.0, corre: 0.3, mucho: 7.0 },
+  mucho:    { duerme: 5.0, come: 4.0, corre: 3.5, mucho: 1.5 },
+  _default: { duerme: 3.0, come: 2.5, corre: 2.0, mucho: 1.5 },
+};
+
+function getScore(context, word) {
+  const last = context[context.length - 1] || '_default';
+  return (SCORE_MAP[last] || SCORE_MAP._default)[word] ?? 2.0;
+}
+
+function softmax(items, temp) {
+  const t = Math.max(temp, 0.05);
+  const maxS = Math.max(...items.map(i => i.score));
+  const exps = items.map(i => ({ ...i, exp: Math.exp((i.score - maxS) / t) }));
+  const total = exps.reduce((s, i) => s + i.exp, 0);
+  return exps.map(i => ({ ...i, prob: i.exp / total }));
+}
+
+function predict(context, temp) {
+  const scored = VOCAB.map(w => ({ word: w, score: getScore(context, w) }));
+  return softmax(scored, temp).sort((a, b) => b.prob - a.prob);
+}
+
+/* ══════════════════════════════════════════════════════════════
+   STATE
+══════════════════════════════════════════════════════════════ */
+
+let sentence = ['el', 'gato'];
+let step     = 0;
+let temp     = 0.8;
+const MAX    = 6;
+
+/* ══════════════════════════════════════════════════════════════
+   STEP METADATA
+══════════════════════════════════════════════════════════════ */
+
+const STEPS = [
+  {
+    icon: '🔤', label: 'Tokenizar',
+    title: 'Paso 1 — Tokenización y contexto',
+    desc:  'La oración se divide en tokens (unidades mínimas). Cada posición influye en la predicción del siguiente token.',
+    formula: null,
+  },
+  {
+    icon: '📐', label: 'Calcular',
+    title: 'Paso 2 — Puntuaciones y softmax',
+    desc:  'Los patrones del entrenamiento asignan una puntuación a cada candidato. Softmax las convierte en probabilidades que suman exactamente 1.0.',
+    formula: 'P(w) = exp(score(w) / T) / Σ exp(score(wᵢ) / T)',
+  },
+  {
+    icon: '✋', label: 'Seleccionar',
+    title: 'Paso 3 — Selección del siguiente token',
+    desc:  'La temperatura T controla la concentración de la distribución. Temperatura baja → ganador claro. Temperatura alta → distribución uniforme.',
+    formula: null,
+  },
+];
+
+const TEMP_LABELS = [
+  [0.5,  '🎯 Muy determinista', 'La palabra más probable domina fuertemente.'],
+  [0.9,  '⚖️ Balanceado',       'Buen equilibrio entre certeza y variedad.'],
+  [1.4,  '🎲 Diverso',           'Las opciones menos probables ganan peso.'],
+  [99,   '🌀 Muy aleatorio',     'La distribución se aplana — todo es posible.'],
+];
+
+function getTempLabel(t) {
+  for (const [max, label, note] of TEMP_LABELS) {
+    if (t <= max) return `<strong>${label}</strong> — ${note}`;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   RENDER
+══════════════════════════════════════════════════════════════ */
+
+function renderTabs() {
+  const el = document.getElementById('step-tabs');
+  el.innerHTML = STEPS.map((s, i) => `
+    <button class="step-tab ${i === step ? 'active' : i < step ? 'done' : ''}"
+            onclick="goStep(${i})">
+      ${s.icon} ${s.label}
+    </button>
+  `).join('');
+}
+
+function renderStepInfo() {
+  const s = STEPS[step];
+  document.getElementById('step-info-card').innerHTML = `
+    <div class="step-info-title fade-up">${s.title}</div>
+    <div class="step-info-desc">${s.desc}</div>
+    ${s.formula ? `<div class="step-formula">${s.formula}</div>` : ''}
+  `;
+}
+
+function renderSentence() {
+  const area = document.getElementById('sentence-area');
+  area.innerHTML = sentence.map((w, i) =>
+    `<span class="token ${i < 2 ? 'seed' : 'added'}">${w}</span>`
+  ).join('') + (sentence.length < MAX ? '<span class="cursor">|</span>' : '');
+
+  // Token index row (step 0 only)
+  const idxRow = document.getElementById('token-idx-row');
+  if (step === 0) {
+    idxRow.style.display = 'flex';
+    idxRow.innerHTML = sentence.map((w, i) => `
+      <div class="token-idx-wrap">
+        <div class="token-idx-chip">${w}</div>
+        <div class="token-idx-pos">pos_${i}</div>
+      </div>
+    `).join('') + `
+      <div class="token-idx-wrap">
+        <div class="token-idx-chip next">???</div>
+        <div class="token-idx-pos">pos_${sentence.length}</div>
+      </div>
+    `;
+  } else {
+    idxRow.style.display = 'none';
+  }
+}
+
+function renderTemperature() {
+  const t = temp;
+  const pct = ((t - 0.2) / 1.8) * 100;
+  document.getElementById('temp-value').textContent = t.toFixed(1);
+  document.getElementById('temp-slider').style.background =
+    `linear-gradient(to right, #0B1647 0%, #48E5E5 ${pct}%, #e2e8f0 ${pct}%)`;
+  document.getElementById('temp-note').innerHTML = getTempLabel(t);
+}
+
+function renderRight() {
+  const preds = predict(sentence, temp);
+  const panel = document.getElementById('right-panel');
+
+  if (step === 0) {
+    panel.innerHTML = `
+      <div class="placeholder fade-up">
+        <div class="placeholder-emoji">🧮</div>
+        <div class="placeholder-text">
+          Presiona <strong>Siguiente</strong> para ver el cálculo de probabilidades
+        </div>
+        <div class="placeholder-chips">
+          ${VOCAB.map(w => `<span class="vocab-chip">${w}</span>`).join('')}
+        </div>
+        <div style="font-size:10px;color:var(--light);margin-top:2px;">${VOCAB.length} candidatos posibles</div>
+      </div>
+    `;
+    return;
+  }
+
+  // Build bars HTML
+  const barsHTML = preds.map((item, i) => {
+    const isTop = i === 0;
+    const pct   = Math.max(Math.round(item.prob * 100), 1);
+    return `
+      <div class="prob-row fade-up" style="animation-delay:${i * 60}ms">
+        <div class="prob-meta">
+          <div style="display:flex;align-items:center;gap:6px;">
+            ${isTop ? '<span class="top-badge">TOP</span>' : ''}
+            <span class="prob-word ${isTop ? '' : 'dim'}">"${item.word}"</span>
+          </div>
+          <div class="prob-right">
+            <span class="prob-score">score: ${item.score.toFixed(1)}</span>
+            <span class="prob-val ${isTop ? 'top' : 'dim'}">${item.prob.toFixed(3)}</span>
+          </div>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill ${isTop ? 'top' : 'dim'}" data-pct="${pct}" style="width:0%">
+            ${pct >= 20 ? `<span class="bar-pct-inside">${pct}%</span>` : ''}
+          </div>
+          ${pct < 20 ? `<span class="bar-pct-outside">${pct}%</span>` : ''}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // Word buttons (step 2)
+  let wordSelectorHTML = '';
+  if (step === 2) {
+    if (sentence.length >= MAX) {
+      wordSelectorHTML = `
+        <div class="word-selector">
+          <div class="complete-msg">✅ Límite de ${MAX} tokens alcanzado</div>
+          <button class="btn-reset" onclick="resetSim()">🔄 Reiniciar simulación</button>
+        </div>
+      `;
+    } else {
+      wordSelectorHTML = `
+        <div class="word-selector">
+          <div class="word-selector-label">Selecciona el siguiente token:</div>
+          <div class="word-grid">
+            ${preds.map((item, i) => `
+              <button class="btn-word ${i === 0 ? 'top-word' : ''}"
+                      onclick="addWord('${item.word}')">
+                <span>${item.word}</span>
+                <span class="btn-word-pct">${(item.prob * 100).toFixed(1)}%</span>
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  panel.innerHTML = `
+    <div class="prob-header">
+      <span class="prob-header-label">P(token | contexto)</span>
+      <span class="prob-header-formula">T = ${temp.toFixed(1)}</span>
+    </div>
+    ${barsHTML}
+    ${wordSelectorHTML}
+  `;
+
+  // Animate bars AFTER DOM is inserted (requestAnimationFrame for CSS transition)
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      panel.querySelectorAll('.bar-fill').forEach(bar => {
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    });
+  });
+}
+
+function renderNav() {
+  document.getElementById('btn-prev').disabled = step === 0;
+  document.getElementById('btn-next').disabled = step === 2;
+  document.getElementById('step-counter').textContent = `${step + 1} / 3`;
+}
+
+function render() {
+  renderTabs();
+  renderStepInfo();
+  renderSentence();
+  renderTemperature();
+  renderRight();
+  renderNav();
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ACTIONS
+══════════════════════════════════════════════════════════════ */
+
+function goStep(n) { step = n; render(); }
+function addWord(w) { if (sentence.length < MAX) { sentence.push(w); step = 0; render(); } }
+function resetSim() { sentence = ['el', 'gato']; step = 0; render(); }
+
+/* ══════════════════════════════════════════════════════════════
+   EVENT LISTENERS
+══════════════════════════════════════════════════════════════ */
+
+document.getElementById('btn-prev').addEventListener('click', () => {
+  if (step > 0) { step--; render(); }
+});
+document.getElementById('btn-next').addEventListener('click', () => {
+  if (step < 2) { step++; render(); }
+});
+document.getElementById('temp-slider').addEventListener('input', function () {
+  temp = parseFloat(this.value);
+  renderTemperature();
+  if (step >= 1) renderRight(); // live-update bars
+});
+
+/* Initial render */
+render();
+</script>
 </body>
 </html>

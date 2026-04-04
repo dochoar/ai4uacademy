@@ -407,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnNextMod = document.getElementById('btn-next-mod');
 
     // Quiz Elements
-    const quizOverlay = document.getElementById('quiz-overlay');
+    const quizSection = document.getElementById('quiz-section');
     const quizStepText = document.getElementById('quiz-step');
     const quizQuestionText = document.getElementById('quiz-q-text');
     const quizOptionsContainer = document.getElementById('quiz-options');
@@ -468,6 +468,18 @@ document.addEventListener('DOMContentLoaded', () => {
             gsap.from(".video-hero", { y: 30, opacity: 0, duration: 1.2, delay: 0.2, ease: "power3.out" });
             gsap.from(".module-details", { x: -30, opacity: 0, duration: 1, delay: 0.4, ease: "power3.out" });
             gsap.from(".course-sidebar-wrapper", { x: 30, opacity: 0, duration: 1, delay: 0.6, ease: "power3.out" });
+
+            const btnShowQuiz = document.getElementById('btn-show-quiz');
+            if (btnShowQuiz) {
+                btnShowQuiz.addEventListener('click', () => {
+                    const mod = COURSE_META.modules.find(m => m.id === currentModuleId);
+                    if (mod && mod.quiz) {
+                        startQuiz(mod.quiz);
+                    } else {
+                        alert('Este módulo no requiere ejercicios de preguntas.');
+                    }
+                });
+            }
 
             setTimeout(() => {
                 authLoader.classList.add('hidden');
@@ -908,8 +920,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function startQuiz(quiz) {
         currentQuiz = quiz;
         currentQuestionIndex = 0;
-        quizOverlay.style.display = 'flex';
+        quizSection.style.display = 'block';
         loadQuestion();
+        
+        // Scroll quiz into view smoothly
+        quizSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     function loadQuestion() {
@@ -946,9 +961,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizFeedbackContainer.style.display = 'block';
 
         if (currentQuestionIndex === currentQuiz.length - 1) {
-            btnNextQuestion.textContent = 'Finalizar Ejercicio y Continuar';
+            btnNextQuestion.textContent = 'Finalizar Evaluación y Continuar';
         } else {
-            btnNextQuestion.textContent = 'Siguiente Paso';
+            btnNextQuestion.textContent = 'Siguiente Pregunta';
         }
     }
 
@@ -957,7 +972,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentQuestionIndex++;
             loadQuestion();
         } else {
-            quizOverlay.style.display = 'none';
+            quizSection.style.display = 'none';
             finalizeModuleCompletion(document.getElementById('btn-complete'));
         }
     };
