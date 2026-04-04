@@ -15,7 +15,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
-  <script type="module" crossorigin src="/assets/dashboard-C7RDpFzK.js"></script>
+  <script type="module" crossorigin src="/assets/dashboard-DWMir9sd.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/supabase-config-DFxMTn7z.js">
   <link rel="modulepreload" crossorigin href="/assets/tracker-CBLT-PDc.js">
   <link rel="stylesheet" crossorigin href="/assets/supabase-config-CItJ6Acp.css">
@@ -175,8 +175,8 @@
                 <p style="color: var(--clr-text-muted); font-size: 0.95rem;">Herramientas exclusivas para optimizar tu flujo de trabajo profesional.</p>
             </div>
 
-            <!-- Lock State Container -->
-            <div id="tools-locked-overlay" class="ai-tool-card tool-purple" style="text-align: center; border-style: dashed;">
+            <!-- Lock State Container (Hidden by default) -->
+            <div id="tools-locked-overlay" class="ai-tool-card tool-purple" style="text-align: center; border-style: dashed; display: none;">
                 <div style="font-size: 3.5rem; margin-bottom: 24px; filter: drop-shadow(0 0 15px rgba(168,85,247,0.3));">🛡️</div>
                 <h3 style="color: #fff; margin-bottom: 16px; font-size: 1.8rem;">Desbloquea tu Arsenal de IA</h3>
                 <p style="color: #94a3b8; max-width: 580px; margin: 0 auto 32px auto; line-height: 1.7; font-size: 1.05rem;">
@@ -197,8 +197,8 @@
                 </div>
             </div>
 
-            <!-- Unlocked State Container -->
-            <div id="tools-unlocked-content" style="display: none;">
+            <!-- Unlocked State Container (Visible by default) -->
+            <div id="tools-unlocked-content" style="display: block;">
                 
                 <!-- Corrector de Prompts (Evaluator) -->
                 <div class="ai-tool-card tool-blue">

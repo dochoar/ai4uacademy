@@ -231,65 +231,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const unlockError = document.getElementById('unlock-error-msg');
 
     async function checkToolsUnlockState() {
-        if (!currentUser) return;
-        
-        // Update WhatsApp link with user email for faster identification
-        const waLink = document.getElementById('whatsapp-unlock-link');
-        if (waLink) {
-            const baseMsg = "Hola!%20Acabo%20de%20compartir%20mi%20opini%C3%B3n%20sobre%20AI4U%20Academy%20y%20compart%C3%AD%20la%20web%20en%20mis%20redes.%20%C2%BFI%20Podr%C3%ADas%20darme%20mi%20c%C3%B3digo%20para%20desbloquear%20las%20Herramientas%20IA%3F";
-            const emailStr = `%20Mi%20correo%20es:%20${encodeURIComponent(currentUser.email)}`;
-            waLink.href = `https://wa.me/5212211173457?text=${baseMsg}${emailStr}`;
-        }
-
-        // Metadata might be fresh from getSession() or needs refresh
-        const isUnlocked = currentUser.user_metadata?.tools_unlocked === true;
-        
-        if (isUnlocked) {
-            lockedOverlay.style.display = 'none';
-            unlockedContent.style.display = 'block';
-            initAIUtils(); // Load vault if exists
-        } else {
-            lockedOverlay.style.display = 'block';
-            unlockedContent.style.display = 'none';
-        }
+        // Force unlock for all users per user request
+        if (lockedOverlay) lockedOverlay.style.display = 'none';
+        if (unlockedContent) unlockedContent.style.display = 'block';
+        initAIUtils(); 
     }
 
-    if (unlockBtn) {
-        unlockBtn.addEventListener('click', async () => {
-            const code = unlockInput.value.trim();
-            if (!code) return;
-
-            unlockBtn.disabled = true;
-            unlockBtn.textContent = 'Validando...';
-            unlockError.textContent = '';
-
-            try {
-                // Validate code server-side — never in client JS
-                const { data, error } = await supabase.functions.invoke('validate-unlock-code', {
-                    body: { code }
-                });
-
-                if (error) throw error;
-
-                if (data?.success) {
-                    // Refresh session to get updated metadata
-                    const { data: refreshed } = await supabase.auth.refreshSession();
-                    if (refreshed?.user) currentUser = refreshed.user;
-                    checkToolsUnlockState();
-                    alert('¡Acceso concedido! Bienvenido a tus herramientas de élite.');
-                } else {
-                    unlockError.textContent = 'Código incorrecto. Asegúrate de haber compartido la web.';
-                    setTimeout(() => { unlockError.textContent = ''; }, 3000);
-                }
-            } catch (err) {
-                console.error(err);
-                unlockError.textContent = 'Error al validar. Intenta de nuevo.';
-            } finally {
-                unlockBtn.disabled = false;
-                unlockBtn.textContent = 'Activar Ahora';
-            }
-        });
-    }
+    // Unlock Code Logic Removed (Now Public)
 
     // ─────────────────────────────────────────────────────────────
     // AI UTILS (CORRECTOR & VAULT)
