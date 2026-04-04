@@ -12,11 +12,10 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
-  <script type="module" crossorigin src="/assets/admin-DbNHf9VE.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
-  <link rel="modulepreload" crossorigin href="/assets/supabase-config-BEUG5BCn.js">
-  <link rel="stylesheet" crossorigin href="/assets/admin-rnyZQ--Y.css">
-  <link rel="stylesheet" crossorigin href="/assets/style-CItJ6Acp.css">
+  <script type="module" crossorigin src="/assets/admin-C3OaPifV.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/supabase-config-DFxMTn7z.js">
+  <link rel="stylesheet" crossorigin href="/assets/supabase-config-CItJ6Acp.css">
+  <link rel="stylesheet" crossorigin href="/assets/admin-B_WZ3xGG.css">
   <link rel="stylesheet" crossorigin href="/assets/dashboard-BAAtqLVL.css">
 </head>
 <body class="dash-body">
@@ -36,6 +35,10 @@
             <a href="#" class="nav-item active" data-target="admin-overview">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
                 <span>Resumen</span>
+            </a>
+            <a href="#" class="nav-item" data-target="admin-traffic">
+                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                <span>Tráfico &amp; Vistas</span>
             </a>
             <a href="#" class="nav-item" data-target="admin-users">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
@@ -98,6 +101,83 @@
                         <h4 class="stat-value" id="stat-total-hours">- Hrs</h4>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Traffic Section -->
+        <section class="dash-content admin-section" id="admin-traffic" style="display: none;">
+            <div class="section-title">
+                <h3>Tráfico &amp; Vistas</h3>
+            </div>
+
+            <!-- Stats Row -->
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #7c3aed; background: #ede9fe;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Vistas Totales</span>
+                        <h4 class="stat-value" id="tv-total">-</h4>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #0ea5e9; background: #e0f2fe;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Hoy</span>
+                        <h4 class="stat-value" id="tv-today">-</h4>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #10b981; background: #d1fae5;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Últimos 7 Días</span>
+                        <h4 class="stat-value" id="tv-week">-</h4>
+                    </div>
+                </div>
+                <div class="stat-card glass-panel">
+                    <div class="stat-icon" style="color: #f59e0b; background: #fef3c7;">
+                        <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Últimos 30 Días</span>
+                        <h4 class="stat-value" id="tv-month">-</h4>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart + Pages grid -->
+            <div class="traffic-grid">
+
+                <!-- Bar Chart: últimos 30 días -->
+                <div class="glass-panel traffic-chart-card">
+                    <div class="traffic-card-header">
+                        <h4>Vistas por Día <span id="tv-chart-range" style="font-weight:400; color:#94a3b8; font-size:0.85rem;">(últimos 30 días)</span></h4>
+                        <div class="tv-period-btns">
+                            <button class="tv-period-btn active" data-days="7">7D</button>
+                            <button class="tv-period-btn" data-days="14">14D</button>
+                            <button class="tv-period-btn" data-days="30">30D</button>
+                        </div>
+                    </div>
+                    <div id="tv-bar-chart" class="tv-bar-chart">
+                        <div class="tv-chart-loading">Cargando datos...</div>
+                    </div>
+                </div>
+
+                <!-- Views by page -->
+                <div class="glass-panel traffic-pages-card">
+                    <div class="traffic-card-header">
+                        <h4>Vistas por Página</h4>
+                    </div>
+                    <div id="tv-pages-list" class="tv-pages-list">
+                        <div class="tv-chart-loading">Cargando...</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 

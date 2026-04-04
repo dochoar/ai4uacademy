@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulación LLM — AI4U Academy</title>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/framer-motion@7.10.3/dist/framer-motion.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: ui-sans-serif, system-ui, -apple-system, 'Inter', sans-serif;
+      -webkit-font-smoothing: antialiased;
+      background: #f8fafc;
+    }
+    /* Range slider — cross-browser */
+    input[type=range] {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 6px; border-radius: 3px; outline: none; cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #0B1647; border: 3px solid #48E5E5;
+      cursor: pointer; margin-top: -7px;
+      box-shadow: 0 2px 6px rgba(11,22,71,0.3);
+    }
+    input[type=range]::-moz-range-thumb {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #0B1647; border: 3px solid #48E5E5;
+      cursor: pointer;
+    }
+    input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 3px; }
+    input[type=range]::-moz-range-track { height: 6px; border-radius: 3px; }
+    /* Scrollbar slim */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 2px; }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useMemo, useCallback } = React;
+    const { motion, AnimatePresence } = FramerMotion;
+
+    /* ═══════════════════════════════════════════════════════════
+       CORE LLM SIMULATION
+       Deterministic scoring — NO randomness
+    ═══════════════════════════════════════════════════════════ */
+
+    const VOCAB = ['duerme', 'come', 'corre', 'mucho'];
+
+    // Simulates trained weights / attention patterns
+    const SCORE_MAP = {
+      gato:     { duerme: 8.0, come: 4.5, corre: 3.5, mucho: 0.8 },
+      duerme:   { duerme: 0.3, come: 1.5, corre: 1.5, mucho: 9.0 },
+      come:     { duerme: 1.5, come: 0.3, corre: 2.5, mucho: 7.5 },
+      corre:    { duerme: 2.0, come: 2.0, corre: 0.3, mucho: 7.0 },
+      mucho:    { duerme: 5.0, come: 4.0, corre: 3.5, mucho: 1.5 },
+      _default: { duerme: 3.0, come: 2.5, corre: 2.0, mucho: 1.5 },
+    };
+
+    function getScore(context, word) {
+      const last = context[context.length - 1] || '_default';
+      return (SCORE_MAP[last] || SCORE_MAP._default)[word] ?? 2.0;
+    }
+
+    function softmax(items, temp) {
+      const t = Math.max(temp, 0.05);
+      const maxS = Math.max(...items.map(i => i.score));
+      const exps = items.map(i => ({ ...i, exp: Math.exp((i.score - maxS) / t) }));
+      const total = exps.reduce((s, i) => s + i.exp, 0);
+      return exps.map(i => ({ ...i, prob: i.exp / total }));
+    }
+
+    function predict(context, temp) {
+      const scored = VOCAB.map(w => ({ word: w, score: getScore(context, w) }));
+      return softmax(scored, temp).sort((a, b) => b.prob - a.prob);
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       COMPONENTS
+    ═══════════════════════════════════════════════════════════ */
+
+    // Animated probability bar
+    function ProbBar({ item, rank, sentenceKey }) {
+      const isTop = rank === 0;
+      const pct = Math.max(Math.round(item.prob * 100), 1);
+
+      return (
+        <motion.div
+          className="mb-3 last:mb-0"
+          initial={{ opacity: 0, x: -14 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ delay: rank * 0.06, duration: 0.3 }}
+        >
+          {/* Label row */}
+          <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center gap-2">
+              {isTop && (
+                <span style={{ fontSize: '9px', background: '#0B1647', color: '#48E5E5' }}
+                  className="font-black uppercase tracking-wider px-1.5 py-0.5 rounded-md">
+                  TOP
+                </span>
+              )}
+              <span className={`font-mono text-sm font-bold ${isTop ? 'text-[#0B1647]' : 'text-slate-500'}`}>
+                "{item.word}"
+              </span>
+            </div>
+            <div className="flex items-center gap-3 text-xs font-mono">
+              <span className="text-slate-400 hidden sm:inline">puntuación: {item.score.toFixed(1)}</span>
+              <span className={`font-black tabular-nums w-12 text-right ${isTop ? 'text-[#0B1647]' : 'text-slate-400'}`}>
+                {item.prob.toFixed(3)}
+              </span>
+            </div>
+          </div>
+
+          {/* Bar track */}
+          <div className="relative h-7 bg-slate-100 rounded-lg overflow-hidden">
+            <motion.div
+              className="absolute inset-y-0 left-0 rounded-lg flex items-center justify-end pr-2"
+              style={{
+                background: isTop
+                  ? 'linear-gradient(90deg, #0B1647 0%, #48E5E5 100%)'
+                  : 'linear-gradient(90deg, #cbd5e1 0%, #94a3b8 100%)',
+              }}
+              key={`${sentenceKey}-${item.word}`}
+              initial={{ width: 0 }}
+              animate={{ width: `${pct}%` }}
+              transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1], delay: rank * 0.06 }}
+            >
+              {pct >= 20 && (
+                <span className="text-xs font-black text-white z-10">{pct}%</span>
+              )}
+            </motion.div>
+            {pct < 20 && (
+              <span className="absolute left-2 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-600 z-10">
+                {pct}%
+              </span>
+            )}
+          </div>
+        </motion.div>
+      );
+    }
+
+    /* ── Step metadata ───────────────────────────────────────── */
+    const STEPS = [
+      {
+        icon: '🔤',
+        label: 'Tokenizar',
+        title: 'Paso 1 — Tokenización y contexto',
+        desc: 'La oración se divide en tokens (unidades mínimas). El modelo analiza el contexto completo — cada posición influye en la predicción.',
+        formula: null,
+      },
+      {
+        icon: '📐',
+        label: 'Calcular',
+        title: 'Paso 2 — Puntuaciones y softmax',
+        desc: 'Los patrones del entrenamiento asignan una puntuación a cada token candidato. La función softmax las convierte en probabilidades que suman exactamente 1.0.',
+        formula: 'P(w) = exp(score(w) / T) / Σ exp(score(wᵢ) / T)',
+      },
+      {
+        icon: '✋',
+        label: 'Seleccionar',
+        title: 'Paso 3 — Selección del siguiente token',
+        desc: 'La temperatura T controla la "confianza". Temperatura baja → distribución concentrada. Temperatura alta → distribución uniforme. Elige una palabra para continuar.',
+        formula: null,
+      },
+    ];
+
+    /* ── Main App ────────────────────────────────────────────── */
+    function App() {
+      const [sentence, setSentence] = useState(['el', 'gato']);
+      const [step, setStep] = useState(0);
+      const [temp, setTemp] = useState(0.8);
+      const MAX_WORDS = 6;
+      const canAdd = sentence.length < MAX_WORDS;
+      const sentenceKey = sentence.join('-');
+
+      // Recompute predictions whenever sentence or temp changes
+      const preds = useMemo(() => predict(sentence, temp), [sentenceKey, temp]);
+
+      const addWord = useCallback((w) => {
+        setSentence(s => [...s, w]);
+        setStep(0);
+      }, []);
+
+      const reset = () => { setSentence(['el', 'gato']); setStep(0); };
+
+      const tempInfo = temp <= 0.5
+        ? { label: '🎯 Muy determinista', note: 'La palabra más probable domina fuertemente.' }
+        : temp <= 0.9
+        ? { label: '⚖️ Balanceado', note: 'Buen equilibrio entre certeza y variedad.' }
+        : temp <= 1.4
+        ? { label: '🎲 Diverso', note: 'Las opciones menos probables ganan peso.' }
+        : { label: '🌀 Muy aleatorio', note: 'Todas las probabilidades se aplanan.' };
+
+      const trackGradient = `linear-gradient(to right, #0B1647 0%, #48E5E5 ${((temp - 0.2) / 1.8) * 100}%, #e2e8f0 ${((temp - 0.2) / 1.8) * 100}%)`;
+
+      return (
+        <div className="min-h-screen flex flex-col" style={{ background: '#f8fafc' }}>
+
+          {/* ── Top Bar ─────────────────────────────────── */}
+          <div style={{ background: '#0B1647' }} className="px-4 py-3 flex items-center justify-between flex-shrink-0">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0"
+                   style={{ background: '#48E5E5' }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B1647" strokeWidth="2.5">
+                  <path d="M12 2a10 10 0 1 0 10 10" strokeLinecap="round"/>
+                  <path d="M12 6v6l4 2" strokeLinecap="round"/>
+                  <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5"/>
+                </svg>
+              </div>
+              <div>
+                <p className="text-xs font-black uppercase tracking-widest" style={{ color: '#48E5E5' }}>
+                  AI4U Academy — Simulación Interactiva
+                </p>
+                <h1 className="text-sm font-bold text-white leading-tight">
+                  ¿Cómo predice el siguiente token un LLM?
+                </h1>
+              </div>
+            </div>
+            <p className="text-xs hidden md:block" style={{ color: 'rgba(255,255,255,0.35)' }}>
+              solo matemáticas — sin comprensión
+            </p>
+          </div>
+
+          {/* ── Body ────────────────────────────────────── */}
+          <div className="flex-1 overflow-y-auto p-3 sm:p-4">
+            <div className="max-w-2xl mx-auto space-y-3">
+
+              {/* Step Tabs */}
+              <div className="grid grid-cols-3 gap-1.5">
+                {STEPS.map((s, i) => (
+                  <button
+                    key={s.id}
+                    onClick={() => setStep(i)}
+                    className={`py-2.5 px-2 rounded-xl text-xs font-bold transition-all duration-200 border ${
+                      step === i
+                        ? 'text-white border-transparent'
+                        : step > i
+                        ? 'border-transparent'
+                        : 'bg-white border-slate-200 text-slate-400'
+                    }`}
+                    style={step === i
+                      ? { background: '#0B1647', borderColor: '#0B1647' }
+                      : step > i
+                      ? { background: 'rgba(11,22,71,0.08)', color: 'rgba(11,22,71,0.5)' }
+                      : {}
+                    }
+                  >
+                    <span className="mr-1">{s.icon}</span>
+                    <span>{s.label}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Step Description Card */}
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={step}
+                  initial={{ opacity: 0, y: 6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.2 }}
+                  className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm"
+                >
+                  <p className="text-xs font-black uppercase tracking-widest mb-1.5"
+                     style={{ color: '#0B1647' }}>
+                    {STEPS[step].title}
+                  </p>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {STEPS[step].desc}
+                  </p>
+                  {STEPS[step].formula && (
+                    <div className="mt-2 px-3 py-2 rounded-lg text-xs font-mono font-bold"
+                         style={{ background: 'rgba(11,22,71,0.05)', color: '#0B1647' }}>
+                      {STEPS[step].formula}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
+
+              {/* Two-Column Grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                {/* ── LEFT: Sentence + Temperature + Nav ── */}
+                <div className="space-y-3">
+
+                  {/* Sentence Builder */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">
+                      Oración actual
+                    </p>
+                    {/* Token chips */}
+                    <div className="flex flex-wrap gap-1.5 min-h-[48px] items-center mb-3">
+                      <AnimatePresence>
+                        {sentence.map((w, i) => (
+                          <motion.span
+                            key={`tok-${i}-${w}`}
+                            initial={{ scale: 0.5, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ type: 'spring', stiffness: 500, damping: 28 }}
+                            className="px-3 py-1.5 rounded-lg font-mono text-sm font-bold border"
+                            style={i < 2
+                              ? { background: 'rgba(11,22,71,0.05)', color: '#0B1647', borderColor: 'rgba(11,22,71,0.12)' }
+                              : { background: 'rgba(72,229,229,0.15)', color: '#0B1647', borderColor: 'rgba(72,229,229,0.4)' }
+                            }
+                          >
+                            {w}
+                          </motion.span>
+                        ))}
+                        {canAdd && (
+                          <motion.span
+                            animate={{ opacity: [1, 0.15, 1] }}
+                            transition={{ repeat: Infinity, duration: 1.1 }}
+                            className="font-mono text-slate-300 text-xl leading-none select-none"
+                          >
+                            |
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </div>
+
+                    {/* Token index view — Step 0 only */}
+                    <AnimatePresence>
+                      {step === 0 && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.2 }}
+                          className="pt-3 border-t border-slate-100"
+                        >
+                          <p className="text-xs text-slate-400 mb-2">Representación interna:</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {sentence.map((w, i) => (
+                              <div key={i} className="text-center">
+                                <div className="rounded-md px-2 py-1 font-mono text-xs font-bold"
+                                     style={{ background: 'rgba(11,22,71,0.06)', color: '#0B1647' }}>
+                                  {w}
+                                </div>
+                                <div className="text-[10px] text-slate-400 mt-0.5">pos_{i}</div>
+                              </div>
+                            ))}
+                            <div className="text-center">
+                              <div className="rounded-md px-2 py-1 font-mono text-xs font-bold border-dashed border"
+                                   style={{ color: '#48E5E5', borderColor: '#48E5E5', background: 'transparent' }}>
+                                ???
+                              </div>
+                              <div className="text-[10px] text-slate-400 mt-0.5">pos_{sentence.length}</div>
+                            </div>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Temperature Slider */}
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <p className="text-xs font-bold uppercase tracking-widest text-slate-400">Temperatura T</p>
+                      <span className="font-mono text-sm font-black rounded-lg px-2 py-0.5"
+                            style={{ background: 'rgba(11,22,71,0.07)', color: '#0B1647' }}>
+                        {temp.toFixed(1)}
+                      </span>
+                    </div>
+
+                    <input
+                      type="range" min="0.2" max="2.0" step="0.1"
+                      value={temp}
+                      onChange={e => setTemp(+e.target.value)}
+                      style={{ background: trackGradient }}
+                    />
+
+                    <div className="flex justify-between text-[10px] text-slate-400 mt-1 mb-2.5">
+                      <span>0.2 — Determinista</span>
+                      <span>2.0 — Aleatorio</span>
+                    </div>
+
+                    <div className="rounded-lg px-3 py-2 text-xs font-semibold border"
+                         style={{ background: 'rgba(72,229,229,0.08)', color: '#0B1647', borderColor: 'rgba(72,229,229,0.25)' }}>
+                      <span className="font-black">{tempInfo.label}</span>
+                      <span className="text-slate-500"> — {tempInfo.note}</span>
+                    </div>
+                  </div>
+
+                  {/* Step Navigation */}
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setStep(s => Math.max(0, s - 1))}
+                      disabled={step === 0}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-bold border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                    >
+                      ← Anterior
+                    </button>
+                    <span className="text-xs text-slate-400 font-mono whitespace-nowrap">{step + 1} / 3</span>
+                    <button
+                      onClick={() => setStep(s => Math.min(2, s + 1))}
+                      disabled={step === 2}
+                      className="flex-1 py-2.5 rounded-xl text-sm font-bold text-white disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                      style={{ background: '#0B1647' }}
+                    >
+                      Siguiente →
+                    </button>
+                  </div>
+                </div>
+
+                {/* ── RIGHT: Probability Bars + Word Selector ── */}
+                <div>
+                  <div className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+                    <AnimatePresence mode="wait">
+
+                      {/* Step 0: placeholder */}
+                      {step === 0 && (
+                        <motion.div
+                          key="step0-right"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                          className="flex flex-col items-center justify-center py-8 text-center"
+                        >
+                          <div className="text-5xl mb-4">🧮</div>
+                          <p className="text-sm text-slate-400 leading-relaxed max-w-[180px]">
+                            Presiona <strong style={{ color: '#0B1647' }}>Siguiente</strong> para ver el cálculo de probabilidades
+                          </p>
+                          <div className="mt-5 flex flex-wrap gap-1.5 justify-center">
+                            {VOCAB.map(w => (
+                              <div key={w}
+                                   className="font-mono text-xs rounded-lg px-2.5 py-1.5 font-bold"
+                                   style={{ background: '#f1f5f9', color: '#94a3b8' }}>
+                                {w}
+                              </div>
+                            ))}
+                          </div>
+                          <p className="text-[10px] text-slate-400 mt-1.5">{VOCAB.length} candidatos posibles</p>
+                        </motion.div>
+                      )}
+
+                      {/* Steps 1 & 2: probability bars */}
+                      {(step === 1 || step === 2) && (
+                        <motion.div
+                          key={`step12-${sentenceKey}`}
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          exit={{ opacity: 0 }}
+                        >
+                          <div className="flex justify-between items-center mb-4">
+                            <p className="text-xs font-bold uppercase tracking-widest text-slate-400">
+                              P(token | contexto)
+                            </p>
+                            <span className="text-[10px] font-mono rounded-md px-1.5 py-0.5"
+                                  style={{ background: '#f1f5f9', color: '#64748b' }}>
+                              T = {temp.toFixed(1)}
+                            </span>
+                          </div>
+
+                          {preds.map((item, i) => (
+                            <ProbBar
+                              key={item.word}
+                              item={item}
+                              rank={i}
+                              sentenceKey={sentenceKey + temp}
+                            />
+                          ))}
+
+                          {/* Word selector buttons — Step 3 */}
+                          <AnimatePresence>
+                            {step === 2 && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 8 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: 4 }}
+                                transition={{ delay: 0.35 }}
+                                className="mt-4 pt-4 border-t border-slate-100"
+                              >
+                                {!canAdd ? (
+                                  <div className="text-center">
+                                    <div className="text-3xl mb-2">✅</div>
+                                    <p className="text-xs text-slate-500 mb-3">
+                                      Límite de {MAX_WORDS} tokens alcanzado
+                                    </p>
+                                    <button
+                                      onClick={reset}
+                                      className="w-full py-2.5 text-sm font-bold text-white rounded-xl transition-all hover:opacity-90"
+                                      style={{ background: '#0B1647' }}
+                                    >
+                                      🔄 Reiniciar simulación
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div>
+                                    <p className="text-xs text-slate-400 mb-2.5 font-semibold">
+                                      Selecciona el siguiente token:
+                                    </p>
+                                    <div className="grid grid-cols-2 gap-2">
+                                      {preds.map((item, i) => (
+                                        <motion.button
+                                          key={item.word}
+                                          whileHover={{ scale: 1.04, y: -1 }}
+                                          whileTap={{ scale: 0.96 }}
+                                          onClick={() => addWord(item.word)}
+                                          className="py-3 px-3 rounded-xl text-sm font-bold transition-all border-2"
+                                          style={i === 0
+                                            ? { background: '#48E5E5', color: '#0B1647', borderColor: '#48E5E5' }
+                                            : { background: '#fff', color: '#475569', borderColor: '#e2e8f0' }
+                                          }
+                                        >
+                                          <span className="block">{item.word}</span>
+                                          <span className="block text-[11px] font-mono mt-0.5"
+                                                style={{ color: i === 0 ? 'rgba(11,22,71,0.6)' : '#94a3b8' }}>
+                                            {(item.prob * 100).toFixed(1)}%
+                                          </span>
+                                        </motion.button>
+                                      ))}
+                                    </div>
+                                  </div>
+                                )}
+                              </motion.div>
+                            )}
+                          </AnimatePresence>
+                        </motion.div>
+                      )}
+
+                    </AnimatePresence>
+                  </div>
+                </div>
+
+              </div>{/* end grid */}
+            </div>{/* end max-w */}
+          </div>{/* end body */}
+
+          {/* ── Educational Footer ─────────────────────── */}
+          <div className="flex-shrink-0 border-t border-slate-200 bg-white px-4 py-2.5">
+            <p className="text-xs text-center text-slate-400">
+              <span className="font-black" style={{ color: '#0B1647' }}>💡 Principio fundamental:</span>
+              {' '}Un LLM ejecuta <strong>operaciones matriciales</strong> sobre representaciones numéricas.
+              No razona, no entiende, no tiene intención. Solo calcula probabilidades.
+            </p>
+          </div>
+
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>

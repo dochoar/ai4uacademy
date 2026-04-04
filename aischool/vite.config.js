@@ -11,7 +11,9 @@ export default defineConfig({
                 dashboard: resolve(__dirname, 'dashboard.html'),
                 admin: resolve(__dirname, 'admin.html'),
                 course: resolve(__dirname, 'course.html'),
-                examen: resolve(__dirname, 'examen.html')
+                examen: resolve(__dirname, 'examen.html'),
+                blog: resolve(__dirname, 'blog.html'),
+                llmVisualizer: resolve(__dirname, 'llm-visualizer.html')
             }
         }
     }
