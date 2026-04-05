@@ -152,32 +152,64 @@
                     </div>
 
                     <!-- ═══ Actividad Interactiva — LLM Demo ═══ -->
-                    <div class="lab-card glass-panel" id="LLM_Simulation_Lab">
-                        <div class="lab-card-header">
-                            <div class="lab-icon-wrap">
-                                <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M12 2a10 10 0 1 0 10 10" />
-                                    <path d="M12 6v6l4 2" />
-                                    <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5" stroke-width="2"/>
-                                </svg>
+                    <!-- ═══ Laboratorios IA Interactivos ═══ -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;">
+                        
+                        <!-- 1. LLM Simulation -->
+                        <div class="lab-card glass-panel" id="LLM_Simulation_Lab">
+                            <div class="lab-card-header">
+                                <div class="lab-icon-wrap">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M12 2a10 10 0 1 0 10 10" /><path d="M12 6v6l4 2" />
+                                        <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                                <div class="lab-header-text">
+                                    <span class="lab-badge">Actividad Interactiva</span>
+                                    <h3 class="lab-title">¿Cómo predice un LLM?</h3>
+                                </div>
                             </div>
-                            <div class="lab-header-text">
-                                <span class="lab-badge">Actividad Interactiva</span>
-                                <h3 class="lab-title">Simulación: ¿Cómo predice un LLM?</h3>
-                            </div>
-                        </div>
-                        <p class="lab-desc">
-                            Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.
-                            Sin magia — solo operaciones matemáticas sobre tokens.
-                        </p>
-                        <div style="display: flex; gap: 16px; align-items: center;">
-                            <button id="btn-open-llm-simulation" class="lab-open-btn">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                                </svg>
+                            <p class="lab-desc">Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.</p>
+                            <button onclick="window.openAI4ULab('simulation')" class="lab-open-btn">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
                                 Explorar Simulación
                             </button>
-                            <a href="visualizadores.html" style="font-size: 0.85rem; font-weight: 600; color: #7c3aed; text-decoration: underline;">Ver otros visualizadores</a>
+                        </div>
+
+                        <!-- 2. Alucinaciones -->
+                        <div class="lab-card glass-panel" id="Hallucinations_Lab">
+                            <div class="lab-card-header">
+                                <div class="lab-icon-wrap" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
+                                </div>
+                                <div class="lab-header-text">
+                                    <span class="lab-badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">NUEVO</span>
+                                    <h3 class="lab-title">Expositor: Alucinaciones</h3>
+                                </div>
+                            </div>
+                            <p class="lab-desc">Visualiza cómo una IA puede sonar convincente mientras genera información falsa (alucinación).</p>
+                            <button onclick="window.openAI4ULab('hallucinations')" class="lab-open-btn" style="background: #ef4444; border-color: #ef4444;">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                Ver Alucinaciones
+                            </button>
+                        </div>
+
+                        <!-- 3. Mitos vs Realidad -->
+                        <div class="lab-card glass-panel" id="Myths_Lab">
+                            <div class="lab-card-header">
+                                <div class="lab-icon-wrap" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">
+                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                </div>
+                                <div class="lab-header-text">
+                                    <span class="lab-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Interactivo</span>
+                                    <h3 class="lab-title">Mitos vs Realidad</h3>
+                                </div>
+                            </div>
+                            <p class="lab-desc">Descubre las verdades detrás de los mitos más comunes sobre la inteligencia artificial hoy.</p>
+                            <button onclick="window.openAI4ULab('myths')" class="lab-open-btn" style="background: #2563eb; border-color: #2563eb;">
+                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                Revelar Realidades
+                            </button>
                         </div>
                     </div>
 
@@ -268,33 +300,30 @@
       (function () {
         const modal   = document.getElementById('LLM_Simulation_Modal');
         const iframe  = document.getElementById('LLM_Simulation_Iframe');
-        const btnOpen = document.getElementById('btn-open-llm-simulation');
         const btnClose= document.getElementById('btn-close-llm-simulation');
         const btnFs   = document.getElementById('btn-fs-llm-simulation');
 
         if (!modal) return;
 
-        function openModal() {
-          // Lazy-load the iframe src on first open
-          if (!iframe.src || iframe.src === window.location.href) {
-            iframe.src = 'llm-visualizer.html';
-          }
+        // Exposed globally for laboratory card buttons
+        window.openAI4ULab = function(labId = 'simulation') {
+          iframe.src = `visualizadores.html?lab=${labId}`;
           modal.classList.add('open');
           document.body.style.overflow = 'hidden';
           modal.setAttribute('aria-hidden', 'false');
-        }
+        };
 
         function closeModal() {
           modal.classList.remove('open', 'fullscreen');
           document.body.style.overflow = '';
           modal.setAttribute('aria-hidden', 'true');
+          iframe.src = ''; // Clear iframe to stop audio/animations if any
         }
 
         function toggleFullscreen() {
           modal.classList.toggle('fullscreen');
         }
 
-        if (btnOpen)  btnOpen.addEventListener('click', openModal);
         if (btnClose) btnClose.addEventListener('click', closeModal);
         if (btnFs)    btnFs.addEventListener('click', toggleFullscreen);
 

@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function initAIUtils() {
         initPromptEvaluator();
         initPromptVault();
-        initImagePromptGenerator();
+        initImagePromptEvaluator();
     }
 
     // REUSED FROM COURSE.JS
@@ -439,90 +439,112 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        loadVault();
-    }
+    function initImagePromptEvaluator() {
+        const btnEval = document.getElementById('btn-eval-image-prompt');
+        const inputEval = document.getElementById('image-eval-input');
+        const selTool = document.getElementById('image-eval-tool');
+        const selStyle = document.getElementById('image-eval-style');
+        const statusEval = document.getElementById('image-eval-status');
+        const displayRemaining = document.getElementById('image-remaining-attempts');
+        const resultContainer = document.getElementById('image-eval-result-container');
+        const scoreRing = document.getElementById('image-eval-score-ring');
+        const evalFeedback = document.getElementById('image-eval-feedback');
+        const scoreTitle = document.getElementById('image-eval-score-title');
+        const btnCopy = document.getElementById('btn-copy-image-optimized');
 
-    // ─────────────────────────────────────────────────────────────
-    // GENERADOR DE PROMPTS DE IMÁGENES (Prompt Master)
-    // ─────────────────────────────────────────────────────────────
-    function initImagePromptGenerator() {
-        const btnGen     = document.getElementById('btn-gen-image-prompt');
-        const inputDesc  = document.getElementById('image-prompt-desc');
-        const selTool    = document.getElementById('image-prompt-tool');
-        const selStyle   = document.getElementById('image-prompt-style');
-        const selRatio   = document.getElementById('image-prompt-ratio');
-        const selMood    = document.getElementById('image-prompt-mood');
-        const resultBox  = document.getElementById('image-prompt-result');
-        const outputEl   = document.getElementById('image-prompt-output');
-        const targetEl   = document.getElementById('image-prompt-target');
-        const rationaleEl = document.getElementById('image-prompt-rationale');
-        const statusEl   = document.getElementById('image-prompt-status');
-        const copyBtn    = document.getElementById('btn-copy-image-prompt');
+        if (btnEval && !btnEval.dataset.listener) {
+            btnEval.dataset.listener = "true";
+            btnEval.addEventListener('click', async () => {
+                const promptText = inputEval.value.trim();
+                const tool = selTool.value;
+                const style = selStyle.value;
 
-        if (btnGen && !btnGen.dataset.listener) {
-            btnGen.dataset.listener = 'true';
-            btnGen.addEventListener('click', async () => {
-                const desc = inputDesc.value.trim();
-                if (!desc) return alert('Describe la imagen que quieres crear.');
+                if (!promptText) return alert('Por favor describe la imagen.');
 
-                btnGen.disabled = true;
-                btnGen.textContent = 'Generando...';
-                statusEl.innerHTML = `<span style="display:inline-block;width:8px;height:8px;background:var(--ai-green);border-radius:50%;margin-right:8px;animation:pulse-dot 1.5s infinite;"></span> Construyendo tu prompt optimizado...`;
-                resultBox.style.display = 'none';
+                btnEval.disabled = true;
+                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-green); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Optimizando imagen...`;
+                resultContainer.style.display = 'none';
 
                 try {
-                    const { data, error } = await supabase.functions.invoke('generate-image-prompt', {
-                        body: {
-                            description: desc,
-                            tool: selTool.value,
-                            style: selStyle.value,
-                            ratio: selRatio.value,
-                            mood: selMood.value
+                    // We use the same Edge Function but with a different module ID to track separate quotas if possible
+                    // or we handle the logic here for the '3' limit if the backend isn't specific.
+                    // For now, we'll use the existing evaluator which already provides optimized versions.
+                    const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
+                        body: { 
+                            prompt: `Optimiza este prompt para una imagen en ${tool} con estilo ${style}: ${promptText}`, 
+                            module_id: 'image_optimizer' 
                         }
                     });
 
                     if (error) {
-                         // Check for rate limit
-                         if (error.context && error.context.status === 403) {
-                             const errData = await error.context.json();
-                             if (errData.error === 'RATE_LIMIT_EXCEEDED') {
-                                 statusEl.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
-                                 alert(errData.message);
-                                 return;
-                             }
-                         }
-                         throw error;
+                        if (error.context && error.context.status === 403) {
+                            const errData = await error.context.json();
+                            statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
+                            displayRemaining.textContent = "0 Optimizaciones disponibles";
+                            displayRemaining.style.color = "#ef4444";
+                            alert("Has agotado tus 3 créditos diarios de optimización de imagen.");
+                            return;
+                        }
+                        throw error;
                     }
 
-                    outputEl.textContent  = data.prompt;
-                    targetEl.textContent  = data.tool || selTool.value;
-                    rationaleEl.textContent = data.rationale ? `💡 ${data.rationale}` : '';
-                    resultBox.style.display = 'block';
-                    statusEl.innerHTML = `<span style="color:var(--ai-green);">✅ Prompt generado</span>`;
+                    const evalOriginal = document.getElementById('image-eval-original-prompt');
+                    const evalOptimized = document.getElementById('image-eval-optimized-prompt');
+                    if (evalOriginal) evalOriginal.textContent = promptText;
+                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'No se pudo generar el prompt.';
+
+                    resultContainer.style.display = 'flex';
+                    let score = parseInt(data.score) || 0;
+                    let color = 'var(--ai-green)';
+                    let title = score >= 80 ? 'Potencial Máximo' : (score >= 60 ? 'Resultado Óptimo' : 'Nivel Estándar');
+                    
+                    scoreRing.textContent = score;
+                    scoreRing.style.borderColor = color;
+                    scoreRing.style.color = color;
+                    scoreTitle.textContent = title;
+                    evalFeedback.textContent = data.feedback;
+                    statusEval.innerHTML = `<span style="color:var(--ai-green);">✅ Imagen optimizada</span>`;
+
+                    // Enforce the 3 limit display
+                    if (displayRemaining) {
+                        // The backend returns 'remaining'. We ensure it doesn't exceed 3 for this UI.
+                        const rem = Math.min(data.remaining, 3);
+                        displayRemaining.textContent = `${rem} Optimizaciones disponibles hoy`;
+                        if (rem <= 0) {
+                            displayRemaining.style.color = '#ef4444';
+                            btnEval.disabled = true;
+                        }
+                    }
+
                 } catch (err) {
                     console.error(err);
-                    statusEl.innerHTML = `<span style="color:#ef4444;">❌ Error al generar</span>`;
+                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al optimizar</span>`;
                 } finally {
-                    btnGen.disabled = false;
-                    btnGen.textContent = 'Generar Prompt';
+                    if (!btnEval.disabled) btnEval.disabled = false;
                 }
             });
         }
 
-        if (copyBtn && !copyBtn.dataset.listener) {
-            copyBtn.dataset.listener = 'true';
-            copyBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText(outputEl.textContent).then(() => {
-                    copyBtn.classList.add('copied');
-                    copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Copiado!`;
+        if (btnCopy) {
+            btnCopy.addEventListener('click', () => {
+                const text = document.getElementById('image-eval-optimized-prompt').textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const originalHtml = btnCopy.innerHTML;
+                    btnCopy.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Prompt Copiado!`;
+                    btnCopy.style.background = '#059669';
+                    btnCopy.style.color = 'white';
                     setTimeout(() => {
-                        copyBtn.classList.remove('copied');
-                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> Copiar Prompt de Imagen`;
+                        btnCopy.innerHTML = originalHtml;
+                        btnCopy.style.background = '';
+                        btnCopy.style.color = '';
                     }, 2000);
                 });
             });
         }
     }
+
+    loadVault();
+}
 
 
 

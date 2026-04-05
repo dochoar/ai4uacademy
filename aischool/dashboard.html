@@ -282,116 +282,82 @@
                     </div>
                 </div>
 
-                <!-- ═══════════════════════════════════════════
-                     Generador de Prompts de Imágenes
-                ═══════════════════════════════════════════ -->
-                <div class="ai-tool-card tool-green" style="animation-delay:0.2s;">
+                <!-- Optimizador de Prompts para Imágenes (Image Version) -->
+                <div class="ai-tool-card tool-green" style="margin-top: 30px;">
                     <div class="ai-tool-header">
-                        <div class="ai-tool-icon-wrap">
-                            <svg viewBox="0 0 24 24" width="28" height="28" stroke="var(--ai-green)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                                <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                                <polyline points="21 15 16 10 5 21"></polyline>
-                            </svg>
-                        </div>
+                        <svg viewBox="0 0 24 24" width="32" height="32" stroke="var(--ai-green)" stroke-width="2.5" fill="none"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
                         <div>
-                            <h4>Generador de Prompts de Imágenes</h4>
-                            <p>Crea prompts optimizados para Midjourney, DALL-E 3, Stable Diffusion y más.</p>
+                            <h4>Optimizador de Imagen Artística</h4>
+                            <p>Transforma tus ideas visuales en prompts técnicos para Midjourney, DALL-E y más.</p>
                         </div>
                     </div>
-
+                    
                     <div class="ai-tool-inner">
-                        <div style="background: var(--ai-green-lt); border: 1px solid rgba(5,150,105,0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; font-size: 0.88rem; color: var(--ai-green); font-weight: 600; display: flex; align-items: center; gap: 8px;">
-                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                            Powered by Prompt Master — optimización específica por herramienta
-                        </div>
-
-                        <textarea id="image-prompt-desc" class="ai-evaluator-textarea" placeholder="Describe la imagen que quieres crear... Ej: Un astronauta meditando en la Luna con la Tierra al fondo, estilo cinematográfico, hora dorada" style="min-height: 100px;"></textarea>
-
-                        <div class="ai-generator-form">
+                        <textarea id="image-eval-input" class="ai-evaluator-textarea" placeholder="Escribe la descripción de la imagen que imaginas (ej: astronauta en la luna estilo cyberpunk)..." style="min-height: 100px;"></textarea>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
                             <div>
-                                <label class="ai-generator-label">Herramienta destino</label>
-                                <select id="image-prompt-tool" class="ai-generator-select">
-                                    <option value="Midjourney">Midjourney</option>
+                                <label class="ai-generator-label" style="color: var(--ai-green); opacity: 0.8;">Herramienta Destino</label>
+                                <select id="image-eval-tool" class="ai-generator-select" style="border-color: rgba(16, 185, 129, 0.2);">
+                                    <option value="Midjourney">Midjourney (V6)</option>
                                     <option value="DALL-E 3">DALL-E 3</option>
-                                    <option value="Stable Diffusion">Stable Diffusion</option>
-                                    <option value="Flux">Flux</option>
-                                    <option value="Adobe Firefly">Adobe Firefly</option>
-                                    <option value="SeeDream">SeeDream</option>
-                                    <option value="Kling">Kling (Video)</option>
+                                    <option value="Stable Diffusion">Stable Diffusion / Flux</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="ai-generator-label">Estilo artístico</label>
-                                <select id="image-prompt-style" class="ai-generator-select">
+                                <label class="ai-generator-label" style="color: var(--ai-green); opacity: 0.8;">Estilo Deseado</label>
+                                <select id="image-eval-style" class="ai-generator-select" style="border-color: rgba(16, 185, 129, 0.2);">
                                     <option value="fotorrealista">Fotorrealista</option>
                                     <option value="cinematográfico">Cinematográfico</option>
-                                    <option value="anime">Anime / Ilustración japonesa</option>
-                                    <option value="pintura al óleo">Pintura al óleo</option>
-                                    <option value="acuarela">Acuarela</option>
-                                    <option value="ilustración digital">Ilustración digital</option>
-                                    <option value="minimalista">Minimalista</option>
-                                    <option value="cyberpunk">Cyberpunk / Sci-Fi</option>
-                                    <option value="fantasy">Fantasy / Épico</option>
-                                    <option value="vintage">Vintage / Retro</option>
-                                    <option value="abstracto">Abstracto</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="ai-generator-label">Relación de aspecto</label>
-                                <select id="image-prompt-ratio" class="ai-generator-select">
-                                    <option value="1:1">1:1 — Cuadrado</option>
-                                    <option value="16:9">16:9 — Panorámico</option>
-                                    <option value="9:16">9:16 — Vertical (Reels)</option>
-                                    <option value="4:3">4:3 — Clásico</option>
-                                    <option value="3:2">3:2 — Fotografía</option>
-                                    <option value="21:9">21:9 — Ultrawide</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="ai-generator-label">Iluminación / Mood</label>
-                                <select id="image-prompt-mood" class="ai-generator-select">
-                                    <option value="">— Automático —</option>
-                                    <option value="hora dorada">Hora dorada</option>
-                                    <option value="hora azul">Hora azul / Crepúsculo</option>
-                                    <option value="luz de estudio">Luz de estudio suave</option>
-                                    <option value="neón">Iluminación neón</option>
-                                    <option value="luz natural">Luz natural difusa</option>
-                                    <option value="dramático">Dramático y contrastado</option>
-                                    <option value="oscuro">Oscuro y misterioso</option>
+                                    <option value="ilustración digital">Ilustración Digital</option>
+                                    <option value="arte 3d">Render 3D / Unreal Engine</option>
                                 </select>
                             </div>
                         </div>
 
                         <div class="ai-evaluator-footer">
-                            <span id="image-prompt-status" class="ai-status-msg">
-                                <span class="ai-status-dot"></span>
-                                Listo para generar
-                            </span>
-                            <button id="btn-gen-image-prompt" class="btn btn-primary btn-generate">
-                                Generar Prompt
-                            </button>
+                            <div>
+                                <span id="image-eval-status" class="ai-status-msg">
+                                    <span style="display:inline-block; width:8px; height:8px; background:var(--ai-green); border-radius:50%; opacity:0.5;"></span>
+                                    Esperando descripción
+                                </span>
+                                <span id="image-remaining-attempts" class="ai-limit-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--ai-green);">3 Optimizaciones disponibles hoy</span>
+                            </div>
+                            <button id="btn-eval-image-prompt" class="btn btn-primary" style="background: var(--ai-green); border:none; padding: 12px 32px;">Optimizar Imagen</button>
                         </div>
                     </div>
 
-                    <!-- Result -->
-                    <div id="image-prompt-result" class="ai-result-panel" style="display: none;">
-                        <div class="prompt-meta-row">
-                            <span>Optimizado para</span>
-                            <span id="image-prompt-target" class="prompt-meta-badge"></span>
-                            <span class="pm-badge">
-                                <svg viewBox="0 0 24 24" width="10" height="10" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                                Prompt Master
-                            </span>
+                    <!-- Evaluation Result -->
+                    <div id="image-eval-result-container" class="ai-result-panel" style="display: none; flex-direction: column;">
+                        <!-- Comparator Section -->
+                        <div class="prompt-comparator">
+                            <div class="prompt-panel original" style="border-color: rgba(0,0,0,0.05);">
+                                <div class="panel-header">Idea Original</div>
+                                <div id="image-eval-original-prompt" class="panel-body" style="font-style: italic; color: #64748b;"></div>
+                            </div>
+                            <div class="prompt-panel optimized" style="border-color: var(--ai-green);">
+                                <div class="panel-header" style="background: var(--ai-green);">Prompt Maestro Generado</div>
+                                <div id="image-eval-optimized-prompt" class="panel-body" style="font-weight: 600; color: #064e3b;"></div>
+                                <button id="btn-copy-image-optimized" class="btn-copy-prompt" style="margin: 10px; width: calc(100% - 20px);">
+                                    <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                                    Copiar para usar
+                                </button>
+                            </div>
                         </div>
-                        <div id="image-prompt-output" class="prompt-output-box"></div>
-                        <div id="image-prompt-rationale" style="font-size: 0.82rem; color: var(--ai-text-muted); margin-bottom: 14px; line-height: 1.6;"></div>
-                        <button id="btn-copy-image-prompt" class="btn-copy-prompt">
-                            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                            Copiar Prompt de Imagen
-                        </button>
+
+                        <div class="eval-summary-footer" style="background: rgba(16, 185, 129, 0.05); border-top: 1px solid rgba(16, 185, 129, 0.1);">
+                            <div id="image-eval-score-ring" class="ai-score-ring" style="border-color: var(--ai-green); color: var(--ai-green);">0</div>
+                            <div class="ai-feedback-content" style="flex: 1;">
+                                <h5 id="image-eval-score-title" style="color: var(--ai-green);">Análisis Visual</h5>
+                                <p id="image-eval-feedback" style="font-size: 0.85rem; line-height: 1.5;"></p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- AI Tools Grid continues if needed -->
+            </div>
+        </section>
 
 
 

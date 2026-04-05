@@ -351,7 +351,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Construct WhatsApp link
             const waMessage = encodeURIComponent(`Hola, mi nombre es ${nameValue}.\nEmail: ${emailValue}\n\nMensaje:\n${messageValue}`);
-            const waUrl = `https://wa.me/5212211173457?text=${waMessage}`;
+            const waUrl = `https://wa.me/525575015163?text=${waMessage}`;
 
             // Open WhatsApp
             window.open(waUrl, '_blank');
