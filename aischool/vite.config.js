@@ -15,7 +15,8 @@ export default defineConfig({
                 course: resolve(__dirname, 'course.html'),
                 examen: resolve(__dirname, 'examen.html'),
                 blog: resolve(__dirname, 'blog.html'),
-                llmVisualizer: resolve(__dirname, 'llm-visualizer.html')
+                certificado: resolve(__dirname, 'certificado.html'),
+                visualizadores: resolve(__dirname, 'visualizadores.html')
             }
         }
     }

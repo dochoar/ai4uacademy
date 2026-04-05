@@ -2,7 +2,7 @@
 export default {
   content: [
     "./index.html",
-    "./llm-visualizer.html",
+    "./visualizadores.html",
     "./visualizadores/**/*.{js,ts,jsx,tsx}",
     "./js/**/*.{js,ts,jsx,tsx}",
   ],
