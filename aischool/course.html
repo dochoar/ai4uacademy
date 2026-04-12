@@ -236,12 +236,7 @@
 </head>
 <body class="course-body">
 
-    <!-- Antigravity Background Elements -->
-    <div class="antigravity-bg">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-        <div class="blob blob-3"></div>
-    </div>
+
 
     <!-- Top Navigation for Course -->
     <header class="course-header">
@@ -300,103 +295,134 @@
             <div class="course-info-grid">
                 <!-- Left: Description & Progress -->
                 <main class="course-details">
-                    <!-- Module Navigation (Internal) -->
-                    <div class="module-nav-helpers" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
-                        <button class="btn btn-secondary btn-sm" id="btn-prev-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
-                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                            Módulo Anterior
-                        </button>
-                        <button class="btn btn-secondary btn-sm" id="btn-next-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
-                            Siguiente Módulo
-                            <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                        </button>
+                    <!-- Tabs Navigation -->
+                    <div class="course-tabs-nav">
+                        <button class="course-tab-btn active" data-tab="tab-overview">Módulo</button>
+                        <button class="course-tab-btn" data-tab="tab-labs">Laboratorios IA</button>
+                        <button class="course-tab-btn" data-tab="tab-qa">Comentarios</button>
                     </div>
 
-                    <div class="module-details glass-panel">
-                        <div class="module-header">
-                            <div>
-                                <span class="module-badge" id="module-badge">Módulo 1</span>
-                                <h2 class="module-title" id="module-title">Fundamentos</h2>
+                    <div class="course-tabs-content">
+                        <!-- TAB 1: OVERVIEW -->
+                        <div id="tab-overview" class="course-tab-pane active fade-in">
+                            <!-- Module Navigation (Internal) -->
+                            <div class="module-nav-helpers" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                                <button class="btn btn-secondary btn-sm" id="btn-prev-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                                    Módulo Anterior
+                                </button>
+                                <button class="btn btn-secondary btn-sm" id="btn-next-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
+                                    Siguiente Módulo
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                                </button>
                             </div>
-                            <div class="module-duration">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                                <span id="module-time">45 min</span>
+
+                            <div class="module-details glass-panel">
+                                <div class="module-header">
+                                    <div>
+                                        <span class="module-badge" id="module-badge">Módulo 1</span>
+                                        <h2 class="module-title" id="module-title">Fundamentos</h2>
+                                    </div>
+                                    <div class="module-duration">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                        <span id="module-time">45 min</span>
+                                    </div>
+                                </div>
+                                
+                                <p class="module-description" id="module-desc"></p>
+
+                                <div class="module-actions" style="gap: 15px;">
+                                    <button class="btn btn-secondary" id="btn-show-quiz" style="padding: 14px 24px; font-weight: 700; border-radius: 12px; border: 1.5px solid var(--clr-action); color: var(--clr-action); display: flex; align-items: center; gap: 8px; background: rgba(0, 163, 137, 0.05);">
+                                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                                        <span>Ejercicios de Preguntas</span>
+                                    </button>
+                                    <button class="btn btn-primary btn-complete" id="btn-complete">
+                                        <span>Completar Módulo</span>
+                                        <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                        
-                        <p class="module-description" id="module-desc"></p>
 
-                        <div class="module-actions" style="gap: 15px;">
-                            <button class="btn btn-secondary" id="btn-show-quiz" style="padding: 14px 24px; font-weight: 700; border-radius: 12px; border: 1.5px solid var(--clr-action); color: var(--clr-action); display: flex; align-items: center; gap: 8px; background: rgba(0, 163, 137, 0.05);">
-                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                                <span>Ejercicios de Preguntas</span>
-                            </button>
-                            <button class="btn btn-primary btn-complete" id="btn-complete">
-                                <span>Completar Módulo</span>
-                                <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- ═══ Actividad Interactiva — LLM Demo ═══ -->
-                    <!-- ═══ Laboratorios IA Interactivos ═══ -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;">
-                        
-                        <!-- 1. LLM Simulation -->
-                        <div class="lab-card glass-panel" id="LLM_Simulation_Lab">
-                            <div class="lab-card-header">
-                                <div class="lab-icon-wrap">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M12 2a10 10 0 1 0 10 10" /><path d="M12 6v6l4 2" />
-                                        <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5" stroke-width="2"/>
-                                    </svg>
+                        <!-- TAB 2: LABS -->
+                        <div id="tab-labs" class="course-tab-pane">
+                            <!-- ═══ Laboratorios IA Interactivos ═══ -->
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 40px;">
+                                
+                                <!-- 1. LLM Simulation -->
+                                <div class="lab-card glass-panel" id="LLM_Simulation_Lab">
+                                    <div class="lab-card-header">
+                                        <div class="lab-icon-wrap">
+                                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M12 2a10 10 0 1 0 10 10" /><path d="M12 6v6l4 2" />
+                                                <circle cx="18" cy="5" r="3" fill="#0B1647" stroke="#48E5E5" stroke-width="2"/>
+                                            </svg>
+                                        </div>
+                                        <div class="lab-header-text">
+                                            <span class="lab-badge">Actividad Interactiva</span>
+                                            <h3 class="lab-title">¿Cómo predice un LLM?</h3>
+                                        </div>
+                                    </div>
+                                    <p class="lab-desc">Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.</p>
+                                    <button onclick="window.openAI4ULab('simulation')" class="lab-open-btn">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        Explorar Simulación
+                                    </button>
                                 </div>
-                                <div class="lab-header-text">
-                                    <span class="lab-badge">Actividad Interactiva</span>
-                                    <h3 class="lab-title">¿Cómo predice un LLM?</h3>
+
+                                <!-- 2. Alucinaciones -->
+                                <div class="lab-card glass-panel" id="Hallucinations_Lab">
+                                    <div class="lab-card-header">
+                                        <div class="lab-icon-wrap" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
+                                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
+                                        </div>
+                                        <div class="lab-header-text">
+                                            <span class="lab-badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">NUEVO</span>
+                                            <h3 class="lab-title">Expositor: Alucinaciones</h3>
+                                        </div>
+                                    </div>
+                                    <p class="lab-desc">Visualiza cómo una IA puede sonar convincente mientras genera información falsa (alucinación).</p>
+                                    <button onclick="window.openAI4ULab('hallucinations')" class="lab-open-btn" style="background: #ef4444; border-color: #ef4444;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        Ver Alucinaciones
+                                    </button>
+                                </div>
+
+                                <!-- 3. Mitos vs Realidad -->
+                                <div class="lab-card glass-panel" id="Myths_Lab">
+                                    <div class="lab-card-header">
+                                        <div class="lab-icon-wrap" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">
+                                            <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                                        </div>
+                                        <div class="lab-header-text">
+                                            <span class="lab-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Interactivo</span>
+                                            <h3 class="lab-title">Mitos vs Realidad</h3>
+                                        </div>
+                                    </div>
+                                    <p class="lab-desc">Descubre las verdades detrás de los mitos más comunes sobre la inteligencia artificial hoy.</p>
+                                    <button onclick="window.openAI4ULab('myths')" class="lab-open-btn" style="background: #2563eb; border-color: #2563eb;">
+                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                        Revelar Realidades
+                                    </button>
                                 </div>
                             </div>
-                            <p class="lab-desc">Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.</p>
-                            <button onclick="window.openAI4ULab('simulation')" class="lab-open-btn">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                Explorar Simulación
-                            </button>
                         </div>
 
-                        <!-- 2. Alucinaciones -->
-                        <div class="lab-card glass-panel" id="Hallucinations_Lab">
-                            <div class="lab-card-header">
-                                <div class="lab-icon-wrap" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
-                                </div>
-                                <div class="lab-header-text">
-                                    <span class="lab-badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">NUEVO</span>
-                                    <h3 class="lab-title">Expositor: Alucinaciones</h3>
-                                </div>
-                            </div>
-                            <p class="lab-desc">Visualiza cómo una IA puede sonar convincente mientras genera información falsa (alucinación).</p>
-                            <button onclick="window.openAI4ULab('hallucinations')" class="lab-open-btn" style="background: #ef4444; border-color: #ef4444;">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                Ver Alucinaciones
-                            </button>
-                        </div>
+                        <!-- TAB 3: QA -->
+                        <div id="tab-qa" class="course-tab-pane">
+                            <!-- Comments Section -->
+                            <div class="comments-section glass-panel">
+                                <h3 class="comments-title">Preguntas y Respuestas</h3>
+                                
+                                <form id="comment-form" class="comment-form">
+                                    <textarea id="comment-input" placeholder="¿Tienes alguna duda sobre este módulo? El equipo te responderá pronto."></textarea>
+                                    <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Pregunta</button>
+                                </form>
 
-                        <!-- 3. Mitos vs Realidad -->
-                        <div class="lab-card glass-panel" id="Myths_Lab">
-                            <div class="lab-card-header">
-                                <div class="lab-icon-wrap" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">
-                                    <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-                                </div>
-                                <div class="lab-header-text">
-                                    <span class="lab-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Interactivo</span>
-                                    <h3 class="lab-title">Mitos vs Realidad</h3>
+                                <div id="comments-list" class="comments-list">
+                                    <!-- Comments injected here -->
                                 </div>
                             </div>
-                            <p class="lab-desc">Descubre las verdades detrás de los mitos más comunes sobre la inteligencia artificial hoy.</p>
-                            <button onclick="window.openAI4ULab('myths')" class="lab-open-btn" style="background: #2563eb; border-color: #2563eb;">
-                                <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                Revelar Realidades
-                            </button>
                         </div>
                     </div>
 
@@ -426,20 +452,6 @@
                                 loading="lazy"
                                 allow="same-origin"
                             ></iframe>
-                        </div>
-                    </div>
-
-                    <!-- Comments Section -->
-                    <div class="comments-section glass-panel">
-                        <h3 class="comments-title">Preguntas y Respuestas</h3>
-                        
-                        <form id="comment-form" class="comment-form">
-                            <textarea id="comment-input" placeholder="¿Tienes alguna duda sobre este módulo? El equipo te responderá pronto."></textarea>
-                            <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Pregunta</button>
-                        </form>
-
-                        <div id="comments-list" class="comments-list">
-                            <!-- Comments injected here -->
                         </div>
                     </div>
                 </main>
@@ -571,6 +583,26 @@
           if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
         });
       })();
+    </script>
+    <!-- Course Tabs Logic -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const tabBtns = document.querySelectorAll(".course-tab-btn");
+          const tabPanes = document.querySelectorAll(".course-tab-pane");
+
+          tabBtns.forEach(btn => {
+              btn.addEventListener("click", function() {
+                  const targetId = this.getAttribute("data-tab");
+
+                  tabBtns.forEach(b => b.classList.remove("active"));
+                  this.classList.add("active");
+
+                  tabPanes.forEach(pane => pane.classList.remove("active"));
+                  const targetPane = document.getElementById(targetId);
+                  if(targetPane) targetPane.classList.add("active");
+              });
+          });
+      });
     </script>
 </body>
 </html>

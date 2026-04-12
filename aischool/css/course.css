@@ -321,15 +321,16 @@
 }
 
 .module-item {
-    border-radius: 12px;
-    margin-bottom: 8px;
-    border: 1px solid #f1f5f9;
-    padding: 18px;
+    border-radius: 14px;
+    margin-bottom: 14px;
+    border: 1px solid #e2e8f0;
+    padding: 22px 20px;
     background: #ffffff;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
 .module-item:hover:not(.locked) {
@@ -1054,3 +1055,56 @@
     margin: 0;
     border-radius: 0;
 }
+
+/* ===========================
+   Course Tabs Interface
+   =========================== */
+.course-tabs-nav {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid #e2e8f0;
+    overflow-x: auto;
+    padding-bottom: 2px;
+}
+
+.course-tabs-nav::-webkit-scrollbar {
+    height: 4px;
+}
+
+.course-tab-btn {
+    background: transparent;
+    border: none;
+    padding: 12px 20px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #64748b;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.course-tab-btn:hover {
+    color: var(--clr-action);
+}
+
+.course-tab-btn.active {
+    color: var(--clr-action);
+    border-bottom-color: var(--clr-action);
+}
+
+.course-tab-pane {
+    display: none;
+    animation: fadeInTab 0.3s ease;
+}
+
+.course-tab-pane.active {
+    display: block;
+}
+
+@keyframes fadeInTab {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
