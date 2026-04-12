@@ -418,6 +418,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuiz = null;
     let currentQuestionIndex = 0;
 
+    const MODULE_CELEBRATION = {
+        1: { emoji: '🧠', objective: 'Ahora entiendes qué es la IA, cómo funciona y cuáles son sus tipos.' },
+        2: { emoji: '💬', objective: 'Dominas el prompt engineering para obtener respuestas de calidad.' },
+        3: { emoji: '🚀', objective: 'Conoces aplicaciones reales de la IA en distintos sectores.' },
+        4: { emoji: '⚡', objective: 'Sabes usar la IA para automatizar y trabajar más inteligente.' },
+        5: { emoji: '🛡️', objective: 'Comprendes alucinaciones, sesgos y límites éticos de la IA.' },
+        6: { emoji: '🏆', objective: '¡Aplicaste todo en un taller práctico! Ya estás listo para el examen.' }
+    };
+    const ENCOURAGEMENT_MESSAGES = {
+        1: '¡Gran primer paso! El viaje de mil millas comienza con uno.',
+        2: '¡Vas al 33%! Fundamentos y comunicación con IA: dominados.',
+        3: '¡Ya la mitad! El certificado se acerca. No pares ahora.',
+        4: '¡Más de la mitad superada! La recta final está en el horizonte.',
+        5: '¡Un módulo más y lo logras! El certificado casi es tuyo.',
+        6: '¡Curso completado! Ahora conquista el examen de certificación.'
+    };
+    let stopConfettiFn = null;
+
     initCourse();
 
     async function initCourse() {
@@ -883,36 +901,192 @@ document.addEventListener('DOMContentLoaded', () => {
     async function finalizeModuleCompletion(btn) {
         btn.disabled = true;
         btn.innerHTML = '<span>Guardando...</span>';
+        const justCompletedId = currentModuleId;
 
-        // Add to completed modules avoiding duplicates
-        if (!completedModules.includes(currentModuleId)) {
-            completedModules.push(currentModuleId);
-            
-            // Save to Supabase
+        // Save to Supabase (avoid duplicates)
+        if (!completedModules.includes(justCompletedId)) {
+            completedModules.push(justCompletedId);
+
             const { error } = await supabase
                 .from('course_progress')
                 .update({ completed_modules: completedModules })
                 .eq('user_id', currentUser.id)
                 .eq('course_id', COURSE_META.id);
-            
+
             if (error) {
                 console.error('Error saving progress:', error);
                 alert('No se pudo guardar el progreso. Verifica tu conexión.');
                 btn.disabled = false;
                 btn.innerHTML = '<span>Marcar como Completado</span>';
-                completedModules.pop(); // revert
+                completedModules.pop();
                 return;
             }
         }
 
-        // Advance to next module if available
+        // Módulos 1-6: mostrar modal de celebración antes de avanzar
+        if (justCompletedId <= 6) {
+            showCelebrationModal(justCompletedId);
+            return;
+        }
+        advanceAfterCelebration();
+    }
+
+    function advanceAfterCelebration() {
         if (currentModuleId < COURSE_META.modules.length) {
             currentModuleId++;
         }
-
         renderSidebar();
         renderMainView(currentModuleId);
         window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ─── Confetti ────────────────────────────────────────────────────────────
+    function launchConfetti(canvas) {
+        const ctx = canvas.getContext('2d');
+        canvas.width  = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const COLORS = ['#00A389', '#00d4b5', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6', '#ffffff', '#152247'];
+        const particles = Array.from({ length: 140 }, () => ({
+            x:      Math.random() * canvas.width,
+            y:      Math.random() * canvas.height * -0.6,
+            w:      5 + Math.random() * 9,
+            h:      3 + Math.random() * 5,
+            color:  COLORS[Math.floor(Math.random() * COLORS.length)],
+            vx:     -1.5 + Math.random() * 3,
+            vy:     2 + Math.random() * 4,
+            angle:  Math.random() * Math.PI * 2,
+            spin:   -0.08 + Math.random() * 0.16,
+            opacity: 0.8 + Math.random() * 0.2
+        }));
+
+        let rafId;
+        let elapsed = 0;
+        const FADE_START = 3500;
+        const FADE_DURATION = 900;
+
+        function draw() {
+            elapsed += 16;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const fade = elapsed > FADE_START
+                ? Math.max(0, 1 - (elapsed - FADE_START) / FADE_DURATION)
+                : 1;
+
+            particles.forEach(p => {
+                p.x += p.vx;
+                p.y += p.vy;
+                p.angle += p.spin;
+                p.vy += 0.055;
+                if (p.x < -20) p.x = canvas.width + 20;
+                if (p.x > canvas.width + 20) p.x = -20;
+                ctx.save();
+                ctx.globalAlpha = p.opacity * fade;
+                ctx.translate(p.x, p.y);
+                ctx.rotate(p.angle);
+                ctx.fillStyle = p.color;
+                ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                ctx.restore();
+            });
+
+            if (fade > 0) {
+                rafId = requestAnimationFrame(draw);
+            } else {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+        rafId = requestAnimationFrame(draw);
+
+        return function stop() {
+            cancelAnimationFrame(rafId);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        };
+    }
+
+    // ─── Show celebration modal ───────────────────────────────────────────────
+    function showCelebrationModal(completedModId) {
+        const TOTAL_CONTENT = 6;
+        const completedCount = completedModules.filter(id => id <= TOTAL_CONTENT).length;
+        const percent = Math.round((completedCount / TOTAL_CONTENT) * 100);
+        const meta = MODULE_CELEBRATION[completedModId] || { emoji: '🎉', objective: '' };
+        const isLast = completedModId === TOTAL_CONTENT;
+
+        document.getElementById('celebration-module-pill').textContent = `Módulo ${completedModId} de ${TOTAL_CONTENT}`;
+        document.getElementById('celebration-icon').textContent = meta.emoji;
+        document.getElementById('celebration-headline').textContent = `¡Módulo ${completedModId} completado!`;
+        document.getElementById('celebration-objective').textContent = meta.objective;
+        document.getElementById('celebration-progress-label').textContent =
+            `${completedCount} de ${TOTAL_CONTENT} módulos completados · ${percent}% del curso`;
+
+        const fill = document.getElementById('celebration-progress-fill');
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+        requestAnimationFrame(() => {
+            fill.style.transition = 'width 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.3s';
+            fill.style.width = percent + '%';
+        });
+
+        document.getElementById('celebration-encouragement').textContent =
+            ENCOURAGEMENT_MESSAGES[completedCount] || '¡Sigue adelante!';
+
+        wireShareButtons(completedModId, completedCount, TOTAL_CONTENT, percent);
+
+        // CTA — clone to remove old listeners
+        const oldCta = document.getElementById('celebration-cta');
+        const newCta = oldCta.cloneNode(true);
+        oldCta.parentNode.replaceChild(newCta, oldCta);
+        newCta.textContent = isLast
+            ? 'Ir al Examen de Certificación →'
+            : `Continuar al Módulo ${completedModId + 1} →`;
+        newCta.addEventListener('click', closeCelebrationModal);
+
+        const overlay = document.getElementById('celebration-modal');
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+
+        stopConfettiFn = launchConfetti(document.getElementById('confetti-canvas'));
+    }
+
+    function closeCelebrationModal() {
+        const overlay = document.getElementById('celebration-modal');
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        if (stopConfettiFn) { stopConfettiFn(); stopConfettiFn = null; }
+        advanceAfterCelebration();
+    }
+
+    // ─── Wire share buttons ───────────────────────────────────────────────────
+    function wireShareButtons(modId, count, total, percent) {
+        const MOD_TITLES = {
+            1: 'Fundamentos de IA',
+            2: 'Cómo hablar con la IA',
+            3: 'Aplicaciones reales de IA',
+            4: 'IA para Productividad',
+            5: 'Riesgos, Ética y Límites de la IA',
+            6: 'Taller Práctico Final'
+        };
+        const courseUrl = window.location.origin + '/aischool/course.html';
+        const modName   = MOD_TITLES[modId] || `Módulo ${modId}`;
+
+        const xText  = `Acabo de completar "${modName}" en @AI4UAcademy 🎯 (${count}/${total} módulos · ${percent}%) ¡Aprendiendo IA con propósito! 🚀 ${courseUrl}`;
+        const liText = `Acabo de completar el módulo "${modName}" en el curso de Introducción a la IA de AI4U Academy. Llevo ${count} de ${total} módulos completados (${percent}%). ¡Aprendiendo IA de manera práctica! ${courseUrl}`;
+
+        const urls = {
+            'csb-linkedin': `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(courseUrl)}&title=${encodeURIComponent('Curso IA — AI4U Academy')}&summary=${encodeURIComponent(liText)}`,
+            'csb-facebook': `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(courseUrl)}`,
+            'csb-x':        `https://x.com/intent/tweet?text=${encodeURIComponent(xText)}`
+        };
+
+        Object.entries(urls).forEach(([cls, url]) => {
+            const old = document.querySelector(`.celebration-share-btn.${cls}`);
+            if (!old) return;
+            const fresh = old.cloneNode(true);
+            old.parentNode.replaceChild(fresh, old);
+            fresh.addEventListener('click', () =>
+                window.open(url, '_blank', 'width=620,height=500,noopener,noreferrer')
+            );
+        });
     }
 
     // --- Quiz Engine Logic ---

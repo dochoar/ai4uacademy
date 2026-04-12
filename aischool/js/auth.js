@@ -103,10 +103,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const confirmPassword = document.getElementById('signup-password-confirm').value;
+            const termsChecked = document.getElementById('signup-terms').checked;
             const btn = signupForm.querySelector('button[type="submit"]');
             
             if (password !== confirmPassword) {
                 showError('Las contraseñas no coinciden.');
+                return;
+            }
+
+            if (!termsChecked) {
+                showError('Debes aceptar los Términos y Condiciones.');
                 return;
             }
             
