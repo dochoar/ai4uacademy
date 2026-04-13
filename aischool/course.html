@@ -456,29 +456,53 @@
                     </div>
                 </main>
 
-                <!-- Right: Module Sidebar (Sub-navigation) -->
+                <!-- Right: Module Sidebar — Redesigned -->
                 <aside class="course-sidebar-wrapper">
-                    <div class="course-sidebar glass-panel">
-                        <h3 class="sidebar-title">Ruta de Aprendizaje</h3>
-                        <ul class="module-list" id="module-list">
-                            <!-- Modules will be injected via JS -->
-                        </ul>
+                    <nav class="csnav" aria-label="Ruta de aprendizaje">
 
-                        <div style="border-top: 1px solid #e2e8f0; margin: 20px 0; padding-top: 20px;">
-                            <h3 class="sidebar-title" style="padding: 0 24px 15px 24px; border: none; background: none;">Herramientas</h3>
-                            <ul class="module-list">
-                                <li class="module-item available" onclick="window.location.href='dashboard.html#tools'">
-                                    <div class="module-status-icon">
-                                        <svg viewBox="0 0 24 24" width="16" height="16" stroke="#7c3aed" stroke-width="2.5" fill="none"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
-                                    </div>
-                                    <div class="module-info">
-                                        <h4>Laboratorio de IA</h4>
-                                        <p>Analizador y Bóveda</p>
-                                    </div>
-                                </li>
-                            </ul>
+                        <!-- Header -->
+                        <div class="csnav__head">
+                            <div class="csnav__head-icon">
+                                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h10"/></svg>
+                            </div>
+                            <span class="csnav__head-label">Ruta de Aprendizaje</span>
                         </div>
-                    </div>
+
+                        <!-- Progress ring -->
+                        <div class="csnav__progress-ring-wrap">
+                            <svg class="csnav__ring" viewBox="0 0 80 80" width="80" height="80">
+                                <circle class="csnav__ring-bg" cx="40" cy="40" r="34"/>
+                                <circle class="csnav__ring-fill" id="sidebar-ring-fill" cx="40" cy="40" r="34"
+                                    stroke-dasharray="213.6"
+                                    stroke-dashoffset="213.6"
+                                />
+                            </svg>
+                            <div class="csnav__ring-text">
+                                <span id="sidebar-ring-pct">0%</span>
+                                <small>completado</small>
+                            </div>
+                        </div>
+
+                        <!-- Module list -->
+                        <ol class="csnav__list" id="module-list">
+                            <!-- Modules injected via JS -->
+                        </ol>
+
+                        <!-- Divider + Tools -->
+                        <div class="csnav__footer">
+                            <span class="csnav__footer-label">Herramientas</span>
+                            <a href="dashboard.html#tools" class="csnav__tool-link">
+                                <span class="csnav__tool-icon">
+                                    <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                                </span>
+                                <span class="csnav__tool-info">
+                                    <strong>Laboratorio de IA</strong>
+                                    <small>Analizador y Bóveda</small>
+                                </span>
+                                <svg class="csnav__tool-arrow" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"/></svg>
+                            </a>
+                        </div>
+                    </nav>
                 </aside>
             </div>
         </div>

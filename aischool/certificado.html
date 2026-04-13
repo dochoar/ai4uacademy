@@ -556,11 +556,12 @@
             document.getElementById('btn-linkedin-add').href = liAddUrl.toString();
 
             // LinkedIn: Share post
-            const liShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(promoteUrl)}`;
+            const liText = `¡Acabo de obtener mi certificado en el curso "${courseName}" de AI4U Academy! Únete hoy mismo y aprende a usar la IA a tu favor: ${promoteUrl}`;
+            const liShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(liText)}`;
             document.getElementById('btn-linkedin').href = liShareUrl;
 
             // Facebook
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(promoteUrl)}`;
+            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(promoteUrl)}&quote=${encodeURIComponent(liText)}`;
             document.getElementById('btn-facebook').href = fbUrl;
 
             // X (Twitter)

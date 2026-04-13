@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 course_id: COURSE_META.id,
                 completed_modules: []
             });
-            completedModules = [];
+                        completedModules = [];
         }
     }
 
@@ -552,30 +552,31 @@ document.addEventListener('DOMContentLoaded', () => {
             const isLocked = !isCompleted && mod.id > highestUnlocked;
             const isActive = mod.id === currentModuleId;
 
-            let statusClass = 'available';
-            if (isLocked) statusClass = 'locked';
-            if (isActive) statusClass = 'active';
-            if (isCompleted && !isActive) statusClass = 'completed';
+            let stateClass = 'csnav__item';
+            if (isLocked)            stateClass += ' csnav__item--locked';
+            else if (isCompleted && !isActive) stateClass += ' csnav__item--done';
+            else if (isActive)       stateClass += ' csnav__item--active';
+            else                     stateClass += ' csnav__item--available';
 
-            let iconHtml = '';
+            // Bubble content
+            let bubbleContent = '';
             if (isLocked) {
-                iconHtml = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>`;
-            } else if (isCompleted) {
-                iconHtml = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
-            } else if (isActive) {
-                iconHtml = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>`;
+                bubbleContent = `<svg viewBox="0 0 24 24" width="13" height="13" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`;
+            } else if (isCompleted && !isActive) {
+                bubbleContent = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>`;
             } else {
-                iconHtml = `<div style="width: 8px; height: 8px; border-radius: 50%; background: #94a3b8;"></div>`;
+                bubbleContent = `${mod.id}`;
             }
 
             const li = document.createElement('li');
-            li.className = `module-item ${statusClass}`;
+            li.className = stateClass;
             li.innerHTML = `
-                <div class="module-status-icon">${iconHtml}</div>
-                <div class="module-info">
-                    <h4>Módulo ${mod.id}: ${mod.title}</h4>
-                    <p>${mod.duration}</p>
-                </div>
+                <span class="csnav__bubble">${bubbleContent}</span>
+                <span class="csnav__item-text">
+                    <strong>${mod.title}</strong>
+                    <small>${mod.duration}</small>
+                </span>
+                ${isActive ? '<span class="csnav__now-pill">Ahora</span>' : ''}
             `;
 
             if (!isLocked) {
@@ -590,7 +591,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Staggered entrance for sidebar items
-        gsap.from(".module-item", {
+        gsap.from(".csnav__item", {
             x: 20,
             opacity: 0,
             duration: 0.5,
@@ -602,6 +603,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const percent = Math.round((completedModules.length / COURSE_META.modules.length) * 100);
         progressFill.style.width = percent + '%';
         progressText.textContent = `${percent}% Completado`;
+
+        // Update sidebar ring
+        const ringFill = document.getElementById('sidebar-ring-fill');
+        const ringPct  = document.getElementById('sidebar-ring-pct');
+        if (ringFill) {
+            const circumference = 213.6;
+            const offset = circumference - (percent / 100) * circumference;
+            ringFill.style.strokeDashoffset = offset;
+        }
+        if (ringPct) ringPct.textContent = `${percent}%`;
     }
 
     function renderMainView(modId) {
@@ -1066,15 +1077,15 @@ document.addEventListener('DOMContentLoaded', () => {
             5: 'Riesgos, Ética y Límites de la IA',
             6: 'Taller Práctico Final'
         };
-        const courseUrl = window.location.origin + '/aischool/course.html';
+        const courseUrl = 'https://ai4uacademy.com/';
         const modName   = MOD_TITLES[modId] || `Módulo ${modId}`;
 
-        const xText  = `Acabo de completar "${modName}" en @AI4UAcademy 🎯 (${count}/${total} módulos · ${percent}%) ¡Aprendiendo IA con propósito! 🚀 ${courseUrl}`;
-        const liText = `Acabo de completar el módulo "${modName}" en el curso de Introducción a la IA de AI4U Academy. Llevo ${count} de ${total} módulos completados (${percent}%). ¡Aprendiendo IA de manera práctica! ${courseUrl}`;
+        const xText  = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! 🎯 (${count}/${total} módulos · ${percent}%) Únete y empieza a aprender: ${courseUrl}`;
+        const liText = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! Llevo ${count} de ${total} módulos completados (${percent}%). Únete hoy mismo y empieza a aprender: ${courseUrl}`;
 
         const urls = {
-            'csb-linkedin': `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(courseUrl)}&title=${encodeURIComponent('Curso IA — AI4U Academy')}&summary=${encodeURIComponent(liText)}`,
-            'csb-facebook': `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(courseUrl)}`,
+            'csb-linkedin': `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(liText)}`,
+            'csb-facebook': `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(courseUrl)}&quote=${encodeURIComponent(liText)}`,
             'csb-x':        `https://x.com/intent/tweet?text=${encodeURIComponent(xText)}`
         };
 

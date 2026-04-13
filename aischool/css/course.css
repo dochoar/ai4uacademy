@@ -1108,3 +1108,363 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* ══════════════════════════════════════════════════════════════
+   CSNAV — Sidebar de Ruta de Aprendizaje (rediseño desde cero)
+══════════════════════════════════════════════════════════════ */
+
+.csnav {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ── Header ── */
+.csnav__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 20px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+}
+
+.csnav__head-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #00A389, #00c9a8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    flex-shrink: 0;
+    box-shadow: 0 3px 10px rgba(0, 163, 137, 0.3);
+}
+
+.csnav__head-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #64748b;
+}
+
+/* ── Progress Ring ── */
+.csnav__progress-ring-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 20px 20px 16px;
+    position: relative;
+}
+
+.csnav__ring {
+    transform: rotate(-90deg);
+    flex-shrink: 0;
+}
+
+.csnav__ring-bg {
+    fill: none;
+    stroke: #e2e8f0;
+    stroke-width: 7;
+}
+
+.csnav__ring-fill {
+    fill: none;
+    stroke: #00A389;
+    stroke-width: 7;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.csnav__ring-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+    /* centered inside ring */
+    top: 50%;
+    margin-top: -12px;
+}
+
+/* Reposition: ring is 80px wide, we want text centered inside it */
+.csnav__progress-ring-wrap {
+    flex-direction: column;
+    gap: 8px;
+}
+
+.csnav__ring {
+    transform: rotate(-90deg);
+}
+
+.csnav__ring-text {
+    position: static;
+    transform: none;
+    margin-top: 0;
+    text-align: center;
+    align-items: center;
+}
+
+.csnav__ring-text span {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1;
+    display: block;
+}
+
+.csnav__ring-text small {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #94a3b8;
+    font-weight: 600;
+}
+
+/* Ring + label side by side on wider sidebar */
+@media (min-width: 1200px) {
+    .csnav__progress-ring-wrap {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 14px;
+        padding: 16px 20px 14px;
+    }
+    .csnav__ring-text {
+        align-items: flex-start;
+        text-align: left;
+    }
+}
+
+/* ── Module list ── */
+.csnav__list {
+    list-style: none;
+    margin: 0;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 360px);
+    scrollbar-width: none;
+}
+
+.csnav__list::-webkit-scrollbar { display: none; }
+
+/* ── Module item ── */
+.csnav__item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.2s ease;
+    border: 1.5px solid transparent;
+    position: relative;
+}
+
+.csnav__item:hover:not(.csnav__item--locked) {
+    background: #f1f5f9;
+    transform: translateX(3px);
+}
+
+/* ── States ── */
+.csnav__item--active {
+    background: rgba(0, 163, 137, 0.07);
+    border-color: rgba(0, 163, 137, 0.25);
+    box-shadow: 0 2px 10px rgba(0, 163, 137, 0.08);
+}
+
+.csnav__item--done {
+    opacity: 0.7;
+}
+
+.csnav__item--done:hover {
+    opacity: 1;
+}
+
+.csnav__item--locked {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+/* .csnav__item--available inherits base .csnav__item styles */
+
+/* ── Step bubble ── */
+.csnav__bubble {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 800;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    /* default: grey */
+    background: #f1f5f9;
+    color: #64748b;
+    border: 2px solid #e2e8f0;
+}
+
+.csnav__item--active .csnav__bubble {
+    background: #00A389;
+    color: #ffffff;
+    border-color: #00A389;
+    box-shadow: 0 3px 12px rgba(0, 163, 137, 0.35);
+}
+
+.csnav__item--done .csnav__bubble {
+    background: rgba(0, 163, 137, 0.1);
+    color: #00A389;
+    border-color: rgba(0, 163, 137, 0.3);
+}
+
+.csnav__item--locked .csnav__bubble {
+    background: #f1f5f9;
+    color: #94a3b8;
+    border-color: #e2e8f0;
+}
+
+/* ── Item text ── */
+.csnav__item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+    min-width: 0;
+}
+
+.csnav__item-text strong {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #1e293b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.csnav__item--locked .csnav__item-text strong { color: #94a3b8; }
+.csnav__item--done   .csnav__item-text strong { color: #64748b; }
+
+.csnav__item-text small {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+/* ── "Ahora" pill ── */
+.csnav__now-pill {
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    color: #00A389;
+    background: rgba(0, 163, 137, 0.1);
+    border: 1px solid rgba(0, 163, 137, 0.25);
+    border-radius: 100px;
+    padding: 2px 8px;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+/* ── Footer / Herramientas ── */
+.csnav__footer {
+    border-top: 1px solid #f1f5f9;
+    padding: 14px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.csnav__footer-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #94a3b8;
+}
+
+.csnav__tool-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.csnav__tool-link:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    transform: translateX(2px);
+}
+
+.csnav__tool-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: rgba(124, 58, 237, 0.08);
+    border: 1px solid rgba(124, 58, 237, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #7c3aed;
+    flex-shrink: 0;
+}
+
+.csnav__tool-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    flex: 1;
+}
+
+.csnav__tool-info strong {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.csnav__tool-info small {
+    font-size: 0.73rem;
+    color: #94a3b8;
+}
+
+.csnav__tool-arrow {
+    color: #cbd5e1;
+    flex-shrink: 0;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.csnav__tool-link:hover .csnav__tool-arrow {
+    transform: translateX(3px);
+    color: #7c3aed;
+}
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+    .csnav__list { max-height: 400px; }
+}
+
+@media (max-width: 768px) {
+    .csnav { border-radius: 14px; }
+    .csnav__item { padding: 10px 12px; }
+    .csnav__bubble { width: 28px; height: 28px; font-size: 0.75rem; }
+    .csnav__item-text strong { font-size: 0.82rem; }
+}
