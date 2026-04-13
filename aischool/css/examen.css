@@ -3,13 +3,13 @@
 .question-block {
     margin-bottom: 30px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid #e2e8f0;
 }
 
 .question-text {
     font-size: 1.15rem;
     font-weight: 600;
-    color: #fff;
+    color: #0f172a;
     margin-bottom: 15px;
 }
 
@@ -17,15 +17,18 @@
     display: block;
     padding: 12px 15px;
     margin-bottom: 8px;
-    background: rgba(255, 255, 255, 0.05);
+    background: #f8fafc;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s;
-    border: 1px solid transparent;
+    border: 1.5px solid #e2e8f0;
+    color: #1e293b;
+    font-size: 0.97rem;
 }
 
 .q-option:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #f1f5f9;
+    border-color: rgba(0, 163, 137, 0.3);
 }
 
 .q-option input {
