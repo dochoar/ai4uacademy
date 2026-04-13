@@ -70,8 +70,8 @@
 .auth-glass-card {
     width: 100%;
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border: 1px solid rgba(226, 232, 240, 0.8);
     border-radius: 20px;
     padding: 2.5rem;
@@ -248,8 +248,8 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
     border-radius: 100px;
 }
 

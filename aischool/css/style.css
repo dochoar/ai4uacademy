@@ -1437,7 +1437,8 @@ section {
     right: 0;
     bottom: 0;
     background: rgba(30, 41, 59, 0.7);
-    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1975,7 +1976,8 @@ section {
     width: 90%;
     max-width: 600px;
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
     border: 2px solid var(--clr-action);
     border-radius: var(--radius);
     padding: 24px;
@@ -2060,7 +2062,7 @@ section {
     height: 100%;
     overflow: auto;
     background-color: rgba(30, 41, 59, 0.95);
-    backdrop-filter: blur(8px);
+    backdrop-filter: none;
     opacity: 0;
     transition: opacity 0.3s ease;
 }
