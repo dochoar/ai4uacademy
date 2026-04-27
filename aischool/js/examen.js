@@ -1,37 +1,37 @@
 import { supabase } from './supabase-config.js';
 
 const EXAM_QUESTIONS = [
-    // Módulo 1
-    { q: "¿Cuál es la definición más precisa de Inteligencia Artificial?", options: { a: "Un robot que piensa como humano", b: "Sistemas que simulan capacidades cognitivas humanas", c: "Un programa siempre correcto", d: "Tecnología exclusiva de programadores" }, correct: "b" },
-    { q: "¿Cuál es la diferencia principal entre IA, Machine Learning y Deep Learning?", options: { a: "Son lo mismo", b: "Deep Learning contiene a Machine Learning", c: "IA es el campo general, ML aprende de datos, DL usa redes neuronales", d: "ML es más avanzado que DL" }, correct: "c" },
-    { q: "¿Qué tipo de IA utilizamos actualmente en la vida cotidiana?", options: { a: "IA General (AGI)", b: "Superinteligencia", c: "IA Estrecha o Narrow AI", d: "IA consciente" }, correct: "c" },
-    { q: "¿Cuál de estas es una herramienta de IA generativa accesible sin conocimientos técnicos?", options: { a: "TensorFlow", b: "ChatGPT", c: "Kubernetes", d: "SQL Server" }, correct: "b" },
-    // Módulo 2
-    { q: "¿Qué es un 'prompt' en el contexto de la IA?", options: { a: "El modelo de IA", b: "La instrucción o pregunta para obtener una respuesta", c: "El resultado generado", d: "El código fuente" }, correct: "b" },
-    { q: "¿Cuál de estos es un ejemplo de prompt bien estructurado?", options: { a: "'Dime algo sobre marketing'", b: "'Haz algo bueno'", c: "'Actúa como experto... Crea 5 ideas para Instagram...'", d: "'Marketing'" }, correct: "c" },
-    { q: "¿Qué técnica de prompting consiste en darle a la IA un rol específico?", options: { a: "Chain of Thought", b: "Role Playing", c: "Few-shot", d: "Zero-shot" }, correct: "b" },
-    { q: "¿Cuál es la principal ventaja del 'Few-Shot Prompting'?", options: { a: "No escribes nada", b: "Das ejemplos concretos para entender el patrón", c: "Hace la IA más rápida", d: "Solo inglés" }, correct: "b" },
-    // Módulo 3
-    { q: "¿En cuál de estos sectores la IA ya tiene aplicaciones reales?", options: { a: "Solo en tecnología", b: "En salud, educación, finanzas, marketing, legal, etc.", c: "Solo videojuegos", d: "Solo países desarrollados" }, correct: "b" },
-    { q: "¿Cómo puede un pequeño negocio usar IA sin conocimientos técnicos?", options: { a: "Contratar programadores", b: "Usar ChatGPT para atención, contenido y datos", c: "No es posible", d: "Comprar robots" }, correct: "b" },
-    { q: "¿Cuál es un ejemplo real de IA en el sector salud?", options: { a: "Robots autónomos", b: "Detección de patrones en radiografías", c: "Reemplazo de doctores", d: "Fabricación de medicinas sola" }, correct: "b" },
-    { q: "¿Qué herramienta ayuda en la creación de contenido visual?", options: { a: "Excel", b: "DALL-E, Midjourney o Canva con IA", c: "PowerPoint", d: "Calculadora" }, correct: "b" },
-    // Módulo 4
-    { q: "¿Cuáles son los tres pilares de la IA para productividad?", options: { a: "Comprar, vender, distribuir", b: "Automatizar, acelerar y amplificar", c: "Programar, diseñar, contabilizar", d: "Leer, escribir, calcular" }, correct: "b" },
-    { q: "¿Cómo ayuda la IA a escribir un correo profesional rápido?", options: { a: "No puede", b: "Generando un borrador con tono y objetivo para revisar", c: "Copiando de internet", d: "Enviando sin revisar" }, correct: "b" },
-    { q: "¿Cuál es la mejor práctica al usar IA para contenido profesional?", options: { a: "Publicar directo", b: "IA como punto de partida, luego revisar y editar", c: "Nunca usar IA", d: "Prompts de una palabra" }, correct: "b" },
-    { q: "Si la IA ahorra 2 horas diarias, ¿cuántas horas al mes liberas?", options: { a: "10", b: "20", c: "40", d: "60" }, correct: "c" },
-    // Módulo 5
-    { q: "¿Qué son las 'alucinaciones' de la IA?", options: { a: "Descompostura física", b: "Información falsa inventada presentada con confianza", c: "No responder nada", d: "Hablar otro idioma" }, correct: "b" },
-    { q: "¿Cuál de estas es una práctica ética?", options: { a: "Presentar IA como propio", b: "Transparencia y verificación de resultados", c: "Confianza ciega", d: "Usar datos privados ajenos" }, correct: "b" },
-    { q: "¿Por qué es importante verificar siempre la información?", options: { a: "IA siempre miente", b: "Puede ser desactualizada, sesgada o incorrecta", c: "No es necesario", d: "Solo si está en inglés" }, correct: "b" },
-    // Módulo 6
-    { q: "Al integrar la IA en tu flujo diario, ¿cuál es el enfoque recomendable?", options: { a: "Reemplazar todo", b: "Identificar tareas, probar, evaluar y escalar", c: "Esperar perfección", d: "Usar una sola herramienta" }, correct: "b" }
+    // Module 1
+    { q: "What is the most accurate definition of Artificial Intelligence?", options: { a: "A robot that thinks like a human", b: "Systems that simulate human cognitive capabilities", c: "A program that is always correct", d: "Technology exclusive to programmers" }, correct: "b" },
+    { q: "What is the main difference between AI, Machine Learning, and Deep Learning?", options: { a: "They are the same", b: "Deep Learning contains Machine Learning", c: "AI is the general field, ML learns from data, DL uses neural networks", d: "ML is more advanced than DL" }, correct: "c" },
+    { q: "What type of AI do we currently use in daily life?", options: { a: "General AI (AGI)", b: "Superintelligence", c: "Narrow AI", d: "Conscious AI" }, correct: "c" },
+    { q: "Which of these is a generative AI tool accessible without technical knowledge?", options: { a: "TensorFlow", b: "ChatGPT", c: "Kubernetes", d: "SQL Server" }, correct: "b" },
+    // Module 2
+    { q: "What is a 'prompt' in the context of AI?", options: { a: "The AI model", b: "The instruction or question to get an answer", c: "The generated result", d: "The source code" }, correct: "b" },
+    { q: "Which of these is an example of a well-structured prompt?", options: { a: "'Tell me something about marketing'", b: "'Do something good'", c: "'Act as an expert... Create 5 ideas for Instagram...'", d: "'Marketing'" }, correct: "c" },
+    { q: "Which prompting technique consists of giving the AI a specific role?", options: { a: "Chain of Thought", b: "Role Playing", c: "Few-shot", d: "Zero-shot" }, correct: "b" },
+    { q: "What is the main advantage of 'Few-Shot Prompting'?", options: { a: "You don't write anything", b: "You give concrete examples to understand the pattern", c: "It makes the AI faster", d: "Only English" }, correct: "b" },
+    // Module 3
+    { q: "In which of these sectors does AI already have real applications?", options: { a: "Only in technology", b: "In health, education, finance, marketing, legal, etc.", c: "Only video games", d: "Only developed countries" }, correct: "b" },
+    { q: "How can a small business use AI without technical knowledge?", options: { a: "Hire programmers", b: "Use ChatGPT for customer service, content, and data", c: "It is not possible", d: "Buy robots" }, correct: "b" },
+    { q: "What is a real example of AI in the health sector?", options: { a: "Autonomous robots", b: "Detection of patterns in X-rays", c: "Replacement of doctors", d: "Making medicines alone" }, correct: "b" },
+    { q: "Which tool helps in creating visual content?", options: { a: "Excel", b: "DALL-E, Midjourney, or Canva with AI", c: "PowerPoint", d: "Calculator" }, correct: "b" },
+    // Module 4
+    { q: "What are the three pillars of AI for productivity?", options: { a: "Buy, sell, distribute", b: "Automate, accelerate, and amplify", c: "Program, design, account", d: "Read, write, calculate" }, correct: "b" },
+    { q: "How does AI help write a professional email quickly?", options: { a: "It can't", b: "Generating a draft with tone and objective to review", c: "Copying from the internet", d: "Sending without reviewing" }, correct: "b" },
+    { q: "What is the best practice when using AI for professional content?", options: { a: "Publish directly", b: "AI as a starting point, then review and edit", c: "Never use AI", d: "One-word prompts" }, correct: "b" },
+    { q: "If AI saves 2 hours a day, how many hours a month do you free up?", options: { a: "10", b: "20", c: "40", d: "60" }, correct: "c" },
+    // Module 5
+    { q: "What are AI 'hallucinations'?", options: { a: "Physical breakdown", b: "Invented false information presented with confidence", c: "Not answering anything", d: "Speaking another language" }, correct: "b" },
+    { q: "Which of these is an ethical practice?", options: { a: "Present AI as your own", b: "Transparency and verification of results", c: "Blind trust", d: "Using other people's private data" }, correct: "b" },
+    { q: "Why is it important to always verify information?", options: { a: "AI always lies", b: "It can be outdated, biased, or incorrect", c: "It is not necessary", d: "Only if it is in English" }, correct: "b" },
+    // Module 6
+    { q: "When integrating AI into your daily flow, what is the recommended approach?", options: { a: "Replace everything", b: "Identify tasks, test, evaluate, and scale", c: "Wait for perfection", d: "Use a single tool" }, correct: "b" }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentUser = null;
-    let currentUserFullName = 'Estudiante Especial';
+    let currentUserFullName = 'Special Student';
     let attemptsCount = 0;
     const MAX_ATTEMPTS = 2;
     const PASSING_SCORE = 70;
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser = session.user;
 
             if (currentUser.user_metadata) {
-                currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Estudiante';
+                currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Student';
             }
 
             // Check if already passed
@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateAttemptsUI();
 
                 if (attemptsCount >= MAX_ATTEMPTS) {
-                    lockExam('Has agotado tus intentos permitidos (2/2). Contacta a soporte si necesitas ayuda.');
+                    lockExam('You have exhausted your allowed attempts (2/2). Contact support if you need help.');
                 } else {
                     renderQuestions();
                     examArea.style.display = 'block';
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function updateAttemptsUI() {
-        attemptsInfo.innerHTML = `Intentos realizados: <strong>${attemptsCount}/${MAX_ATTEMPTS}</strong>`;
+        attemptsInfo.innerHTML = `Attempts made: <strong>${attemptsCount}/${MAX_ATTEMPTS}</strong>`;
     }
 
     function lockExam(message) {
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const btn = document.getElementById('btn-submit-exam');
         btn.disabled = true;
-        btn.innerHTML = 'Procesando...';
+        btn.innerHTML = 'Processing...';
 
         const fd = new FormData(quizForm);
         let correctCount = 0;
@@ -148,9 +148,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (attemptError) {
-            quizMsg.textContent = "Error guardando el intento. Verifica tu conexión.";
+            quizMsg.textContent = "Error saving attempt. Check your connection.";
             btn.disabled = false;
-            btn.innerHTML = 'Entregar Examen';
+            btn.innerHTML = 'Submit Exam';
             return;
         }
 
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (scorePercent >= PASSING_SCORE) {
             quizMsg.style.color = '#10b981';
-            quizMsg.textContent = `¡Felicidades! Aprobaste con ${scorePercent}%. Generando certificado...`;
+            quizMsg.textContent = `Congratulations! You passed with ${scorePercent}%. Generating certificate...`;
             
             const payload = {
                 user_id: currentUser.id,
@@ -170,18 +170,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const { data: cert, error: certError } = await supabase.from('course_certificates').insert(payload).select().single();
             if (certError) {
-                quizMsg.textContent = "Error al generar certificado. Contacta a soporte.";
+                quizMsg.textContent = "Error generating certificate. Contact support.";
             } else {
                 renderDiploma(cert);
             }
         } else {
             quizMsg.style.color = '#ef4444';
             if (attemptsCount >= MAX_ATTEMPTS) {
-                lockExam(`Obtuviste un ${scorePercent}%. Has alcanzado el límite de intentos (2/2).`);
+                lockExam(`You got ${scorePercent}%. You have reached the limit of attempts (2/2).`);
             } else {
-                quizMsg.textContent = `Obtuviste un ${scorePercent}%. Necesitas al menos ${PASSING_SCORE}% para pasar. Te queda 1 intento.`;
+                quizMsg.textContent = `You got ${scorePercent}%. You need at least ${PASSING_SCORE}% to pass. You have 1 attempt left.`;
                 btn.disabled = false;
-                btn.innerHTML = 'Reintentar Examen';
+                btn.innerHTML = 'Retry Exam';
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             }
         }
@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const d = record && record.issued_at ? new Date(record.issued_at) : new Date();
         const langOptions = { year: 'numeric', month: 'long', day: 'numeric' };
-        certDate.textContent = `Otorgado el ${d.toLocaleDateString('es-MX', langOptions)}`;
+        certDate.textContent = `Awarded on ${d.toLocaleDateString('en-US', langOptions)}`;
 
         const certDownloadLink = document.getElementById('cert-download-link');
         if (certDownloadLink && record && record.id) {
@@ -206,12 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setupShareButtons(certId) {
-        const shareText = "🚀 ¡Me acabo de certificar en 'Introducción a la Inteligencia Artificial' por AI4U Academy! Una experiencia increíble para potenciar mi carrera.";
+        const shareText = "🚀 I just got certified in 'Introduction to Artificial Intelligence' by AI4U Academy! An incredible experience to boost my career.";
         const shareUrl = window.location.origin;
         const certLink = certId ? `${window.location.origin}/certificado.html?id=${certId}` : shareUrl;
 
         document.getElementById('share-facebook').onclick = () => window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(certLink)}&quote=${encodeURIComponent(shareText)}`, '_blank');
-        document.getElementById('share-whatsapp').onclick = () => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " Ver mi certificado aquí: " + certLink)}`, '_blank');
+        document.getElementById('share-whatsapp').onclick = () => window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + " See my certificate here: " + certLink)}`, '_blank');
         document.getElementById('share-twitter').onclick = () => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(certLink)}`, '_blank');
         document.getElementById('share-linkedin').onclick = () => window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(certLink)}`, '_blank');
     }

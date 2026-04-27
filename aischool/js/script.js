@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function initPdfViewer() {
         if (typeof window.pdfjsLib === 'undefined') {
-            console.error('PDF.js no está cargado');
+            console.error('PDF.js is not loaded');
             return;
         }
 
@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             } catch (error) {
                 console.error('Error loading PDF:', error);
-                loadingIndicator.textContent = 'Error al cargar el documento.';
+                loadingIndicator.textContent = 'Error loading the document.';
             }
         }
 
@@ -350,7 +350,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const messageValue = document.getElementById('message').value.trim();
 
             // Construct WhatsApp link
-            const waMessage = encodeURIComponent(`Hola, mi nombre es ${nameValue}.\nEmail: ${emailValue}\n\nMensaje:\n${messageValue}`);
+            const waMessage = encodeURIComponent(`Hello, my name is ${nameValue}.\nEmail: ${emailValue}\n\nMessage:\n${messageValue}`);
             const waUrl = `https://wa.me/525575015163?text=${waMessage}`;
 
             // Open WhatsApp
@@ -360,7 +360,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
 
-            submitBtn.textContent = '¡Abriendo WhatsApp! 📱';
+            submitBtn.textContent = 'Opening WhatsApp! 📱';
             submitBtn.style.backgroundColor = '#25D366';
             submitBtn.style.borderColor = '#25D366';
 
@@ -420,7 +420,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const isExpanded = btn.getAttribute('aria-expanded') === 'true';
 
             btn.setAttribute('aria-expanded', !isExpanded);
-            btn.textContent = !isExpanded ? 'Ocultar Temario' : 'Ver Temario';
+            btn.textContent = !isExpanded ? 'Hide Syllabus' : 'View Syllabus';
 
             if (!isExpanded) {
                 content.hidden = false;

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Certificado - AI4U Academy</title>
+<title>Certificate - AI4U Academy</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -365,22 +365,22 @@
 <body>
 <button id="btn-print" onclick="window.print()">
   <svg viewBox="0 0 24 24"><path d="M19 8H5c-1.66 0-3 1.34-3 3v6h4v4h12v-4h4v-6c0-1.66-1.34-3-3-3zm-3 11H8v-5h8v5zm3-7c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm-1-9H6v4h12V3z"/></svg>
-  Imprimir / Guardar como PDF
+  Print / Save as PDF
 </button>
 
 <!-- Share panel (populated by JS after cert loads) -->
 <div id="share-panel" style="display:none;">
-  <div id="share-label">Compartir logro</div>
+  <div id="share-label">Share achievement</div>
   <div class="share-row-1 share-buttons">
     <!-- LinkedIn Add to Profile -->
     <a id="btn-linkedin-add" class="share-btn btn-linkedin-add" href="#" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      Agregar a LinkedIn
+      Add to LinkedIn
     </a>
     <!-- LinkedIn Share -->
     <a id="btn-linkedin" class="share-btn btn-linkedin" href="#" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="white"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-      Compartir
+      Share
     </a>
   </div>
   <div class="share-row-2 share-buttons">
@@ -397,7 +397,7 @@
     <!-- Copy link -->
     <button id="btn-copy" class="share-btn btn-copy" onclick="copyLink()">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
-      Copiar enlace
+      Copy link
     </button>
   </div>
 </div>
@@ -416,35 +416,35 @@
     <!-- HEADER -->
     <div class="header">
       <img class="logo-img" src="assets/images/LOGO.png" alt="AI4U Academy" />
-      <div class="cert-label">Certificado</div>
-      <div class="cert-sub">De finalización</div>
+      <div class="cert-label">Certificate</div>
+      <div class="cert-sub">Of Completion</div>
     </div>
 
     <div class="divider"></div>
 
     <!-- BODY -->
     <div class="body-section">
-      <div class="otorga">Se otorga el presente certificado a</div>
+      <div class="otorga">This certificate is awarded to</div>
       <div id="participant-name" class="participant">___ ___ ___</div>
 
-      <div class="course-desc">Por haber completado satisfactoriamente el curso</div>
-      <div class="course-name">Introducción a la Inteligencia Artificial</div>
+      <div class="course-desc">For successfully completing the course</div>
+      <div class="course-name">Introduction to Artificial Intelligence</div>
 
       <div class="modules">
-        <span class="mod-label">Fundamentos de IA</span>
+        <span class="mod-label">AI Fundamentals</span>
         <span class="mod-dot"></span>
         <span class="mod-label">Machine Learning</span>
         <span class="mod-dot"></span>
-        <span class="mod-label">IA Generativa</span>
+        <span class="mod-label">Generative AI</span>
         <span class="mod-dot"></span>
-        <span class="mod-label">Herramientas Prácticas</span>
+        <span class="mod-label">Practical Tools</span>
         <span class="mod-dot"></span>
-        <span class="mod-label">Aplicaciones</span>
+        <span class="mod-label">Applications</span>
         <span class="mod-dot"></span>
-        <span class="mod-label">Ética y Regulación</span>
+        <span class="mod-label">Ethics & Regulation</span>
       </div>
 
-      <div class="duration">Duración: 6 horas · 6 módulos</div>
+      <div class="duration">Duration: 6 hours · 6 modules</div>
     </div>
 
     <div class="divider-bottom"></div>
@@ -495,7 +495,7 @@
       </div>
 
       <div class="footer-right">
-        <div id="cert-date-official" class="footer-item">Fecha: ___ / ___ / ______</div>
+        <div id="cert-date-official" class="footer-item">Date: ___ / ___ / ______</div>
         <div id="cert-folio" class="footer-item">Folio: _______________</div>
         <div class="footer-web">ai4uacademy.com</div>
       </div>
@@ -512,7 +512,7 @@
         const certId = urlParams.get('id');
 
         if (!certId) {
-            alert('Error: ID de certificado no especificado.');
+            alert('Error: Certificate ID not specified.');
             return;
         }
 
@@ -524,15 +524,15 @@
                 .maybeSingle();
 
             if (error) throw error;
-            if (!cert) throw new Error('Certificado no encontrado en los registros.');
+            if (!cert) throw new Error('Certificate not found in records.');
 
             // Update DOM
-            const userName = cert.user_name || 'Estudiante AI4U';
+            const userName = cert.user_name || 'AI4U Student';
             document.getElementById('participant-name').textContent = userName;
 
             const issuedAt = cert.issued_at ? new Date(cert.issued_at) : new Date();
-            const dateStr = issuedAt.toLocaleDateString('es-MX', { year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('cert-date-official').textContent = `Fecha: ${dateStr}`;
+            const dateStr = issuedAt.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('cert-date-official').textContent = `Date: ${dateStr}`;
 
             const folio = cert.id.split('-')[0].toUpperCase();
             document.getElementById('cert-folio').textContent = `Folio: AI4U-${folio}`;
@@ -540,7 +540,7 @@
             // ── Social sharing ──────────────────────────────────────
             const certUrl = window.location.href;
             const promoteUrl = 'https://ai4uacademy.com/'; // URL for LinkedIn, Facebook, and Twitter to direct traffic here per gamification goals.
-            const courseName = 'Introducción a la Inteligencia Artificial';
+            const courseName = 'Introduction to Artificial Intelligence';
             const issueYear = issuedAt.getFullYear();
             const issueMonth = issuedAt.getMonth() + 1; // LinkedIn uses 1-based months
 
@@ -556,7 +556,7 @@
             document.getElementById('btn-linkedin-add').href = liAddUrl.toString();
 
             // LinkedIn: Share post
-            const liText = `¡Acabo de obtener mi certificado en el curso "${courseName}" de AI4U Academy! Únete hoy mismo y aprende a usar la IA a tu favor: ${promoteUrl}`;
+            const liText = `I just earned my certificate in the "${courseName}" course from AI4U Academy! Join today and learn to use AI to your advantage: ${promoteUrl}`;
             const liShareUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(liText)}`;
             document.getElementById('btn-linkedin').href = liShareUrl;
 
@@ -565,19 +565,19 @@
             document.getElementById('btn-facebook').href = fbUrl;
 
             // X (Twitter)
-            const xText = `¡Acabo de completar el curso "${courseName}" en @AI4UAcademy! 🎓 #IA #InteligenciaArtificial #AI4UAcademy`;
+            const xText = `I just completed the "${courseName}" course at @AI4UAcademy! 🎓 #AI #ArtificialIntelligence #AI4UAcademy`;
             const xUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(xText)}&url=${encodeURIComponent(promoteUrl)}`;
             document.getElementById('btn-x').href = xUrl;
 
             // Update page meta for richer social previews
-            document.title = `Certificado de ${userName} — AI4U Academy`;
-            setMeta('og:title', `${userName} completó: ${courseName}`);
-            setMeta('og:description', `Certificado de finalización otorgado por AI4U Academy · Folio AI4U-${folio}`);
+            document.title = `Certificate for ${userName} — AI4U Academy`;
+            setMeta('og:title', `${userName} completed: ${courseName}`);
+            setMeta('og:description', `Certificate of completion awarded by AI4U Academy · Folio AI4U-${folio}`);
             setMeta('og:url', promoteUrl);
             setMeta('og:type', 'website');
             setMeta('twitter:card', 'summary');
-            setMeta('twitter:title', `${userName} completó: ${courseName}`);
-            setMeta('twitter:description', `Certificado emitido por AI4U Academy · ${dateStr}`);
+            setMeta('twitter:title', `${userName} completed: ${courseName}`);
+            setMeta('twitter:description', `Certificate issued by AI4U Academy · ${dateStr}`);
             
             // Show share panel
             document.getElementById('share-panel').style.display = 'flex';
@@ -585,9 +585,9 @@
         } catch (err) {
             console.error('Certificate failed:', err);
             document.body.innerHTML = `<div style="padding: 50px; text-align: center; font-family: sans-serif;">
-                <h2>Error de Certificación</h2>
+                <h2>Certification Error</h2>
                 <p>${err.message}</p>
-                <a href="/dashboard.html">Volver al Dashboard</a>
+                <a href="/dashboard.html">Back to Dashboard</a>
             </div>`;
         }
     });
@@ -608,14 +608,14 @@
             await navigator.clipboard.writeText(window.location.href);
             btn.classList.add('copied');
             btn.querySelector('svg').innerHTML = '<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>';
-            btn.childNodes[btn.childNodes.length - 1].textContent = ' ¡Copiado!';
+            btn.childNodes[btn.childNodes.length - 1].textContent = ' Copied!';
             setTimeout(() => {
                 btn.classList.remove('copied');
                 btn.querySelector('svg').innerHTML = '<path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>';
-                btn.childNodes[btn.childNodes.length - 1].textContent = ' Copiar enlace';
+                btn.childNodes[btn.childNodes.length - 1].textContent = ' Copy link';
             }, 2500);
         } catch {
-            prompt('Copia este enlace:', window.location.href);
+            prompt('Copy this link:', window.location.href);
         }
     };
 </script>

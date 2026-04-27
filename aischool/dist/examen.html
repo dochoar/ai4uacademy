@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Examen Final y Certificación — AI4U Academy</title>
+    <title>Final Exam and Certification — AI4U Academy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,12 +12,12 @@
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <link rel="icon" type="image/png" href="/favicon.png">
-  <script type="module" crossorigin src="/assets/examen-DVK5hIAk.js"></script>
+  <script type="module" crossorigin src="/assets/examen-DUpcrelp.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-B5Qt9EMX.js">
   <link rel="modulepreload" crossorigin href="/assets/supabase-config-BEUG5BCn.js">
-  <link rel="stylesheet" crossorigin href="/assets/examen-9XKM2S1B.css">
+  <link rel="stylesheet" crossorigin href="/assets/examen-DYVj_mXd.css">
   <link rel="stylesheet" crossorigin href="/assets/style-Dmwd_tN3.css">
-  <link rel="stylesheet" crossorigin href="/assets/course-DpUxrMKV.css">
+  <link rel="stylesheet" crossorigin href="/assets/course-Drr6AeG1.css">
 </head>
 <body class="course-body">
 
@@ -25,10 +25,10 @@
         <div class="course-header-left">
             <a href="course.html?id=intro-ia" class="back-link">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Volver al Módulo 6
+                Back to Module 6
             </a>
             <div class="header-divider"></div>
-            <h1 class="course-main-title">Examen Final: Introducción a la IA</h1>
+            <h1 class="course-main-title">Final Exam: Introduction to AI</h1>
         </div>
     </header>
 
@@ -38,12 +38,12 @@
             
             <!-- Exam Intro / Quiz Area -->
             <div id="exam-area" class="glass-panel" style="padding: 40px;">
-                <h2 style="font-size: 2rem; color: #fff; margin-bottom: 10px; text-align: center;">Examen de Certificación Oficial</h2>
-                <p style="color: #cbd5e1; text-align: center; margin-bottom: 20px;" id="exam-intro-text">
-                    Responde las 20 preguntas basadas en los módulos del curso. Necesitas al menos un <strong>70% de aciertos</strong> (14/20) para obtener tu Certificado Profesional.
+                <h2 style="font-size: 2rem; color: #0f172a; margin-bottom: 10px; text-align: center;">Official Certification Exam</h2>
+                <p style="color: #475569; text-align: center; margin-bottom: 20px;" id="exam-intro-text">
+                    Answer the 20 questions based on the course modules. You need at least <strong>70% correct answers</strong> (14/20) to obtain your Professional Certificate.
                 </p>
-                <div id="attempts-info" style="text-align: center; color: #facc15; font-weight: 500; margin-bottom: 30px;">
-                    Cargando intentos disponibles...
+                <div id="attempts-info" style="text-align: center; color: #00A389; font-weight: 600; margin-bottom: 30px;">
+                    Loading available attempts...
                 </div>
 
                 <form id="quiz-form">
@@ -51,7 +51,7 @@
                         <!-- Dynamic content -->
                     </div>
 
-                    <button type="submit" id="btn-submit-exam" class="btn btn-primary btn-block mt-4" style="font-size: 1.1rem; padding: 15px;">Entregar Examen</button>
+                    <button type="submit" id="btn-submit-exam" class="btn btn-primary btn-block mt-4" style="font-size: 1.1rem; padding: 15px;">Submit Exam</button>
                     <div id="quiz-msg" style="text-align: center; margin-top: 15px; font-weight: bold; font-size: 1.1rem;"></div>
                 </form>
             </div>
@@ -60,27 +60,27 @@
             <div id="certificate-area" style="display: none; display: flex; flex-direction: column; align-items: center; gap: 30px;">
                 
                 <div style="text-align: center;">
-                    <h2 style="color: #10b981; font-size: 2.2rem; margin-bottom: 10px;">¡Felicidades, Aprobaste! 🎉</h2>
-                    <p style="color: #fff; font-size: 1.1rem;">Has superado la prueba final y demostrado tus conocimientos en IA.</p>
+                    <h2 style="color: #10b981; font-size: 2.2rem; margin-bottom: 10px;">Congratulations, You Passed! 🎉</h2>
+                    <p style="color: #475569; font-size: 1.1rem;">You have passed the final test and demonstrated your knowledge in AI.</p>
                 </div>
 
                 <div class="diploma-frame" id="diploma">
                     <img src="assets/images/LOGO.png" alt="AI4U Logo" class="diploma-logo">
-                    <h3>CERTIFICADO DE PROFESIONALIZACIÓN</h3>
-                    <p class="diploma-subtitle">Se otorga el presente reconocimiento a:</p>
-                    <h1 class="diploma-name" id="cert-name">Nombre Apellido</h1>
-                    <p class="diploma-course">Por completar satisfactoriamente el programa y su evaluación final en:</p>
-                    <h2 class="diploma-title">Introducción a la Inteligencia Artificial</h2>
-                    <p class="diploma-date" id="cert-date">Otorgado el 12 de Abril, 2024</p>
-                    <div class="diploma-stamp">AI4U Validado</div>
+                    <h3>PROFESSIONAL CERTIFICATE</h3>
+                    <p class="diploma-subtitle">This recognition is awarded to:</p>
+                    <h1 class="diploma-name" id="cert-name">First Last Name</h1>
+                    <p class="diploma-course">For successfully completing the program and its final evaluation in:</p>
+                    <h2 class="diploma-title">Introduction to Artificial Intelligence</h2>
+                    <p class="diploma-date" id="cert-date">Awarded April 12, 2024</p>
+                    <div class="diploma-stamp">AI4U Validated</div>
                 </div>
 
                 <a id="cert-download-link" href="#" target="_blank" class="btn btn-primary btn-block" style="background: #152247; font-size: 1.1rem; padding: 18px; display: none; text-decoration: none; text-align: center; width: 100%; border-radius: 12px; font-weight: 700;">
-                    Ver y Descargar Certificado Oficial (Formato PDF)
+                    View and Download Official Certificate (PDF Format)
                 </a>
 
                 <div class="social-share glass-panel" style="width: 100%; text-align: center; padding: 30px;">
-                    <h3 style="color: #fff; margin-bottom: 20px;">Comparte tu logro profesional</h3>
+                    <h3 style="color: #0f172a; margin-bottom: 20px;">Share your professional achievement</h3>
                     <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
                         <button class="btn btn-share btn-linkedin" id="share-linkedin">LinkedIn</button>
                         <button class="btn btn-share btn-facebook" id="share-facebook">Facebook</button>
@@ -96,7 +96,7 @@
     <!-- Global Loader -->
     <div id="auth-loader" class="global-loader">
         <div class="spinner"></div>
-        <p>Verificando credenciales...</p>
+        <p>Verifying credentials...</p>
     </div>
 
 </body>

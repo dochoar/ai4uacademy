@@ -6,9 +6,9 @@ import MitosRealidadLab from '../visualizadores/Mitos_Realidad_Lab.jsx';
 import '../css/tailwind.css';
 
 const LABS = [
-  { id: 'simulation', name: '🧠 Simulador LLM', component: LLMSimulation },
-  { id: 'hallucinations', name: '❌ Lab Alucinaciones', component: AlucinacionesLab },
-  { id: 'myths', name: '🧐 Mitos vs Realidad', component: MitosRealidadLab },
+  { id: 'simulation', name: '🧠 LLM Simulator', component: LLMSimulation },
+  { id: 'hallucinations', name: '❌ Hallucinations Lab', component: AlucinacionesLab },
+  { id: 'myths', name: '🧐 Myths vs Reality', component: MitosRealidadLab },
 ];
 
 function App() {
@@ -50,7 +50,7 @@ function App() {
 
       {/* Shared Footer for Visualizers */}
       <footer className="bg-gray-50 border-t py-4 text-center text-xs text-gray-400">
-        &copy; 2024 AI4U Academy — Laboratorios de Simulación IA
+        &copy; 2024 AI4U Academy — AI Simulation Labs
       </footer>
     </div>
   );

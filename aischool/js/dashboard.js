@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // 2. Fetch User Data
             currentUser = session.user;
-            let fullName = 'Estudiante';
+            let fullName = 'Student';
             
             // Try to get name from user metadata (Google or Email signup)
             if (currentUser.user_metadata) {
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Update button label based on progress
         if (courseBtn) {
-            courseBtn.textContent = completed === 0 ? 'Comenzar a aprender' : 'Continuar aprendiendo';
+            courseBtn.textContent = completed === 0 ? 'Start Learning' : 'Continue Learning';
         }
     }
 
@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (logoutBtn) {
         logoutBtn.addEventListener('click', async () => {
             const originalText = logoutBtn.innerHTML;
-            logoutBtn.innerHTML = '<span>Saliendo...</span>';
+            logoutBtn.innerHTML = '<span>Logging out...</span>';
             logoutBtn.style.opacity = '0.5';
             
             try {
@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error('Error signing out:', err);
                 logoutBtn.innerHTML = originalText;
                 logoutBtn.style.opacity = '1';
-                alert('No se pudo cerrar sesión. Inténtalo de nuevo.');
+                alert('Could not log out. Please try again.');
             }
         });
     }
@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             const text = item.querySelector('span')?.textContent;
-            if (!text || text === 'Cerrar Sesión') return;
+            if (!text || text === 'Log Out') return;
             
             e.preventDefault();
             
@@ -203,13 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (settingsSection) settingsSection.style.display = 'none';
             if (toolsSection) toolsSection.style.display = 'none';
 
-            if (text === 'Mis Cursos') {
+            if (text === 'My Courses') {
                 coursesSection.style.display = 'block';
-            } else if (text === 'Mi Perfil') {
+            } else if (text === 'My Profile') {
                 profileSection.style.display = 'block';
-            } else if (text === 'Configuración') {
+            } else if (text === 'Settings') {
                 settingsSection.style.display = 'block';
-            } else if (text === 'Herramientas IA') {
+            } else if (text === 'AI Tools') {
                 toolsSection.style.display = 'block';
                 checkToolsUnlockState();
             }
@@ -269,10 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
             btnEval.dataset.listener = "true";
             btnEval.addEventListener('click', async () => {
                 const promptText = inputEval.value.trim();
-                if (!promptText) return alert('Escribe un prompt.');
+                if (!promptText) return alert('Write a prompt.');
 
                 btnEval.disabled = true;
-                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Analizando tu prompt...`;
+                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-blue); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Analyzing your prompt...`;
                 evalResultContainer.style.display = 'none';
 
                 try {
@@ -284,8 +284,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (error.context && error.context.status === 403) {
                              const errData = await error.context.json();
                              if (errData.error === 'RATE_LIMIT_EXCEEDED') {
-                                 statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
-                                 displayRemaining.textContent = "Te quedan 0 verificaciones hoy.";
+                                 statusEval.innerHTML = `<span style="color:#ef4444;">❌ Limit exceeded</span>`;
+                                 displayRemaining.textContent = "You have 0 verifications left today.";
                                  displayRemaining.style.color = "#ef4444";
                                  alert(errData.message);
                                  return;
@@ -297,22 +297,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     const evalOriginal = document.getElementById('eval-original-prompt');
                     const evalOptimized = document.getElementById('eval-optimized-prompt');
                     if (evalOriginal) evalOriginal.textContent = promptText;
-                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'Optimización no disponible.';
+                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'Optimization not available.';
 
                     evalResultContainer.style.display = 'flex';
                     let score = parseInt(data.score) || 0;
                     let color = score >= 80 ? '#10b981' : (score >= 60 ? '#f59e0b' : '#ef4444');
-                    let title = score >= 80 ? 'Calidad Premium' : (score >= 60 ? 'Buena Estructura' : 'Requiere Mejoras');
+                    let title = score >= 80 ? 'Premium Quality' : (score >= 60 ? 'Good Structure' : 'Needs Improvement');
                     
                     scoreRing.textContent = score;
                     scoreRing.style.borderColor = color;
                     scoreRing.style.color = color;
                     scoreTitle.textContent = title;
                     evalFeedback.textContent = data.feedback;
-                    statusEval.innerHTML = `<span style="color:#10b981;">✅ Análisis completado</span>`;
+                    statusEval.innerHTML = `<span style="color:#10b981;">✅ Analysis completed</span>`;
 
                     if (displayRemaining && data.remaining !== undefined) {
-                      displayRemaining.textContent = `${data.remaining} Verificaciones disponibles hoy`;
+                      displayRemaining.textContent = `${data.remaining} Verifications available today`;
                       if (data.remaining <= 0) {
                           displayRemaining.style.color = '#ef4444';
                           btnEval.disabled = true;
@@ -320,7 +320,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 } catch (err) {
                     console.error(err);
-                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al evaluar</span>`;
+                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error evaluating</span>`;
                 } finally {
                     if (!btnEval.disabled) btnEval.disabled = false;
                 }
@@ -358,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderVault(prompts, profession, problem) {
             vaultFormState.style.display = 'none';
             vaultResultState.style.display = 'block';
-            vaultProfileLabel.textContent = `✨ Perfil: ${profession} — Meta: ${problem}`;
+            vaultProfileLabel.textContent = `✨ Profile: ${profession} — Goal: ${problem}`;
             vaultGrid.innerHTML = '';
 
             prompts.forEach(p => {
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="vault-card-body">${escapeHtml(p.prompt)}</div>
                     <button class="btn-copy-vault">
                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copiar Prompt Premium</span>
+                        <span>Copy Premium Prompt</span>
                     </button>
                 `;
 
@@ -380,10 +380,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 copyBtn.addEventListener('click', () => {
                     navigator.clipboard.writeText(p.prompt).then(() => {
                         copyBtn.classList.add('copied');
-                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>¡Copiado!</span>`;
+                        copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> <span>Copied!</span>`;
                         setTimeout(() => {
                             copyBtn.classList.remove('copied');
-                            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copiar Prompt Premium</span>`;
+                            copyBtn.innerHTML = `<svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg> <span>Copy Premium Prompt</span>`;
                         }, 2000);
                     });
                 });
@@ -397,10 +397,10 @@ document.addEventListener('DOMContentLoaded', () => {
              btnGenerateVault.addEventListener('click', async () => {
                 const prof = vaultProfessionInput.value.trim();
                 const prob = vaultProblemInput.value.trim();
-                if (!prof || !prob) return alert('Completa los campos.');
+                if (!prof || !prob) return alert('Fill in the fields.');
 
                 btnGenerateVault.disabled = true;
-                vaultGenStatus.innerHTML = `<span style="color:var(--ai-purple); font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px;"><span class="vault-loader-spinner"></span> La IA está construyendo tu arsenal premium de 5 prompts...</span>`;
+                vaultGenStatus.innerHTML = `<span style="color:var(--ai-purple); font-weight:600; display:flex; align-items:center; justify-content:center; gap:8px;"><span class="vault-loader-spinner"></span> AI is building your premium arsenal of 5 prompts...</span>`;
 
                 try {
                     const { data, error } = await supabase.functions.invoke('generate-prompt-vault', {
@@ -424,7 +424,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     renderVault(data.prompts, prof, prob);
                 } catch (err) {
                     console.error(err);
-                    vaultGenStatus.textContent = '❌ Error al generar. Intenta de nuevo.';
+                    vaultGenStatus.textContent = '❌ Error generating. Try again.';
                 } finally {
                     btnGenerateVault.disabled = false;
                 }
@@ -459,10 +459,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const tool = selTool.value;
                 const style = selStyle.value;
 
-                if (!promptText) return alert('Por favor describe la imagen.');
+                if (!promptText) return alert('Please describe the image.');
 
                 btnEval.disabled = true;
-                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-green); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Optimizando imagen...`;
+                statusEval.innerHTML = `<span style="display:inline-block; width:8px; height:8px; background:var(--ai-green); border-radius:50%; margin-right:8px; animation: pulse 1.5s infinite;"></span> Optimizing image...`;
                 resultContainer.style.display = 'none';
 
                 try {
@@ -471,7 +471,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // For now, we'll use the existing evaluator which already provides optimized versions.
                     const { data, error } = await supabase.functions.invoke('prompt-evaluator', {
                         body: { 
-                            prompt: `Optimiza este prompt para una imagen en ${tool} con estilo ${style}: ${promptText}`, 
+                            prompt: `Optimize this prompt for an image in ${tool} with style ${style}: ${promptText}`, 
                             module_id: 'image_optimizer' 
                         }
                     });
@@ -479,10 +479,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (error) {
                         if (error.context && error.context.status === 403) {
                             const errData = await error.context.json();
-                            statusEval.innerHTML = `<span style="color:#ef4444;">❌ Límite excedido</span>`;
-                            displayRemaining.textContent = "0 Optimizaciones disponibles";
+                            statusEval.innerHTML = `<span style="color:#ef4444;">❌ Limit exceeded</span>`;
+                            displayRemaining.textContent = "0 Optimizations available";
                             displayRemaining.style.color = "#ef4444";
-                            alert("Has agotado tus 3 créditos diarios de optimización de imagen.");
+                            alert("You have exhausted your 3 daily image optimization credits.");
                             return;
                         }
                         throw error;
@@ -491,25 +491,25 @@ document.addEventListener('DOMContentLoaded', () => {
                     const evalOriginal = document.getElementById('image-eval-original-prompt');
                     const evalOptimized = document.getElementById('image-eval-optimized-prompt');
                     if (evalOriginal) evalOriginal.textContent = promptText;
-                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'No se pudo generar el prompt.';
+                    if (evalOptimized) evalOptimized.textContent = data.optimized_prompt || 'Could not generate prompt.';
 
                     resultContainer.style.display = 'flex';
                     let score = parseInt(data.score) || 0;
                     let color = 'var(--ai-green)';
-                    let title = score >= 80 ? 'Potencial Máximo' : (score >= 60 ? 'Resultado Óptimo' : 'Nivel Estándar');
+                    let title = score >= 80 ? 'Maximum Potential' : (score >= 60 ? 'Optimal Result' : 'Standard Level');
                     
                     scoreRing.textContent = score;
                     scoreRing.style.borderColor = color;
                     scoreRing.style.color = color;
                     scoreTitle.textContent = title;
                     evalFeedback.textContent = data.feedback;
-                    statusEval.innerHTML = `<span style="color:var(--ai-green);">✅ Imagen optimizada</span>`;
+                    statusEval.innerHTML = `<span style="color:var(--ai-green);">✅ Image optimized</span>`;
 
                     // Enforce the 3 limit display
                     if (displayRemaining) {
                         // The backend returns 'remaining'. We ensure it doesn't exceed 3 for this UI.
                         const rem = Math.min(data.remaining, 3);
-                        displayRemaining.textContent = `${rem} Optimizaciones disponibles hoy`;
+                        displayRemaining.textContent = `${rem} Optimizations available today`;
                         if (rem <= 0) {
                             displayRemaining.style.color = '#ef4444';
                             btnEval.disabled = true;
@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 } catch (err) {
                     console.error(err);
-                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error al optimizar</span>`;
+                    statusEval.innerHTML = `<span style="color:#ef4444;">❌ Error optimizing</span>`;
                 } finally {
                     if (!btnEval.disabled) btnEval.disabled = false;
                 }
@@ -530,7 +530,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const text = document.getElementById('image-eval-optimized-prompt').textContent;
                 navigator.clipboard.writeText(text).then(() => {
                     const originalHtml = btnCopy.innerHTML;
-                    btnCopy.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> ¡Prompt Copiado!`;
+                    btnCopy.innerHTML = `<svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polyline points="20 6 9 17 4 12"></polyline></svg> Prompt Copied!`;
                     btnCopy.style.background = '#059669';
                     btnCopy.style.color = 'white';
                     setTimeout(() => {
@@ -555,7 +555,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const newName = profileNameInput.value.trim();
             const btn = profileForm.querySelector('button');
             
-            btn.textContent = 'Guardando...';
+            btn.textContent = 'Saving...';
             btn.disabled = true;
             
             try {
@@ -565,7 +565,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 if (error) throw error;
                 
-                profileMsg.textContent = '¡Perfil actualizado correctamente!';
+                profileMsg.textContent = 'Profile updated successfully!';
                 profileMsg.style.color = '#10b981'; // green
                 
                 // Update greeting
@@ -574,10 +574,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 
             } catch (err) {
                 console.error(err);
-                profileMsg.textContent = 'Error al actualizar perfil.';
+                profileMsg.textContent = 'Error updating profile.';
                 profileMsg.style.color = '#ef4444'; // red
             } finally {
-                btn.textContent = 'Guardar Cambios';
+                btn.textContent = 'Save Changes';
                 btn.disabled = false;
                 setTimeout(() => { profileMsg.textContent = ''; }, 3000);
             }
@@ -603,7 +603,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (langSelect) {
         langSelect.addEventListener('change', (e) => {
-            alert('El idioma cambiará a ' + e.target.value.toUpperCase() + ' tras tu próxima recarga de sesión.');
+            alert('The language will change to ' + e.target.value.toUpperCase() + ' after your next session reload.');
         });
     }
 

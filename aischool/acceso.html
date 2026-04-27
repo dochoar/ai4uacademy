@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceder a mi Cuenta | AI4U Academy</title>
-    <meta name="description" content="Inicia sesión en AI4U Academy para continuar tus cursos de Inteligencia Artificial (IA).">
+    <title>Sign In | AI4U Academy</title>
+    <meta name="description" content="Sign in to AI4U Academy to continue your Artificial Intelligence (AI) courses.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,13 +28,13 @@
         
         <div class="auth-glass-card">
             <div class="auth-header">
-                <h1 id="form-title">Bienvenido de nuevo</h1>
-                <p id="form-subtitle">Ingresa tus credenciales para continuar</p>
+                <h1 id="form-title">Welcome back</h1>
+                <p id="form-subtitle">Enter your credentials to continue</p>
             </div>
 
             <div class="auth-tabs">
-                <button class="auth-tab active" id="tab-login">Iniciar Sesión</button>
-                <button class="auth-tab" id="tab-signup">Crear Cuenta</button>
+                <button class="auth-tab active" id="tab-login">Sign In</button>
+                <button class="auth-tab" id="tab-signup">Create Account</button>
             </div>
 
             <div class="auth-messages">
@@ -45,48 +45,48 @@
             <!-- Login Form -->
             <form id="login-form" class="auth-form">
                 <div class="input-group">
-                    <label for="login-email">Correo Electrónico</label>
+                    <label for="login-email">Email Address</label>
                     <input type="email" id="login-email" required placeholder="tu@correo.com">
                 </div>
                 <div class="input-group">
-                    <label for="login-password">Contraseña</label>
+                    <label for="login-password">Password</label>
                     <input type="password" id="login-password" required placeholder="••••••••">
                 </div>
                 <!-- <div class="forgot-password">
                     <a href="#">¿Olvidaste tu contraseña?</a>
                 </div> -->
-                <button type="submit" class="btn btn-primary btn-block auth-submit">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-primary btn-block auth-submit">Sign In</button>
             </form>
 
             <!-- Signup Form -->
             <form id="signup-form" class="auth-form" style="display: none;">
                 <div class="input-group">
-                    <label for="signup-name">Nombre Completo</label>
-                    <input type="text" id="signup-name" required placeholder="Juan Pérez">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" required placeholder="John Doe">
                 </div>
                 <div class="input-group">
-                    <label for="signup-email">Correo Electrónico</label>
+                    <label for="signup-email">Email Address</label>
                     <input type="email" id="signup-email" required placeholder="tu@correo.com">
                 </div>
                 <div class="input-group">
-                    <label for="signup-password">Contraseña</label>
+                    <label for="signup-password">Password</label>
                     <input type="password" id="signup-password" required placeholder="••••••••" minlength="6">
                 </div>
                 <div class="input-group">
-                    <label for="signup-password-confirm">Confirmar Contraseña</label>
+                    <label for="signup-password-confirm">Confirm Password</label>
                     <input type="password" id="signup-password-confirm" required placeholder="••••••••" minlength="6">
                 </div>
                 <div class="input-group" style="flex-direction: row; align-items: start; gap: 10px; margin-bottom: 20px;">
                     <input type="checkbox" id="signup-terms" required style="margin-top: 4px;">
                     <label for="signup-terms" style="font-size: 0.85rem; font-weight: normal; margin-bottom: 0;">
-                        He leído y acepto el <a href="terminos.html" target="_blank" style="color: var(--clr-primary); text-decoration: underline;">Contrato de Licencia de Uso y Términos y Condiciones</a>
+                        I have read and agree to the <a href="terminos.html" target="_blank" style="color: var(--clr-primary); text-decoration: underline;">End User License Agreement and Terms & Conditions</a>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-primary btn-block auth-submit">Crear Cuenta</button>
+                <button type="submit" class="btn btn-primary btn-block auth-submit">Create Account</button>
             </form>
 
             <div class="auth-divider">
-                <span>O continuar con</span>
+                <span>Or continue with</span>
             </div>
 
             <button id="google-btn" class="btn btn-secondary btn-block btn-social">
@@ -103,7 +103,7 @@
         </div>
         
         <div class="auth-footer text-center mt-3">
-            <a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: underline;">Volver al inicio</a>
+            <a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: underline;">Back to home</a>
         </div>
     </div>
 

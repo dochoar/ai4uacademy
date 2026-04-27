@@ -32,15 +32,15 @@ document.addEventListener('DOMContentLoaded', () => {
             signupTab.classList.remove('active');
             loginForm.style.display = 'block';
             signupForm.style.display = 'none';
-            formTitle.textContent = 'Bienvenido de nuevo';
-            formSubtitle.textContent = 'Ingresa tus credenciales para continuar';
+            formTitle.textContent = 'Welcome back';
+            formSubtitle.textContent = 'Enter your credentials to continue';
         } else {
             signupTab.classList.add('active');
             loginTab.classList.remove('active');
             signupForm.style.display = 'block';
             loginForm.style.display = 'none';
-            formTitle.textContent = 'Crea tu cuenta';
-            formSubtitle.textContent = 'Únete a la academia y domina la IA';
+            formTitle.textContent = 'Create your account';
+            formSubtitle.textContent = 'Join the academy and master AI';
         }
     }
 
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 if (error) throw error;
             } catch (error) {
-                showError('Error al iniciar sesión con Google: ' + error.message);
+                showError('Error logging in with Google: ' + error.message);
             }
         });
     }
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const password = document.getElementById('login-password').value;
             const btn = loginForm.querySelector('button[type="submit"]');
             
-            setLoading(btn, true, 'Ingresando...');
+            setLoading(btn, true, 'Logging in...');
             
             try {
                 const { data, error } = await supabase.auth.signInWithPassword({
@@ -86,9 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     window.location.href = '/dashboard.html';
                 }
             } catch (error) {
-                showError('Credenciales incorrectas o error en inicio de sesión.');
+                showError('Incorrect credentials or login error.');
             } finally {
-                setLoading(btn, false, 'Iniciar Sesión');
+                setLoading(btn, false, 'Log In');
             }
         });
     }
@@ -107,16 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const btn = signupForm.querySelector('button[type="submit"]');
             
             if (password !== confirmPassword) {
-                showError('Las contraseñas no coinciden.');
+                showError('Passwords do not match.');
                 return;
             }
 
             if (!termsChecked) {
-                showError('Debes aceptar los Términos y Condiciones.');
+                showError('You must accept the Terms and Conditions.');
                 return;
             }
             
-            setLoading(btn, true, 'Creando cuenta...');
+            setLoading(btn, true, 'Creating account...');
             
             try {
                 const { data, error } = await supabase.auth.signUp({
@@ -132,22 +132,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
                 
                 if (data.user && data.user.identities && data.user.identities.length === 0) {
-                    showError('Este correo ya está registrado. Por favor, inicia sesión.');
+                    showError('This email is already registered. Please log in.');
                 } else if (data.session) {
                     // Email confirmation disabled — session created immediately
-                    showSuccess('¡Cuenta creada! Entrando a tu dashboard...');
+                    showSuccess('Account created! Entering your dashboard...');
                     setTimeout(() => {
                         window.location.href = '/dashboard.html';
                     }, 1500);
                 } else {
                     // Email confirmation enabled — user must verify before logging in
-                    showSuccess('¡Cuenta creada! Revisa tu correo electrónico y haz clic en el enlace de confirmación para activar tu cuenta.');
+                    showSuccess('Account created! Check your email and click the confirmation link to activate your account.');
                     signupForm.reset();
                 }
             } catch (error) {
-                showError('Error al crear cuenta: ' + error.message);
+                showError('Error creating account: ' + error.message);
             } finally {
-                setLoading(btn, false, 'Crear Cuenta');
+                setLoading(btn, false, 'Create Account');
             }
         });
     }
