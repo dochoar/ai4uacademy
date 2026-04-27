@@ -2,34 +2,34 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const EXAMPLE = [
-  { word: "Según", type: "ok" },
-  { word: "el", type: "ok" },
-  { word: "estudio", type: "ok" },
-  { word: "de", type: "ok" },
+  { word: "According", type: "ok" },
+  { word: "to", type: "ok" },
+  { word: "the", type: "ok" },
   { word: "Harvard", type: "ok" },
+  { word: "study", type: "ok" },
+  { word: "of", type: "ok" },
   { word: "2021", type: "wrong" },
   { word: ",", type: "ok" },
-  { word: "los", type: "ok" },
-  { word: "gatos", type: "ok" },
-  { word: "hablan", type: "wrong" }
+  { word: "cats", type: "ok" },
+  { word: "talk", type: "wrong" }
 ];
 
 const CARDS = [
   {
-    title: "Patrón aprendido",
-    desc: "Frases como 'Según un estudio de Harvard...' aparecen mucho en datos."
+    title: "Learned pattern",
+    desc: "Phrases like 'According to a Harvard study...' appear often in training data."
   },
   {
-    title: "Sin verificación",
-    desc: "El modelo no comprueba si ese estudio existe o es real."
+    title: "No verification",
+    desc: "The model doesn't check if that study exists or is real."
   },
   {
-    title: "Encaje superficial",
-    desc: "Las palabras encajan bien entre sí, suenan creíbles."
+    title: "Surface fit",
+    desc: "Words fit well together, they sound credible and fluent."
   },
   {
-    title: "Alucinación",
-    desc: "El contenido es falso, pero se presenta con confianza."
+    title: "Hallucination",
+    desc: "The content is false, but presented with absolute confidence."
   }
 ];
 
@@ -39,7 +39,7 @@ export default function App() {
       <div className="w-full max-w-4xl bg-white rounded-2xl shadow-xl p-6 sm:p-8 relative border border-gray-100">
 
         <h1 className="text-xl sm:text-2xl font-bold text-center text-[#0B1647] mb-6">
-          Alucinación: suena real, pero no lo es
+          Hallucination: sounds real, but it isn't
         </h1>
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-8 mb-8">
@@ -53,9 +53,9 @@ export default function App() {
               🤖
             </motion.div>
             <div className="text-xs text-[#0B1647] mt-2 text-center">
-              Predice palabras
+              Predicts words
               <br />
-              (no verifica hechos)
+              (doesn't verify facts)
             </div>
           </div>
 
@@ -91,9 +91,9 @@ export default function App() {
               📄
             </motion.div>
             <div className="text-xs text-gray-500 mt-2 text-center">
-              Texto creíble
+              Credible text
               <br />
-              pero falso
+              but false
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function App() {
         </div>
 
         <div className="text-center text-sm text-[#0B1647] mt-6 max-w-lg mx-auto">
-          La IA usa patrones comunes para sonar convincente, pero no tiene una base de datos de "verdad" para comprobar lo que dice.
+          AI uses common patterns to sound convincing, but it doesn't have a "truth" database to check what it says.
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-8">
@@ -132,7 +132,7 @@ export default function App() {
         </div>
 
         <div className="text-center text-[10px] text-gray-400 mt-8 border-t pt-4">
-           Laboratorio de Alucinaciones — AI4U Academy
+           Hallucinations Lab — AI4U Academy
         </div>
 
       </div>

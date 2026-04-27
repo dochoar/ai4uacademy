@@ -934,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Módulos 1-6: mostrar modal de celebración antes de avanzar
+        // Modules 1-6: show celebration modal before proceeding
         if (justCompletedId <= 6) {
             showCelebrationModal(justCompletedId);
             return;
@@ -1021,12 +1021,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const meta = MODULE_CELEBRATION[completedModId] || { emoji: '🎉', objective: '' };
         const isLast = completedModId === TOTAL_CONTENT;
 
-        document.getElementById('celebration-module-pill').textContent = `Módulo ${completedModId} de ${TOTAL_CONTENT}`;
+        document.getElementById('celebration-module-pill').textContent = `Module ${completedModId} of ${TOTAL_CONTENT}`;
         document.getElementById('celebration-icon').textContent = meta.emoji;
-        document.getElementById('celebration-headline').textContent = `¡Módulo ${completedModId} completado!`;
+        document.getElementById('celebration-headline').textContent = `Module ${completedModId} completed!`;
         document.getElementById('celebration-objective').textContent = meta.objective;
         document.getElementById('celebration-progress-label').textContent =
-            `${completedCount} de ${TOTAL_CONTENT} módulos completados · ${percent}% del curso`;
+            `${completedCount} of ${TOTAL_CONTENT} modules completed · ${percent}% of the course`;
 
         const fill = document.getElementById('celebration-progress-fill');
         fill.style.transition = 'none';
@@ -1046,8 +1046,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCta = oldCta.cloneNode(true);
         oldCta.parentNode.replaceChild(newCta, oldCta);
         newCta.textContent = isLast
-            ? 'Ir al Examen de Certificación →'
-            : `Continuar al Módulo ${completedModId + 1} →`;
+            ? 'Go to Certification Exam →'
+            : `Continue to Module ${completedModId + 1} →`;
         newCta.addEventListener('click', closeCelebrationModal);
 
         const overlay = document.getElementById('celebration-modal');
@@ -1070,18 +1070,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── Wire share buttons ───────────────────────────────────────────────────
     function wireShareButtons(modId, count, total, percent) {
         const MOD_TITLES = {
-            1: 'Fundamentos de IA',
-            2: 'Cómo hablar con la IA',
-            3: 'Aplicaciones reales de IA',
-            4: 'IA para Productividad',
-            5: 'Riesgos, Ética y Límites de la IA',
-            6: 'Taller Práctico Final'
+            1: 'AI Fundamentals',
+            2: 'How to Talk to AI',
+            3: 'Real World AI Applications',
+            4: 'AI for Productivity',
+            5: 'Risks, Ethics, and Limits of AI',
+            6: 'Final Practical Workshop'
         };
         const courseUrl = 'https://ai4uacademy.com/';
-        const modName   = MOD_TITLES[modId] || `Módulo ${modId}`;
+        const modName   = MOD_TITLES[modId] || `Module ${modId}`;
 
-        const xText  = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! 🎯 (${count}/${total} módulos · ${percent}%) Únete y empieza a aprender: ${courseUrl}`;
-        const liText = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! Llevo ${count} de ${total} módulos completados (${percent}%). Únete hoy mismo y empieza a aprender: ${courseUrl}`;
+        const xText  = `I just completed the "${modName}" module of my Intro to AI course at AI4U Academy! 🎯 (${count}/${total} modules · ${percent}%) Join and start learning: ${courseUrl}`;
+        const liText = `I just completed the "${modName}" module of my Intro to AI course at AI4U Academy! I've completed ${count} out of ${total} modules (${percent}%). Join today and start learning: ${courseUrl}`;
 
         const urls = {
             'csb-linkedin': `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(liText)}`,
@@ -1114,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadQuestion() {
         const question = currentQuiz[currentQuestionIndex];
-        quizStepText.textContent = `Paso ${currentQuestionIndex + 1} de ${currentQuiz.length}`;
+        quizStepText.textContent = `Step ${currentQuestionIndex + 1} of ${currentQuiz.length}`;
         quizQuestionText.textContent = question.q;
         quizOptionsContainer.innerHTML = '';
         quizFeedbackContainer.style.display = 'none';
@@ -1146,9 +1146,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizFeedbackContainer.style.display = 'block';
 
         if (currentQuestionIndex === currentQuiz.length - 1) {
-            btnNextQuestion.textContent = 'Finalizar Evaluación y Continuar';
+            btnNextQuestion.textContent = 'Finish Evaluation and Continue';
         } else {
-            btnNextQuestion.textContent = 'Siguiente Pregunta';
+            btnNextQuestion.textContent = 'Next Question';
         }
     }
 
@@ -1165,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dummy video click
     videoContainer.addEventListener('click', () => {
         const placeholder = document.getElementById('video-placeholder');
-        placeholder.innerHTML = `<h2 style="color: #00A389">▶ Reproduciendo video...</h2><p>Simulador de carga rápido activo.</p>`;
+        placeholder.innerHTML = `<h2 style="color: #00A389">▶ Playing video...</h2><p>Fast load simulator active.</p>`;
     });
 
 });

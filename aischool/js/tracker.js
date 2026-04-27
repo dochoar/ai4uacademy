@@ -1,7 +1,7 @@
 // tracker.js — AI4U Academy Page View Tracker
-// Registra una visita única por página por sesión de navegador.
-// Importar en cada página: import './tracker.js'
-// O llamar manualmente: trackPageView('nombre-pagina')
+// Registers a unique visit per page per browser session.
+// Import in each page: import './tracker.js'
+// Or call manually: trackPageView('page-name')
 
 import { supabase } from './supabase-config.js';
 
@@ -11,7 +11,7 @@ const TRACKED_KEY = 'ai4u_tracked';
 function getSessionId() {
     let sid = sessionStorage.getItem(SESSION_KEY);
     if (!sid) {
-        // crypto.randomUUID() disponible en navegadores modernos
+        // crypto.randomUUID() available in modern browsers
         sid = (typeof crypto !== 'undefined' && crypto.randomUUID)
             ? crypto.randomUUID()
             : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
@@ -37,7 +37,7 @@ function markPageTracked(page) {
 }
 
 export async function trackPageView(pageName) {
-    // Deduplicar: no volver a contar la misma página en la misma sesión
+    // Deduplicate: don't count the same page twice in the same session
     const tracked = getTrackedPages();
     if (tracked.includes(pageName)) return;
 
@@ -52,27 +52,27 @@ export async function trackPageView(pageName) {
         });
         markPageTracked(pageName);
     } catch (err) {
-        // Fail silently — tracking never debe romper la página
+        // Fail silently — tracking should never break the page
         console.debug('[tracker] error:', err);
     }
 }
 
-// Auto-detectar la página por pathname si no se pasa nombre
+// Auto-detect page by pathname if no name is passed
 function inferPageName() {
     const path = window.location.pathname.replace(/\//g, '').replace('.html', '') || 'index';
     const MAP = {
-        '':          'inicio',
-        'index':     'inicio',
+        '':          'home',
+        'index':     'home',
         'blog':      'blog',
-        'acceso':    'acceso',
+        'acceso':    'access',
         'dashboard': 'dashboard',
-        'course':    'curso',
-        'examen':    'examen',
-        'terminos':  'terminos',
-        'certificado': 'certificado',
+        'course':    'course',
+        'examen':    'exam',
+        'terminos':  'terms',
+        'certificado': 'certificate',
     };
     return MAP[path] || path;
 }
 
-// Ejecutar automáticamente al importar el módulo
+// Automatically execute when importing the module
 trackPageView(inferPageName());

@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 
-// Vocabulario expandido para una mejor demostración
+// Expanded vocabulary for better demonstration
 const VOCAB = [
-  "duerme", "come", "corre", "salta", "maulla", 
-  "mucho", "pescado", "leche", "en", "el", 
-  "sofá", "rápido", "despacio", "feliz"
+  "sleeps", "eats", "runs", "jumps", "meows", 
+  "a lot", "fish", "milk", "in", "the", 
+  "sofa", "fast", "slowly", "happy"
 ];
 
 const tokenize = (text) => text.trim().split(/\s+/).filter(Boolean);
@@ -16,36 +16,36 @@ const scoreWord = (tokens, word) => {
 
   let score = 0.5; // Base score (noise)
 
-  // Lógica de predicción según el contexto
-  if (phrase === "el gato") {
-    if (word === "duerme") score += 4;
-    if (word === "come") score += 3;
-    if (word === "maulla") score += 2.5;
-    if (word === "salta") score += 2;
-    if (word === "corre") score += 1.5;
-  } else if (last === "duerme") {
-    if (word === "mucho") score += 4;
-    if (word === "en") score += 3;
-    if (word === "despacio") score += 2;
-    if (word === "feliz") score += 1.5;
-  } else if (last === "come") {
-    if (word === "pescado") score += 4;
-    if (word === "leche") score += 3;
-    if (word === "mucho") score += 2;
-  } else if (last === "salta") {
-    if (word === "en") score += 4;
-    if (word === "mucho") score += 2;
-  } else if (last === "en") {
-    if (word === "el") score += 5;
-  } else if (last === "el") {
-    if (word === "sofá") score += 4;
+  // Prediction logic based on context
+  if (phrase === "the cat") {
+    if (word === "sleeps") score += 4;
+    if (word === "eats") score += 3;
+    if (word === "meows") score += 2.5;
+    if (word === "jumps") score += 2;
+    if (word === "runs") score += 1.5;
+  } else if (last === "sleeps") {
+    if (word === "a lot") score += 4;
+    if (word === "in") score += 3;
+    if (word === "slowly") score += 2;
+    if (word === "happy") score += 1.5;
+  } else if (last === "eats") {
+    if (word === "fish") score += 4;
+    if (word === "milk") score += 3;
+    if (word === "a lot") score += 2;
+  } else if (last === "jumps") {
+    if (word === "in") score += 4;
+    if (word === "a lot") score += 2;
+  } else if (last === "in") {
+    if (word === "the") score += 5;
+  } else if (last === "the") {
+    if (word === "sofa") score += 4;
   }
 
   return score;
 };
 
 const softmax = (logits, temperature) => {
-  // Ajuste de seguridad para evitar división por cero o temperaturas extremadamente bajas
+  // Safety adjustment to avoid division by zero or extremely low temperatures
   const temp = Math.max(temperature, 0.01);
   const scaled = logits.map((l) => l / temp);
   const max = Math.max(...scaled);
@@ -55,7 +55,7 @@ const softmax = (logits, temperature) => {
 };
 
 export default function App() {
-  const [input, setInput] = useState("el gato");
+  const [input, setInput] = useState("the cat");
   const [temperature, setTemperature] = useState(1);
   const [step, setStep] = useState(0);
 
@@ -64,7 +64,7 @@ export default function App() {
   const logits = useMemo(() => VOCAB.map((w) => scoreWord(tokens, w)), [tokens]);
   const probs = useMemo(() => softmax(logits, temperature), [logits, temperature]);
 
-  // Aumentamos a "Top 5" para que se vean más opciones al cambiar la temperatura
+  // Increased to "Top 5" to see more options when changing temperature
   const topK = useMemo(() => {
     return VOCAB.map((w, i) => ({ w, p: probs[i] }))
       .sort((a, b) => b.p - a.p)
@@ -72,13 +72,13 @@ export default function App() {
   }, [probs]);
 
   const appendToken = (word) => {
-    if (tokens.length >= 6) return; // Limitar longitud de la frase
+    if (tokens.length >= 6) return; // Limit phrase length
     setInput((prev) => prev + " " + word);
-    setStep(0); // Reiniciar al paso 0 al añadir palabra para ver el flujo de nuevo
+    setStep(0); // Reset to step 0 when adding a word to see the flow again
   };
 
   const resetAll = () => {
-    setInput("el gato");
+    setInput("the cat");
     setStep(0);
   };
 
@@ -86,16 +86,16 @@ export default function App() {
     <div className="p-6 bg-white text-[#0B1647] min-h-screen font-sans">
       <div className="max-w-2xl mx-auto">
         <header className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2 text-[#0B1647]">¿Cómo predice un LLM?</h1>
-          <p className="text-gray-600">Simulación interactiva de probabilidad de tokens</p>
+          <h1 className="text-3xl font-bold mb-2 text-[#0B1647]">How does an LLM predict?</h1>
+          <p className="text-gray-600">Interactive simulation of token probability</p>
         </header>
 
-        {/* Controles Principales */}
+        {/* Main Controls */}
         <div className="bg-gray-50 p-6 rounded-2xl mb-8 border border-gray-100">
           <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-6">
             <div className="w-full md:w-1/2">
               <div className="flex justify-between items-center mb-2">
-                <label className="text-sm font-bold uppercase tracking-wider text-gray-500">Temperatura</label>
+                <label className="text-sm font-bold uppercase tracking-wider text-gray-500">Temperature</label>
                 <span className="bg-[#48E5E5] px-2 py-0.5 rounded text-xs font-bold">{temperature.toFixed(2)}</span>
               </div>
               <input
@@ -108,8 +108,8 @@ export default function App() {
                 className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-[#0B1647]"
               />
               <div className="flex justify-between text-[10px] text-gray-400 mt-1 uppercase">
-                <span>Determinista (Baja)</span>
-                <span>Aleatorio (Alta)</span>
+                <span>Deterministic (Low)</span>
+                <span>Random (High)</span>
               </div>
             </div>
 
@@ -117,17 +117,17 @@ export default function App() {
               <button 
                 onClick={() => setStep((s) => Math.max(s - 1, 0))} 
                 className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors shadow-sm"
-                title="Paso Anterior"
+                title="Previous Step"
               >
                 ←
               </button>
               <div className="bg-[#0B1647] text-white px-4 py-2 rounded-full text-sm font-medium">
-                Paso {step + 1} de 3
+                Step {step + 1} of 3
               </div>
               <button 
                 onClick={() => setStep((s) => Math.min(s + 1, 2))} 
                 className="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-full hover:bg-gray-50 transition-colors shadow-sm"
-                title="Siguiente Paso"
+                title="Next Step"
               >
                 →
               </button>
@@ -135,14 +135,14 @@ export default function App() {
           </div>
         </div>
 
-        {/* Visualización de Pasos */}
+        {/* Step Visualization */}
         <div className="space-y-8">
           
-          {/* Paso 1: Contexto Actual */}
+          {/* Step 1: Current Context */}
           <section className={`transition-opacity duration-300 ${step >= 0 ? "opacity-100" : "opacity-30"}`}>
             <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
               <span className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center text-[10px] text-gray-600">1</span>
-              Frase (Contexto)
+              Phrase (Context)
             </h2>
             <div className="flex flex-wrap gap-2 p-4 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 items-center">
               {tokens.map((t, i) => (
@@ -163,11 +163,11 @@ export default function App() {
             </div>
           </section>
 
-          {/* Paso 2: Distribución de Probabilidad */}
+          {/* Step 2: Probability Distribution */}
           <section className={`transition-opacity duration-300 ${step >= 1 ? "opacity-100" : "opacity-10"}`}>
             <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
               <span className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center text-[10px] text-gray-600">2</span>
-              Distribución de Probabilidad (Softmax)
+              Probability Distribution (Softmax)
             </h2>
             <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-3">
               {topK.map((item, i) => (
@@ -187,16 +187,16 @@ export default function App() {
                 </div>
               ))}
               <p className="text-[10px] text-gray-400 italic mt-4 text-center">
-                * Se muestran los 5 tokens más probables del vocabulario.
+                * Showing the 5 most likely tokens from the vocabulary.
               </p>
             </div>
           </section>
 
-          {/* Paso 3: Elección del Siguiente Token */}
+          {/* Step 3: Next Token Selection */}
           <section className={`transition-opacity duration-300 ${step >= 2 ? "opacity-100" : "opacity-10"}`}>
             <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2">
               <span className="w-5 h-5 bg-gray-200 rounded-full flex items-center justify-center text-[10px] text-gray-600">3</span>
-              Predicción (Opciones propuestas)
+              Prediction (Proposed options)
             </h2>
             
             {tokens.length < 6 ? (
@@ -218,8 +218,8 @@ export default function App() {
               </div>
             ) : (
               <div className="text-center p-8 bg-green-50 rounded-2xl border border-green-100">
-                <div className="text-green-600 font-bold mb-2">¡Frase completada!</div>
-                <button onClick={resetAll} className="text-sm text-[#0B1647] underline font-bold">Reiniciar simulación</button>
+                <div className="text-green-600 font-bold mb-2">Phrase completed!</div>
+                <button onClick={resetAll} className="text-sm text-[#0B1647] underline font-bold">Reset simulation</button>
               </div>
             )}
           </section>
@@ -229,7 +229,7 @@ export default function App() {
         {/* Footer info */}
         <footer className="mt-12 pt-8 border-t border-gray-100 text-center">
           <p className="text-sm text-gray-400">
-            AI4U Academy — Experimentando con arquitecturas Transformer
+            AI4U Academy — Experimenting with Transformer architectures
           </p>
         </footer>
       </div>

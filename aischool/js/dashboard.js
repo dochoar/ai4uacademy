@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ─────────────────────────────────────────────────────────────
-    // HERRAMIENTAS IA - UNLOCK LOGIC
+    // AI TOOLS - UNLOCK LOGIC
     // ─────────────────────────────────────────────────────────────
     const lockedOverlay = document.getElementById('tools-locked-overlay');
     const unlockedContent = document.getElementById('tools-unlocked-content');
