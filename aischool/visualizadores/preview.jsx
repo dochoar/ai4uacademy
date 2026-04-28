@@ -2,34 +2,34 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const EXAMPLE = [
-  { word: "According", type: "ok" },
-  { word: "to", type: "ok" },
-  { word: "a", type: "ok" },
-  { word: "2021", type: "wrong" },
+  { word: "Según", type: "ok" },
+  { word: "el", type: "ok" },
+  { word: "estudio", type: "ok" },
+  { word: "de", type: "ok" },
   { word: "Harvard", type: "ok" },
-  { word: "study", type: "ok" },
+  { word: "2021", type: "wrong" },
   { word: ",", type: "ok" },
-  { word: "cats", type: "ok" },
-  { word: "can", type: "ok" },
-  { word: "talk", type: "wrong" }
+  { word: "los", type: "ok" },
+  { word: "gatos", type: "ok" },
+  { word: "hablan", type: "wrong" }
 ];
 
 const CARDS = [
   {
-    title: "Learned pattern",
-    desc: "Phrases like 'According to a study...' appear frequently in training data."
+    title: "Patrón aprendido",
+    desc: "Frases como 'Según un estudio de Harvard...' aparecen mucho en datos."
   },
   {
-    title: "No verification",
-    desc: "The model doesn't check if that study actually exists or is real."
+    title: "Sin verificación",
+    desc: "El modelo no comprueba si ese estudio existe o es real."
   },
   {
-    title: "Surface fit",
-    desc: "The words fit together well, making the text sound believable."
+    title: "Encaje superficial",
+    desc: "Las palabras encajan bien entre sí, suenan creíbles."
   },
   {
-    title: "Hallucination",
-    desc: "The content is false, but it is presented with high confidence."
+    title: "Alucinación",
+    desc: "El contenido es falso, pero se presenta con confianza."
   }
 ];
 
@@ -37,9 +37,9 @@ export default function App() {
   return (
     <div className="w-full h-screen bg-white flex items-center justify-center">
       <div className="w-[1000px] h-[620px] bg-white rounded-2xl shadow-xl p-8 relative">
- 
+
         <h1 className="text-2xl font-bold text-center text-[#0B1647] mb-6">
-          Hallucination: sounds real, but it isn't
+          Alucinación: suena real, pero no lo es
         </h1>
 
         <div className="flex items-center justify-between h-[240px]">
@@ -53,9 +53,9 @@ export default function App() {
               🤖
             </motion.div>
             <div className="text-xs text-[#0B1647] mt-2 text-center">
-              Predicts words
+              Predice palabras
               <br />
-              (no fact-checking)
+              (no verifica hechos)
             </div>
           </div>
 
@@ -91,9 +91,9 @@ export default function App() {
               📄
             </motion.div>
             <div className="text-xs text-gray-500 mt-2 text-center">
-              Believable text
+              Texto creíble
               <br />
-              but false
+              pero falso
             </div>
           </div>
         </div>
@@ -117,7 +117,7 @@ export default function App() {
         </div>
 
         <div className="text-center text-sm text-[#0B1647] mt-3">
-          Uses common patterns to sound convincing, without checking if it's true.
+          Usa patrones comunes para sonar convincente, sin comprobar si es verdad.
         </div>
 
         <div className="grid grid-cols-4 gap-3 mt-6 max-w-4xl mx-auto">
@@ -132,7 +132,7 @@ export default function App() {
         </div>
 
         <div className="text-center text-xs text-gray-500 mt-4">
-          Hallucination example: non-existent quote or study presented as real.
+          Ejemplo de alucinación: cita o estudio inexistente presentado como real.
         </div>
 
       </div>

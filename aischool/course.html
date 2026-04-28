@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course: Introduction to AI — AI4U Academy</title>
+    <title>Curso: Introducción a la IA — AI4U Academy</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,7 +30,7 @@
             filter: none !important;
         }
         
-        /* Ensures blocked modules are readable without opacity */
+        /* Asegura que los módulos bloqueados sean legibles y sin opacidad */
         .module-item.locked {
             opacity: 1 !important;
             filter: none !important;
@@ -41,7 +41,7 @@
             color: #1e293b !important;
         }
 
-        /* Removes fade effect at the end of the module list */
+        /* Elimina el desvanecimiento al final de la lista de módulos */
         .course-sidebar::after {
             display: none !important;
         }
@@ -243,13 +243,13 @@
         <div class="course-header-left">
             <a href="dashboard.html" class="back-link">
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                Back to Dashboard
+                Volver al Dashboard
             </a>
             <div class="header-divider"></div>
-            <h1 class="course-main-title">Introduction to AI</h1>
+            <h1 class="course-main-title">Introducción a la IA</h1>
         </div>
         <div class="course-progress-bar">
-            <span id="progress-text">0% Completed</span>
+            <span id="progress-text">0% Completado</span>
             <div class="progress-track">
                 <div class="progress-fill" id="progress-fill" style="width: 0%;"></div>
             </div>
@@ -265,8 +265,8 @@
                 <div class="video-container glass-panel">
                     <div class="video-placeholder" id="video-placeholder">
                         <svg viewBox="0 0 24 24" width="60" height="60" stroke="#00A389" stroke-width="1.5" fill="rgba(0,163,137,0.1)" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                        <h2 id="current-video-title">Loading Module...</h2>
-                        <p>Click to simulate playback</p>
+                        <h2 id="current-video-title">Cargando Módulo...</h2>
+                        <p>Haz clic para simular reproducción</p>
                     </div>
                 </div>
 
@@ -274,18 +274,18 @@
                 <div id="quiz-section" class="quiz-section glass-panel" style="display: none;">
                     <div class="quiz-container">
                         <div class="quiz-header">
-                            <h3>Quiz Exercises</h3>
-                            <p id="quiz-step">Step 1 of 5</p>
+                            <h3>Ejercicios de Preguntas</h3>
+                            <p id="quiz-step">Paso 1 de 5</p>
                         </div>
                         <div id="quiz-question-box" class="quiz-content">
-                            <p class="quiz-question" id="quiz-q-text">Loading question...</p>
+                            <p class="quiz-question" id="quiz-q-text">Cargando pregunta...</p>
                             <div class="quiz-options" id="quiz-options">
                                 <!-- Options injected here -->
                             </div>
                         </div>
                         <div id="quiz-feedback" class="quiz-feedback" style="display: none;">
                             <p id="feedback-text"></p>
-                            <button class="btn btn-primary" id="btn-next-q">Next Question</button>
+                            <button class="btn btn-primary" id="btn-next-q">Siguiente Pregunta</button>
                         </div>
                     </div>
                 </div>
@@ -297,9 +297,9 @@
                 <main class="course-details">
                     <!-- Tabs Navigation -->
                     <div class="course-tabs-nav">
-                        <button class="course-tab-btn active" data-tab="tab-overview">Module</button>
-                        <button class="course-tab-btn" data-tab="tab-labs">AI Labs</button>
-                        <button class="course-tab-btn" data-tab="tab-qa">Comments</button>
+                        <button class="course-tab-btn active" data-tab="tab-overview">Módulo</button>
+                        <button class="course-tab-btn" data-tab="tab-labs">Laboratorios IA</button>
+                        <button class="course-tab-btn" data-tab="tab-qa">Comentarios</button>
                     </div>
 
                     <div class="course-tabs-content">
@@ -309,10 +309,10 @@
                             <div class="module-nav-helpers" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
                                 <button class="btn btn-secondary btn-sm" id="btn-prev-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
                                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                                    Previous Module
+                                    Módulo Anterior
                                 </button>
                                 <button class="btn btn-secondary btn-sm" id="btn-next-mod" style="padding: 8px 16px; font-size: 0.85rem; border-radius: 8px; display: flex; align-items: center; gap: 8px;">
-                                    Next Module
+                                    Siguiente Módulo
                                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                                 </button>
                             </div>
@@ -320,8 +320,8 @@
                             <div class="module-details glass-panel">
                                 <div class="module-header">
                                     <div>
-                                        <span class="module-badge" id="module-badge">Module 1</span>
-                                        <h2 class="module-title" id="module-title">Fundamentals</h2>
+                                        <span class="module-badge" id="module-badge">Módulo 1</span>
+                                        <h2 class="module-title" id="module-title">Fundamentos</h2>
                                     </div>
                                     <div class="module-duration">
                                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
@@ -334,10 +334,10 @@
                                 <div class="module-actions" style="gap: 15px;">
                                     <button class="btn btn-secondary" id="btn-show-quiz" style="padding: 14px 24px; font-weight: 700; border-radius: 12px; border: 1.5px solid var(--clr-action); color: var(--clr-action); display: flex; align-items: center; gap: 8px; background: rgba(0, 163, 137, 0.05);">
                                         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                                        <span>Quiz Exercises</span>
+                                        <span>Ejercicios de Preguntas</span>
                                     </button>
                                     <button class="btn btn-primary btn-complete" id="btn-complete">
-                                        <span>Complete Module</span>
+                                        <span>Completar Módulo</span>
                                         <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5l10 -10"></path></svg>
                                     </button>
                                 </div>
@@ -359,14 +359,14 @@
                                             </svg>
                                         </div>
                                         <div class="lab-header-text">
-                                            <span class="lab-badge">Interactive Activity</span>
-                                            <h3 class="lab-title">How does an LLM predict?</h3>
+                                            <span class="lab-badge">Actividad Interactiva</span>
+                                            <h3 class="lab-title">¿Cómo predice un LLM?</h3>
                                         </div>
                                     </div>
-                                    <p class="lab-desc">Experience step-by-step how a language model calculates probabilities to predict the next word.</p>
+                                    <p class="lab-desc">Experimenta paso a paso cómo un modelo de lenguaje calcula probabilidades para predecir la siguiente palabra.</p>
                                     <button onclick="window.openAI4ULab('simulation')" class="lab-open-btn">
                                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                        Explore Simulation
+                                        Explorar Simulación
                                     </button>
                                 </div>
 
@@ -377,14 +377,14 @@
                                             <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12" y2="16"></line></svg>
                                         </div>
                                         <div class="lab-header-text">
-                                            <span class="lab-badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">NEW</span>
-                                            <h3 class="lab-title">Showcase: Hallucinations</h3>
+                                            <span class="lab-badge" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">NUEVO</span>
+                                            <h3 class="lab-title">Expositor: Alucinaciones</h3>
                                         </div>
                                     </div>
-                                    <p class="lab-desc">Visualize how an AI can sound convincing while generating false information (hallucination).</p>
+                                    <p class="lab-desc">Visualiza cómo una IA puede sonar convincente mientras genera información falsa (alucinación).</p>
                                     <button onclick="window.openAI4ULab('hallucinations')" class="lab-open-btn" style="background: #ef4444; border-color: #ef4444;">
                                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                        View Hallucinations
+                                        Ver Alucinaciones
                                     </button>
                                 </div>
 
@@ -395,14 +395,14 @@
                                             <svg viewBox="0 0 24 24" width="22" height="22" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                                         </div>
                                         <div class="lab-header-text">
-                                            <span class="lab-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Interactive</span>
-                                            <h3 class="lab-title">Myths vs Reality</h3>
+                                            <span class="lab-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Interactivo</span>
+                                            <h3 class="lab-title">Mitos vs Realidad</h3>
                                         </div>
                                     </div>
-                                    <p class="lab-desc">Discover the truths behind the most common myths about artificial intelligence today.</p>
+                                    <p class="lab-desc">Descubre las verdades detrás de los mitos más comunes sobre la inteligencia artificial hoy.</p>
                                     <button onclick="window.openAI4ULab('myths')" class="lab-open-btn" style="background: #2563eb; border-color: #2563eb;">
                                         <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                                        Reveal Realities
+                                        Revelar Realidades
                                     </button>
                                 </div>
                             </div>
@@ -412,11 +412,11 @@
                         <div id="tab-qa" class="course-tab-pane">
                             <!-- Comments Section -->
                             <div class="comments-section glass-panel">
-                                <h3 class="comments-title">Questions and Answers</h3>
+                                <h3 class="comments-title">Preguntas y Respuestas</h3>
                                 
                                 <form id="comment-form" class="comment-form">
-                                    <textarea id="comment-input" placeholder="Do you have any questions about this module? The team will respond soon."></textarea>
-                                    <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Post Question</button>
+                                    <textarea id="comment-input" placeholder="¿Tienes alguna duda sobre este módulo? El equipo te responderá pronto."></textarea>
+                                    <button type="submit" class="btn btn-primary" id="comment-submit" style="align-self: flex-start;">Publicar Pregunta</button>
                                 </form>
 
                                 <div id="comments-list" class="comments-list">
@@ -435,10 +435,10 @@
                                         <line x1="19" y1="12" x2="5" y2="12"></line>
                                         <polyline points="12 19 5 12 12 5"></polyline>
                                     </svg>
-                                    Back to module
+                                    Volver al módulo
                                 </button>
-                                <span class="llm-modal-title">Interactive Simulation — AI4U Academy</span>
-                                <button id="btn-fs-llm-simulation" class="llm-modal-fs" title="Full screen">
+                                <span class="llm-modal-title">Simulación Interactiva — AI4U Academy</span>
+                                <button id="btn-fs-llm-simulation" class="llm-modal-fs" title="Pantalla completa">
                                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2" fill="none">
                                         <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
                                     </svg>
@@ -448,7 +448,7 @@
                                 id="LLM_Simulation_Iframe"
                                 src=""
                                 class="llm-modal-iframe"
-                                title="LLM Simulation"
+                                title="Simulación LLM"
                                 loading="lazy"
                                 allow="same-origin"
                             ></iframe>
@@ -458,14 +458,14 @@
 
                 <!-- Right: Module Sidebar — Redesigned -->
                 <aside class="course-sidebar-wrapper">
-                    <nav class="csnav" aria-label="Learning Path">
+                    <nav class="csnav" aria-label="Ruta de aprendizaje">
 
                         <!-- Header -->
                         <div class="csnav__head">
                             <div class="csnav__head-icon">
                                 <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h18M3 6h18M3 18h10"/></svg>
                             </div>
-                            <span class="csnav__head-label">Learning Path</span>
+                            <span class="csnav__head-label">Ruta de Aprendizaje</span>
                         </div>
 
                         <!-- Progress ring -->
@@ -479,7 +479,7 @@
                             </svg>
                             <div class="csnav__ring-text">
                                 <span id="sidebar-ring-pct">0%</span>
-                                <small>completed</small>
+                                <small>completado</small>
                             </div>
                         </div>
 
@@ -490,14 +490,14 @@
 
                         <!-- Divider + Tools -->
                         <div class="csnav__footer">
-                            <span class="csnav__footer-label">Tools</span>
+                            <span class="csnav__footer-label">Herramientas</span>
                             <a href="dashboard.html#tools" class="csnav__tool-link">
                                 <span class="csnav__tool-icon">
                                     <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
                                 </span>
                                 <span class="csnav__tool-info">
-                                    <strong>AI Lab</strong>
-                                    <small>Analyzer and Vault</small>
+                                    <strong>Laboratorio de IA</strong>
+                                    <small>Analizador y Bóveda</small>
                                 </span>
                                 <svg class="csnav__tool-arrow" viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"/></svg>
                             </a>
@@ -514,16 +514,16 @@
         <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
         <div class="celebration-shell">
 
-            <span id="celebration-module-pill" class="celebration-module-pill">Module 1 of 6</span>
+            <span id="celebration-module-pill" class="celebration-module-pill">Módulo 1 de 6</span>
 
             <div id="celebration-icon" class="celebration-icon">🎉</div>
 
-            <h2 id="celebration-headline" class="celebration-headline">Module completed!</h2>
+            <h2 id="celebration-headline" class="celebration-headline">¡Módulo completado!</h2>
 
             <p id="celebration-objective" class="celebration-objective"></p>
 
             <div class="celebration-progress-block">
-                <p id="celebration-progress-label" class="celebration-progress-label">0 of 6 modules · 0%</p>
+                <p id="celebration-progress-label" class="celebration-progress-label">0 de 6 módulos · 0%</p>
                 <div class="celebration-progress-track">
                     <div id="celebration-progress-fill" class="celebration-progress-fill" style="width:0%"></div>
                 </div>
@@ -532,7 +532,7 @@
             <p id="celebration-encouragement" class="celebration-encouragement"></p>
 
             <div class="celebration-share-row">
-                <span class="celebration-share-label">Show off your achievement</span>
+                <span class="celebration-share-label">Presume tu logro</span>
                 <div class="celebration-share-btns">
                     <button class="celebration-share-btn csb-linkedin" type="button">
                         <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
@@ -550,7 +550,7 @@
             </div>
 
             <button id="celebration-cta" class="celebration-cta" type="button">
-                Continue to Module 2 →
+                Continuar al Módulo 2 →
             </button>
 
         </div>
@@ -559,7 +559,7 @@
     <!-- Global Loader -->
     <div id="auth-loader" class="global-loader">
         <div class="spinner"></div>
-        <p>Synchronizing progress...</p>
+        <p>Sincronizando progreso...</p>
     </div>
 
     <script type="module" src="js/course.js"></script>

@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Check manual array (Backend is also securing this)
             const email = session.user.email;
             if (email !== 'ochoadr@gmail.com' && email !== 'contacto@ai4uacademy.com') {
-                alert('Access Denied. This account does not have administrator permissions.');
+                alert('Acceso Denegado. Esta cuenta no tiene permisos de administrador.');
                 window.location.href = '/dashboard.html';
                 return;
             }
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { data, error } = await supabase.rpc('admin_get_users');
         if (error) {
             console.error('Error fetching users:', error);
-            tableBody.innerHTML = '<tr><td colspan="5" style="color:red; text-align:center;">Error loading users</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5" style="color:red; text-align:center;">Error cargando usuarios</td></tr>';
             return;
         }
         
@@ -96,7 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderUsers(list) {
         tableBody.innerHTML = '';
         if (!list || list.length === 0) {
-            tableBody.innerHTML = '<tr><td colspan="5" class="text-center" style="padding: 20px;">No users found</td></tr>';
+            tableBody.innerHTML = '<tr><td colspan="5" class="text-center" style="padding: 20px;">No se encontraron usuarios</td></tr>';
             return;
         }
 
@@ -105,11 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const isBanned = u.banned_until != null && new Date(u.banned_until) > new Date();
             const statusBadge = isBanned 
-                ? '<span class="status-badge status-banned">Banned</span>' 
-                : '<span class="status-badge status-active">Active</span>';
+                ? '<span class="status-badge status-banned">Bloqueado</span>' 
+                : '<span class="status-badge status-active">Activo</span>';
             
-            const joinDate = new Date(u.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-            const lastLogin = u.last_sign_in_at ? new Date(u.last_sign_in_at).toLocaleDateString('en-US') : 'Never';
+            const joinDate = new Date(u.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+            const lastLogin = u.last_sign_in_at ? new Date(u.last_sign_in_at).toLocaleDateString('es-MX') : 'Nunca';
 
             tr.innerHTML = `
                 <td><strong>${escapeHtml(u.email)}</strong></td>
@@ -118,10 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${statusBadge}</td>
                 <td>
                     <div class="action-dropdown">
-                        <button class="btn-action" onclick="window.triggerPassword('${u.id}', '${u.email}')">Password</button>
+                        <button class="btn-action" onclick="window.triggerPassword('${u.id}', '${u.email}')">Clave</button>
                         ${isBanned 
-                            ? `<button class="btn-action" onclick="window.triggerUnban('${u.id}', '${u.email}')">Unban</button>`
-                            : `<button class="btn-action btn-action-danger" onclick="window.triggerBan('${u.id}', '${u.email}')">Ban</button>`
+                            ? `<button class="btn-action" onclick="window.triggerUnban('${u.id}', '${u.email}')">Desbloquear</button>`
+                            : `<button class="btn-action btn-action-danger" onclick="window.triggerBan('${u.id}', '${u.email}')">Bloquear</button>`
                         }
                     </div>
                 </td>
@@ -189,14 +189,14 @@ document.addEventListener('DOMContentLoaded', () => {
         newPasswordInput.value = '';
         
         if (type === 'ban') {
-            modalTitle.textContent = 'Ban User';
-            modalDesc.textContent = `Are you sure you want to permanently revoke access for ${email}?`;
+            modalTitle.textContent = 'Bloquear Usuario';
+            modalDesc.textContent = `¿Estás seguro que deseas revocar permanentemente el acceso a ${email}?`;
         } else if (type === 'unban') {
-            modalTitle.textContent = 'Unban User';
-            modalDesc.textContent = `Access for ${email} will be restored.`;
+            modalTitle.textContent = 'Desbloquear Usuario';
+            modalDesc.textContent = `Se restaurará el acceso de ${email}.`;
         } else if (type === 'password') {
-            modalTitle.textContent = 'Reset Password';
-            modalDesc.textContent = `Enter the new password for ${email}.`;
+            modalTitle.textContent = 'Reestablecer Contraseña';
+            modalDesc.textContent = `Escribe la nueva contraseña para ${email}.`;
             modalInputs.style.display = 'block';
         }
         
@@ -209,7 +209,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     modalConfirm.addEventListener('click', async () => {
         const btnText = modalConfirm.textContent;
-        modalConfirm.textContent = 'Processing...';
+        modalConfirm.textContent = 'Procesando...';
         modalConfirm.disabled = true;
 
         try {
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
             } else if (modalAction.type === 'password') {
                 const pwd = newPasswordInput.value.trim();
-                if (pwd.length < 6) throw new Error("The password must be at least 6 characters long.");
+                if (pwd.length < 6) throw new Error("La contraseña debe tener al menos 6 caracteres.");
                 const { error } = await supabase.rpc('admin_update_password', { 
                     target_user_id: modalAction.id, 
                     new_password: pwd 
@@ -229,7 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (error) throw error;
             }
 
-            alert('Action completed successfully.');
+            alert('Acción completada con éxito.');
             modal.classList.add('hidden');
             await loadUsers(); // refresh data
             
@@ -255,10 +255,10 @@ document.addEventListener('DOMContentLoaded', () => {
             trafficData = typeof data === 'string' ? JSON.parse(data) : data;
 
             // Fill summary cards
-            document.getElementById('tv-total').textContent  = Number(trafficData.total_all_time || 0).toLocaleString('en-US');
-            document.getElementById('tv-today').textContent  = Number(trafficData.total_today   || 0).toLocaleString('en-US');
-            document.getElementById('tv-week').textContent   = Number(trafficData.total_week    || 0).toLocaleString('en-US');
-            document.getElementById('tv-month').textContent  = Number(trafficData.total_month   || 0).toLocaleString('en-US');
+            document.getElementById('tv-total').textContent  = Number(trafficData.total_all_time || 0).toLocaleString('es-MX');
+            document.getElementById('tv-today').textContent  = Number(trafficData.total_today   || 0).toLocaleString('es-MX');
+            document.getElementById('tv-week').textContent   = Number(trafficData.total_week    || 0).toLocaleString('es-MX');
+            document.getElementById('tv-month').textContent  = Number(trafficData.total_month   || 0).toLocaleString('es-MX');
 
             // Render default chart (7 days)
             renderBarChart(7);
@@ -275,17 +275,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (err) {
             console.error('Traffic stats error:', err);
-            document.getElementById('tv-bar-chart').innerHTML = '<div class="tv-chart-empty">Error loading traffic data.</div>';
+            document.getElementById('tv-bar-chart').innerHTML = '<div class="tv-chart-empty">Error al cargar datos de tráfico.</div>';
         }
     }
 
     function renderBarChart(days) {
         const container = document.getElementById('tv-bar-chart');
         const rangeLabel = document.getElementById('tv-chart-range');
-        rangeLabel.textContent = `(last ${days} days)`;
+        rangeLabel.textContent = `(últimos ${days} días)`;
 
         if (!trafficData?.by_day || trafficData.by_day.length === 0) {
-            container.innerHTML = '<div class="tv-chart-empty">No data yet. Views will appear here as soon as there is traffic.</div>';
+            container.innerHTML = '<div class="tv-chart-empty">Sin datos aún. Las vistas aparecerán aquí en cuanto haya tráfico.</div>';
             return;
         }
 
@@ -311,11 +311,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         container.innerHTML = allDays.map(d => {
             const heightPct = Math.round((d.views / maxViews) * 100);
-            const label = new Date(d.day + 'T12:00:00').toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+            const label = new Date(d.day + 'T12:00:00').toLocaleDateString('es-MX', { day: 'numeric', month: 'short' });
             return `
                 <div class="tv-bar-wrap">
                     <div class="tv-bar" style="height: ${Math.max(heightPct, 2)}%;">
-                        <div class="tv-bar-tooltip">${d.views} views<br>${label}</div>
+                        <div class="tv-bar-tooltip">${d.views} vistas<br>${label}</div>
                     </div>
                     <span class="tv-bar-label">${label}</span>
                 </div>
@@ -327,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.getElementById('tv-pages-list');
 
         if (!trafficData?.by_page || trafficData.by_page.length === 0) {
-            container.innerHTML = '<div class="tv-chart-empty">No data yet.</div>';
+            container.innerHTML = '<div class="tv-chart-empty">Sin datos aún.</div>';
             return;
         }
 
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="tv-page-bar-wrap">
                         <div class="tv-page-bar-fill" style="width: ${pct}%;"></div>
                     </div>
-                    <span class="tv-page-count">${Number(p.views).toLocaleString('en-US')}</span>
+                    <span class="tv-page-count">${Number(p.views).toLocaleString('es-MX')}</span>
                 </div>
             `;
         }).join('');

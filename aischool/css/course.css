@@ -495,7 +495,7 @@
 }
 
 /* ===========================
-   Prompts Vault
+   Bóveda de Prompts
    =========================== */
 .vault-grid {
     display: grid;
@@ -1380,7 +1380,7 @@
     white-space: nowrap;
 }
 
-/* ── Footer / Tools ── */
+/* ── Footer / Herramientas ── */
 .csnav__footer {
     border-top: 1px solid #f1f5f9;
     padding: 14px 16px 16px;

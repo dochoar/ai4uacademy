@@ -2,388 +2,388 @@ import { supabase } from './supabase-config.js';
 
 const COURSE_META = {
     id: 'intro-ia',
-    title: 'Introduction to AI',
+    title: 'Introducción a la IA',
     modules: [
         { 
             id: 1, 
-            title: 'Fundamentals', 
+            title: 'Fundamentos', 
             duration: '45 min', 
-            desc: 'Learn the basic concepts of artificial intelligence, its recent history, and how language models are transforming the way we work today.',
+            desc: 'Aprende los conceptos básicos de la inteligencia artificial, su historia reciente, y cómo los modelos de lenguaje transforman la manera en que trabajamos hoy.',
             quiz: [
                 {
-                    q: "What does the acronym 'AI' stand for in a technological context?",
-                    options: { a: "Automatic Information", b: "Artificial Intelligence", c: "Advanced Interface", d: "Algorithmic Integration" },
+                    q: "¿Qué significa la sigla 'IA' en el contexto tecnológico?",
+                    options: { a: "Información Automática", b: "Inteligencia Artificial", c: "Interfaz Avanzada", d: "Integración Algorítmica" },
                     correct: "b",
-                    feedback: "AI stands for Artificial Intelligence, the field of computer science that aims to create systems capable of simulating human cognitive abilities."
+                    feedback: "IA significa Inteligencia Artificial, el campo de la informática que busca crear sistemas capaces de simular capacidades cognitivas humanas."
                 },
                 {
-                    q: "What is the correct relationship between AI, Machine Learning, and Deep Learning?",
+                    q: "¿Cuál es la relación correcta entre IA, Machine Learning y Deep Learning?",
                     options: { 
-                        a: "They are three independent technologies with no relationship", 
-                        b: "AI is the broadest field; Machine Learning is a subset of AI; Deep Learning is a subset of Machine Learning",
-                        c: "Deep Learning is the broadest field that contains the others",
-                        d: "Machine Learning and Deep Learning are the same thing"
+                        a: "Son tres tecnologías independientes sin relación", 
+                        b: "IA es el campo más amplio; Machine Learning es un subconjunto de IA; Deep Learning es un subconjunto de Machine Learning",
+                        c: "Deep Learning es el campo más amplio que contiene a los demás",
+                        d: "Machine Learning y Deep Learning son lo mismo"
                     },
                     correct: "b",
-                    feedback: "They work like Russian dolls: AI is the general concept, ML is a way to achieve AI by learning from data, and DL is a specific ML technique."
+                    feedback: "Funcionan como muñecas rusas: IA es el concepto general, ML es una forma de lograr IA aprendiendo de datos, y DL es una técnica específica de ML."
                 },
                 {
-                    q: "What type of AI currently exists in the real world?",
+                    q: "¿Qué tipo de IA existe actualmente en el mundo real?",
                     options: { 
-                        a: "General AI (AGI) that can do any human task",
-                        b: "Superintelligence that surpasses humans in everything",
-                        c: "Narrow AI, specialized in specific tasks",
-                        d: "AI with its own consciousness and emotions"
+                        a: "IA General (AGI) que puede hacer cualquier tarea humana",
+                        b: "Superinteligencia que supera al humano en todo",
+                        c: "IA Estrecha (Narrow AI), especializada en tareas concretas",
+                        d: "IA con consciencia y emociones propias"
                     },
                     correct: "c",
-                    feedback: "All AI we use today is 'Narrow AI': it can do ONE task very well, but cannot transfer that knowledge to other areas."
+                    feedback: "Toda la IA que usamos hoy es 'Narrow AI' o IA estrecha: puede hacer muy bien UNA tarea, pero no puede transferir ese conocimiento a otras áreas."
                 },
                 {
-                    q: "Which of these is an example of AI that we use in our daily lives without realizing it?",
+                    q: "¿Cuál de estos es un ejemplo de IA que usamos en la vida cotidiana sin darnos cuenta?",
                     options: {
-                        a: "A basic calculator",
-                        b: "Netflix or Spotify recommendations based on your tastes",
-                        c: "A traffic light with a fixed timer",
-                        d: "An Excel spreadsheet"
+                        a: "Una calculadora básica",
+                        b: "Las recomendaciones de Netflix o Spotify basadas en tus gustos",
+                        c: "Un semáforo con temporizador fijo",
+                        d: "Una hoja de cálculo de Excel"
                     },
                     correct: "b",
-                    feedback: "Recommendation systems use Machine Learning algorithms that analyze your behavior to suggest personalized content."
+                    feedback: "Los sistemas de recomendación usan algoritmos de Machine Learning que analizan tu comportamiento para sugerirte contenido personalizado."
                 },
                 {
-                    q: "What is generative AI?",
+                    q: "¿Qué es la IA generativa?",
                     options: {
-                        a: "AI that can only classify existing data",
-                        b: "AI that generates new content (text, images, code, audio) from instructions",
-                        c: "AI that autonomously generates electricity",
-                        d: "AI that only works with electric generators"
+                        a: "IA que solo puede clasificar datos existentes",
+                        b: "IA que genera contenido nuevo (texto, imágenes, código, audio) a partir de instrucciones",
+                        c: "IA que genera electricidad de forma autónoma",
+                        d: "IA que solo funciona con generadores eléctricos"
                     },
                     correct: "b",
-                    feedback: "Generative AI creates original content based on patterns learned from large amounts of data."
+                    feedback: "La IA generativa crea contenido original basándose en patrones aprendidos de grandes cantidades de datos."
                 }
             ]
         },
         { 
             id: 2, 
-            title: 'How to Talk to AI', 
+            title: 'Cómo hablar con la IA', 
             duration: '1h 30 min', 
-            desc: 'Discover the best practices of "Prompt Engineering". Learn how to write precise instructions to get extremely high-quality results.',
+            desc: 'Descubre las mejores prácticas de "Prompt Engineering". Aprende a redactar instrucciones precisas para obtener resultados de altísima calidad.',
             quiz: [
                 {
-                    q: "What is a 'prompt' and why is it important?",
+                    q: "¿Qué es un 'prompt' y por qué es importante?",
                     options: { 
-                        a: "It's the name of the AI model; it has no practical importance", 
-                        b: "It's the instruction you give the AI; its quality directly determines the quality of the response",
-                        c: "It's the result the AI generates; the user does not control it",
-                        d: "It's the password to access ChatGPT"
+                        a: "Es el nombre del modelo de IA; no tiene importancia práctica", 
+                        b: "Es la instrucción que le das a la IA; su calidad determina directamente la calidad de la respuesta",
+                        c: "Es el resultado que genera la IA; no lo controla el usuario",
+                        d: "Es la contraseña para acceder a ChatGPT"
                     },
                     correct: "b",
-                    feedback: "The prompt is your instruction to the AI. The golden rule is: 'garbage in, garbage out'. A specific prompt gives better responses."
+                    feedback: "El prompt es tu instrucción a la IA. La regla de oro es: 'basura entra, basura sale'. Un prompt específico da mejores respuestas."
                 },
                 {
-                    q: "What are the key elements of an effective prompt?",
+                    q: "¿Cuáles son los elementos clave de un prompt efectivo?",
                     options: { 
-                        a: "You just need to write one word and the AI understands everything", 
-                        b: "Role + specific task + context + desired format + audience",
-                        c: "Always write in English, regardless of the desired language",
-                        d: "Use emojis and capital letters so the AI pays more attention"
+                        a: "Solo necesitas escribir una palabra y la IA entiende todo", 
+                        b: "Rol + tarea específica + contexto + formato deseado + audiencia",
+                        c: "Escribir en inglés siempre, sin importar el idioma deseado",
+                        d: "Usar emojis y mayúsculas para que la IA preste más atención"
                     },
                     correct: "b",
-                    feedback: "An effective prompt includes: who you want the AI to be (role), what you need (task), context, format, and audience."
+                    feedback: "Un prompt efectivo incluye: quién quieres que sea la IA (rol), qué necesitas (tarea), contexto, formato y audiencia."
                 },
                 {
-                    q: "What technique involves asking the AI to reason step by step before giving a final answer?",
+                    q: "¿Qué técnica consiste en pedirle a la IA que razone paso a paso antes de dar una respuesta final?",
                     options: { 
                         a: "Role Playing",
                         b: "Few-Shot Prompting",
-                        c: "Chain of Thought",
+                        c: "Chain of Thought (cadena de pensamiento)",
                         d: "Zero-Shot Prompting"
                     },
                     correct: "c",
-                    feedback: "Chain of Thought asks the AI to show its reasoning step by step, improving accuracy on complex tasks."
+                    feedback: "Chain of Thought le pide a la IA que muestre su razonamiento paso a paso, mejorando la precisión en tareas complejas."
                 },
                 {
-                    q: "What is 'Few-Shot Prompting'?",
+                    q: "¿Qué es el 'Few-Shot Prompting'?",
                     options: {
-                        a: "Giving the AI only a few words as instruction",
-                        b: "Including concrete examples of the format or type of response you expect",
-                        c: "Asking the AI to respond in a few words",
-                        d: "Using the AI only a few times a day"
+                        a: "Darle a la IA solo unas pocas palabras como instrucción",
+                        b: "Incluir ejemplos concretos del formato o tipo de respuesta que esperas",
+                        c: "Pedirle a la IA que responda en pocas palabras",
+                        d: "Usar la IA solo unas pocas veces al día"
                     },
                     correct: "b",
-                    feedback: "Few-Shot means giving the AI a 'few examples' so it understands the pattern, tone, and format you want."
+                    feedback: "Few-Shot significa darle 'pocos ejemplos' a la IA para que entienda el patrón, tono y formato que deseas."
                 },
                 {
-                    q: "What is the difference between a bad prompt and a good prompt?",
+                    q: "¿Cuál es la diferencia entre un mal prompt y un buen prompt?",
                     options: {
-                        a: "There is no difference, the AI always responds the same",
-                        b: "A bad prompt is short and a good prompt is long",
-                        c: "A good prompt is specific, gives context, defines format and audience; a bad prompt is vague and generic",
-                        d: "A good prompt only uses technical words and programming jargon"
+                        a: "No hay diferencia, la IA siempre responde igual",
+                        b: "El mal prompt es corto y el buen prompt es largo",
+                        c: "El buen prompt es específico, da contexto, define el formato y la audiencia; el mal prompt es vago y genérico",
+                        d: "El buen prompt usa solo palabras técnicas y jerga de programación"
                     },
                     correct: "c",
-                    feedback: "The fundamental difference is specificity and context. A vague prompt produces vague results; a detailed one produces useful results."
+                    feedback: "La diferencia fundamental es la especificidad y el contexto. Un prompt vago produce resultados vagos; uno detallado produce resultados útiles."
                 }
             ]
         },
         { 
             id: 3, 
-            title: 'Real World Applications', 
+            title: 'Aplicaciones reales', 
             duration: '1h 30 min', 
-            desc: 'Practical use cases in companies, from writing corporate emails to analyzing market trends without knowing how to code.',
+            desc: 'Casos prácticos de uso en empresas, desde redacción de correos corporativos hasta análisis de tendencias de mercado sin saber programar.',
             quiz: [
                 {
-                    q: "In how many professional sectors does AI currently have real applications?",
+                    q: "¿En cuántos sectores profesionales tiene aplicaciones reales la IA actualmente?",
                     options: { 
-                        a: "Only in technology and computing", 
-                        b: "In 3 or 4 main sectors like banking and medicine",
-                        c: "In practically all sectors: health, finance, marketing, legal, etc.",
-                        d: "Only in Silicon Valley companies"
+                        a: "Solo en tecnología e informática", 
+                        b: "En 3 o 4 sectores principales como banca y medicina",
+                        c: "En prácticamente todos los sectores: salud, finanzas, marketing, legal, etc.",
+                        d: "Solo en empresas de Silicon Valley"
                     },
                     correct: "c",
-                    feedback: "AI is already present in almost all productive sectors, from medical diagnosis to precision agriculture and legal analysis."
+                    feedback: "La IA ya tiene presencia en casi todos los sectores productivos, desde diagnóstico médico hasta agricultura de precisión y análisis legal."
                 },
                 {
-                    q: "How is AI used in the healthcare sector today?",
+                    q: "¿Cómo se usa la IA en el sector salud actualmente?",
                     options: { 
-                        a: "Robots operating without human supervision", 
-                        b: "Assistance in medical imaging diagnosis, data analysis, and drug discovery with medical supervision",
-                        c: "Completely replaces doctors in consultations",
-                        d: "Only used to keep hospital accounting"
+                        a: "Robots que operan sin supervisión humana", 
+                        b: "Asistencia en diagnóstico por imágenes, análisis de datos y descubrimiento de medicinas con supervisión médica",
+                        c: "Reemplaza completamente a los doctores en consultas",
+                        d: "Solo se usa para llevar la contabilidad de hospitales"
                     },
                     correct: "b",
-                    feedback: "AI assists by analyzing X-rays and detecting clinical patterns, always as a support tool under medical supervision."
+                    feedback: "La IA asiste analizando radiografías y detectando patrones clínicos, siempre como herramienta de apoyo bajo supervisión médica."
                 },
                 {
-                    q: "What AI tools can a small business use today without coding?",
+                    q: "¿Qué herramientas de IA puede usar un pequeño negocio hoy sin necesidad de programar?",
                     options: { 
-                        a: "None, AI requires teams of programmers",
-                        b: "ChatGPT for customer service, Canva for design, automated chatbots, etc.",
-                        c: "Can only use advanced Excel",
-                        d: "Needs to invest a minimum of $100,000 in infrastructure"
+                        a: "Ninguna, la IA requiere equipos de programadores",
+                        b: "ChatGPT para atención, Canva para diseño, chatbots automáticos, etc.",
+                        c: "Solo puede usar Excel avanzado",
+                        d: "Necesita invertir mínimo $100,000 en infraestructura"
                     },
                     correct: "b",
-                    feedback: "There are dozens of accessible tools like ChatGPT, Canva, Tidio or Notion AI that do not require technical knowledge."
+                    feedback: "Existen decenas de herramientas accesibles como ChatGPT, Canva, Tidio o Notion AI que no requieren conocimiento técnico."
                 },
                 {
-                    q: "What is a real example of AI in digital marketing?",
+                    q: "¿Cuál es un ejemplo real de IA en el marketing digital?",
                     options: {
-                        a: "Printing flyers at a print shop",
-                        b: "Ad personalization, copy generation, and automatic segmentation",
-                        c: "Sending mass emails without any segmentation",
-                        d: "Putting up billboards on the street"
+                        a: "Imprimir volantes en una imprenta",
+                        b: "Personalización de anuncios, generación de copy y segmentación automática",
+                        c: "Enviar correos masivos sin ninguna segmentación",
+                        d: "Poner carteles publicitarios en la calle"
                     },
                     correct: "b",
-                    feedback: "AI in marketing allows personalized ads, advertising text generation, and intelligent audience segmentation."
+                    feedback: "La IA en marketing permite anuncios personalizados, generación de textos publicitarios y segmentación inteligente de audiencias."
                 },
                 {
-                    q: "How can AI help in the education sector?",
+                    q: "¿Cómo puede la IA ayudar en el sector educativo?",
                     options: {
-                        a: "Completely replacing teachers",
-                        b: "Personalized virtual tutors, educational materials, and immediate feedback",
-                        c: "Only serving as a calculator for students",
-                        d: "Eliminating the need to study"
+                        a: "Reemplazando completamente a los profesores",
+                        b: "Tutores virtuales personalizados, material didáctico y retroalimentación inmediata",
+                        c: "Solo sirviendo como calculadora para los estudiantes",
+                        d: "Eliminando la necesidad de estudiar"
                     },
                     correct: "b",
-                    feedback: "AI in education personalizes learning with tutors that adapt to the student's pace and provide immediate feedback."
+                    feedback: "La IA en educación personaliza el aprendizaje con tutores que se adaptan al ritmo del estudiante y retroalimentación inmediata."
                 }
             ]
         },
         { 
             id: 4, 
-            title: 'AI for Productivity', 
+            title: 'IA para productividad', 
             duration: '1h', 
-            desc: 'Automate repetitive tasks. Use modern tools to transcribe meetings, summarize documents, and create presentations in seconds.',
+            desc: 'Automatiza tareas repetitivas. Usa herramientas modernas para transcribir juntas, resumir documentos y crear presentaciones en segundos.',
             quiz: [
                 {
-                    q: "What are the three pillars of AI applied to personal productivity?",
+                    q: "¿Cuáles son los tres pilares de la IA aplicada a la productividad personal?",
                     options: { 
-                        a: "Buy, sell, and distribute", 
-                        b: "Automate, accelerate, and amplify",
-                        c: "Copy, ask, and send",
-                        d: "Program, compile, and execute"
+                        a: "Comprar, vender y distribuir", 
+                        b: "Automatizar, acelerar y amplificar",
+                        c: "Copiar, pedir y enviar",
+                        d: "Programar, compilar y ejecutar"
                     },
                     correct: "b",
-                    feedback: "The three pillars are: AUTOMATE repetitive tasks, ACCELERATE creative processes, and AMPLIFY your current capabilities."
+                    feedback: "Los tres pilares son: AUTOMATIZAR tareas repetitivas, ACELERAR procesos creativos y AMPLIFICAR tus capacidades actuales."
                 },
                 {
-                    q: "If you use AI to automate 2 hours of repetitive tasks a day, how much time do you free up per month?",
+                    q: "Si usas IA para automatizar 2 horas de tareas repetitivas al día, ¿cuánto tiempo liberas al mes?",
                     options: { 
-                        a: "8 hours", 
-                        b: "20 hours",
-                        c: "40 hours (equivalent to a week of work)",
-                        d: "100 hours"
+                        a: "8 horas", 
+                        b: "20 horas",
+                        c: "40 horas (equivalente a una semana de trabajo)",
+                        d: "100 horas"
                     },
                     correct: "c",
-                    feedback: "2 hours a day × 20 days = 40 hours a month. It's a full week redirected to higher-value tasks."
+                    feedback: "2 horas al día × 20 días = 40 horas al mes. Es una semana completa redirigida a tareas de mayor valor."
                 },
                 {
-                    q: "What is the best practice when using AI to create professional content?",
+                    q: "¿Cuál es la mejor práctica al usar IA para crear contenido profesional?",
                     options: { 
-                        a: "Copy and publish directly",
-                        b: "Use AI as a starting point, then review and add your perspective",
-                        c: "Never use AI because everything is made up",
-                        d: "Ask the AI to do everything without giving it instructions"
+                        a: "Copiar y publicar directamente",
+                        b: "Usar la IA como punto de partida, luego revisar y agregar tu perspectiva",
+                        c: "Nunca usar IA porque todo es inventado",
+                        d: "Pedirle a la IA que lo haga todo sin darle instrucciones"
                     },
                     correct: "b",
-                    feedback: "AI is your copilot. It generates quick drafts that YOU review, edit, and enrich with your experience and personal context."
+                    feedback: "La IA es tu copiloto. Genera borradores rápidos que TÚ revisas, editas y enriqueces con tu experiencia y contexto personal."
                 },
                 {
-                    q: "For which of these tasks can AI save you the most time in your daily life?",
+                    q: "¿Para cuál de estas tareas la IA puede ahorrarte más tiempo en tu día a día?",
                     options: {
-                        a: "Walking to work",
-                        b: "Writing emails, summarizing long documents, and creating presentations",
-                        c: "Doing physical exercise",
-                        d: "Cooking dinner"
+                        a: "Caminar al trabajo",
+                        b: "Redactar correos, resumir documentos largos y crear presentaciones",
+                        c: "Hacer ejercicio físico",
+                        d: "Cocinar la cena"
                     },
                     correct: "b",
-                    feedback: "AI excels at text processing tasks: writing emails, summarizing extensive documents, and generating report drafts."
+                    feedback: "La IA destaca en tareas de procesamiento de texto: redactar emails, resumir documentos extensos y generar borradores de reportes."
                 },
                 {
-                    q: "What does it mean that AI 'amplifies' your capabilities?",
+                    q: "¿Qué significa que la IA 'amplifica' tus capacidades?",
                     options: {
-                        a: "That AI does everything for you without intervention",
-                        b: "That it allows you to do things you couldn't before, like analyzing lots of data or creating content in other languages",
-                        c: "That AI speaks louder through the microphone",
-                        d: "That it automatically doubles your salary"
+                        a: "Que la IA hace todo por ti sin necesidad de intervención",
+                        b: "Que te permite hacer cosas que antes no podías, como analizar muchos datos o crear contenido en otros idiomas",
+                        c: "Que la IA habla más fuerte por el micrófono",
+                        d: "Que duplica tu sueldo automáticamente"
                     },
                     correct: "b",
-                    feedback: "Amplifying means expanding your limits: analyzing thousands of reviews, translating into 10 languages, or creating professional designs without being a designer."
+                    feedback: "Amplificar significa expandir tus límites: analizar miles de reseñas, traducir a 10 idiomas o crear diseños profesionales sin ser diseñador."
                 }
             ]
         },
         { 
             id: 5, 
-            title: 'Risks, Ethics, and Limits', 
+            title: 'Riesgos, ética y límites', 
             duration: '45 min', 
-            desc: 'Understand AI hallucinations, information biases, and the precautions needed when handling private company data.',
+            desc: 'Entiende las alucinaciones de la IA, los sesgos de información y las precauciones necesarias al manejar datos privados de tu empresa.',
             quiz: [
                 {
-                    q: "What are AI 'hallucinations'?",
+                    q: "¿Qué son las 'alucinaciones' de la IA?",
                     options: { 
-                        a: "Hardware errors in the servers", 
-                        b: "When AI generates false information but presents it as true with complete confidence",
-                        c: "When AI doesn't understand the language",
-                        d: "When AI shows distorted images"
+                        a: "Errores de hardware en los servidores", 
+                        b: "Cuando la IA genera información falsa pero la presenta como verdadera con total confianza",
+                        c: "Cuando la IA no entiende el idioma",
+                        d: "Cuando la IA muestra imágenes distorsionadas"
                     },
                     correct: "b",
-                    feedback: "AI can invent facts, quotes, or statistics very convincingly. That is why you should ALWAYS verify critical information."
+                    feedback: "La IA puede inventar datos, citas o estadísticas de forma muy convincente. Por eso SIEMPRE se debe verificar la información crítica."
                 },
                 {
-                    q: "What is 'bias' in AI and why is it dangerous?",
+                    q: "¿Qué es el 'sesgo' (bias) en la IA y por qué es peligroso?",
                     options: { 
-                        a: "It's when AI has its own political opinions", 
-                        b: "It's when AI reproduces prejudices from its training data, which can lead to discrimination",
-                        c: "It's when AI only works in one language",
-                        d: "It's when AI is too slow"
+                        a: "Es cuando la IA tiene opiniones políticas propias", 
+                        b: "Es cuando la IA reproduce prejuicios de sus datos de entrenamiento, pudiendo discriminar",
+                        c: "Es cuando la IA solo funciona en un idioma",
+                        d: "Es cuando la IA es demasiado lenta"
                     },
                     correct: "b",
-                    feedback: "AI learns from historical data that may contain biases. If not controlled, it can amplify prejudices in critical decisions."
+                    feedback: "La IA aprende de datos históricos que pueden contener sesgos. Si no se controla, puede amplificar prejuicios en decisiones críticas."
                 },
                 {
-                    q: "What is the most important ethical practice when using AI at work?",
+                    q: "¿Cuál es la práctica ética más importante al usar IA en el trabajo?",
                     options: { 
-                        a: "Presenting all AI content as if it were yours",
-                        b: "Being transparent, verifying information, and protecting personal data",
-                        c: "Using AI to spy on coworkers",
-                        d: "Sharing private client data without consent"
+                        a: "Presentar todo el contenido de IA como si fuera tuyo",
+                        b: "Ser transparente, verificar la información y proteger datos personales",
+                        c: "Usar IA para espiar a los compañeros",
+                        d: "Compartir datos privados de clientes sin consentimiento"
                     },
                     correct: "b",
-                    feedback: "Ethics in AI is based on: TRANSPARENCY (saying when you use AI), VERIFICATION, and PRIVACY (not uploading sensitive data)."
+                    feedback: "La ética en IA se basa en: TRANSPARENCIA (decir cuándo usas IA), VERIFICACIÓN y PRIVACIDAD (no subir datos sensibles)."
                 },
                 {
-                    q: "Why should you NOT blindly trust the information AI generates?",
+                    q: "¿Por qué NO debes confiar ciegamente en la información que genera la IA?",
                     options: {
-                        a: "Because AI always lies on purpose",
-                        b: "Because it may have outdated data, biases, or 'hallucinate', and the human is responsible",
-                        c: "Because AI is a conspiracy",
-                        d: "There is no reason, it can be trusted 100%"
+                        a: "Porque la IA siempre miente a propósito",
+                        b: "Porque puede tener datos desactualizados, sesgos o 'alucinar', y el humano es responsable",
+                        c: "Porque la IA es una conspiración",
+                        d: "No hay razón, se puede confiar al 100%"
                     },
                     correct: "b",
-                    feedback: "AI works with statistical probabilities, not with the 'truth'. It can fail due to old data or model errors. YOU are ultimately responsible."
+                    feedback: "La IA trabaja con probabilidades estadísticas, no con la 'verdad'. Puede fallar por datos viejos o errores del modelo. TÚ eres el responsable final."
                 },
                 {
-                    q: "Which of these is a real case where the misuse of AI caused problems?",
+                    q: "¿Cuál de estos es un caso real donde el mal uso de IA causó problemas?",
                     options: {
-                        a: "A lawyer presented fake legal cases invented by ChatGPT to a judge without verifying them",
-                        b: "An AI robot destroyed a factory",
-                        c: "AI took control of the government",
-                        d: "ChatGPT refused to work for a year"
+                        a: "Un abogado presentó ante un juez casos legales inventados por ChatGPT sin verificarlos",
+                        b: "Un robot de IA destruyó una fábrica",
+                        c: "La IA tomó el control del gobierno",
+                        d: "ChatGPT se negó a funcionar por un año"
                     },
                     correct: "a",
-                    feedback: "A lawyer in 2023 cited non-existent court cases invented by ChatGPT and was sanctioned. This shows why you should ALWAYS verify."
+                    feedback: "Un abogado en 2023 citó casos judiciales inexistentes inventados por ChatGPT y fue sancionado. Esto demuestra por qué SIEMPRE se debe verificar."
                 }
             ]
         },
         { 
             id: 6, 
-            title: 'Final Practical Workshop', 
-            duration: 'Workshop', 
-            desc: 'Apply everything you have learned. We will build an AI-based solution together to solve an everyday problem. We will evaluate your prompts in real-time.',
+            title: 'Taller práctico final', 
+            duration: 'Taller', 
+            desc: 'Aplica todo lo aprendido. Construiremos juntos una solución basada en IA para resolver un problema cotidiano. Evaluaremos tus prompts en tiempo real.',
             quiz: [
                 {
-                    q: "What is the recommended first step to integrate AI into your workflow?",
+                    q: "¿Cuál es el primer paso recomendado para integrar la IA en tu flujo de trabajo?",
                     options: { 
-                        a: "Immediately replace all your processes with AI", 
-                        b: "Identify low-value repetitive tasks and test specific tools",
-                        c: "Wait 10 years until AI is perfect",
-                        d: "Buy the most expensive AI software on the market"
+                        a: "Reemplazar inmediatamente todos tus procesos con IA", 
+                        b: "Identificar tareas repetitivas de poco valor y probar herramientas específicas",
+                        c: "Esperar 10 años hasta que la IA sea perfecta",
+                        d: "Comprar el software de IA más caro del mercado"
                     },
                     correct: "b",
-                    feedback: "Successful adoption is gradual: identify where you waste time on repetitive tasks, test specific tools, and scale what works."
+                    feedback: "La adopción exitosa es gradual: identifica dónde pierdes tiempo en tareas repetitivas, prueba herramientas específicas y escala lo que funcione."
                 },
                 {
-                    q: "When creating a prompt to solve a real problem, what should you always include?",
+                    q: "Cuando creas un prompt para resolver un problema real, ¿qué debes incluir siempre?",
                     options: { 
-                        a: "Only the question, without context or details", 
-                        b: "Context, specific desired outcome, format, and audience",
-                        c: "Your full name and address",
-                        d: "The source code of the AI model"
+                        a: "Solo la pregunta, sin contexto ni detalles", 
+                        b: "Contexto, resultado específico, formato deseado y audiencia",
+                        c: "Tu nombre completo y dirección",
+                        d: "El código fuente del modelo de IA"
                     },
                     correct: "b",
-                    feedback: "An effective prompt always contextualizes: who you are, what you need, format, audience, and constraints. More context = better result."
+                    feedback: "Un prompt efectivo siempre contextualiza: quién eres, qué necesitas, formato, audiencia y restricciones. Más contexto = mejor resultado."
                 },
                 {
-                    q: "What is the right way to evaluate if an AI tool is useful?",
+                    q: "¿Cuál es la forma correcta de evaluar si una herramienta de IA es útil?",
                     options: { 
-                        a: "If it's free, it's good; if it's paid, it's bad",
-                        b: "Test it with real tasks, measure time saved, quality, and compare it with your current method",
-                        c: "Only read the advertisements",
-                        d: "Ask the AI itself if it's good"
+                        a: "Si es gratis, es buena; si es de pago, es mala",
+                        b: "Probarla con tareas reales, medir tiempo ahorrado, calidad y comparar con tu método actual",
+                        c: "Leer solo los anuncios publicitarios",
+                        d: "Preguntarle a la propia IA si es buena"
                     },
                     correct: "b",
-                    feedback: "Practical evaluation is key: test it with YOUR real tasks, measure the time it saves, and verify if the quality is acceptable."
+                    feedback: "La evaluación práctica es clave: prueba con TUS tareas reales, mide el tiempo que ahorra y verifica si la calidad es aceptable."
                 },
                 {
-                    q: "After this course, what should be your mindset regarding AI?",
+                    q: "Después de este curso, ¿cuál debería ser tu mentalidad respecto a la IA?",
                     options: {
-                        a: "AI is going to take my job, better ignore it",
-                        b: "It's a powerful tool that enhances my capabilities; I must use it ethically and strategically",
-                        c: "AI is perfect and can replace all human work",
-                        d: "It's just a passing fad"
+                        a: "La IA me va a quitar el trabajo, mejor ignorarla",
+                        b: "Es una herramienta poderosa que potencia mis capacidades; debo usarla de forma ética y estratégica",
+                        c: "La IA es perfecta y puede reemplazar todo el trabajo humano",
+                        d: "Es solo una moda pasajera"
                     },
                     correct: "b",
-                    feedback: "AI doesn't replace people, it empowers people. Professionals who learn to use it ethically will have a huge competitive advantage."
+                    feedback: "La IA no reemplaza personas, potencia personas. Los profesionales que aprendan a usarla de forma ética tendrán una ventaja competitiva enorme."
                 },
                 {
-                    q: "What action plan should you follow after completing this course?",
+                    q: "¿Qué plan de acción deberías seguir después de completar este curso?",
                     options: {
-                        a: "Forget everything and go back to my previous methods",
-                        b: "Choose 3 real tasks, apply what you learned this week, measure results, and expand",
-                        c: "Try to automate everything at once",
-                        d: "Wait for someone to tell me what to do"
+                        a: "Olvidar todo y volver a mis métodos anteriores",
+                        b: "Elegir 3 tareas reales, aplicar lo aprendido esta semana, medir resultados y expandir",
+                        c: "Intentar automatizar todo de golpe",
+                        d: "Esperar a que alguien me diga qué hacer"
                     },
                     correct: "b",
-                    feedback: "The ideal plan is concrete and immediate: choose 3 tasks, apply prompting techniques, measure time/quality gains, and then expand."
+                    feedback: "El plan ideal es concreto e inmediato: elige 3 tareas, aplica técnicas de prompting, mide ganancias de tiempo/calidad y luego expande."
                 }
             ]
         },
-        { id: 7, title: 'Certification Exam', duration: 'Official Evaluation', desc: 'Pass this short challenge with over 65% to get and show off your Official Professional Certificate from AI4U Academy.' }
+        { id: 7, title: 'Examen de Certificación', duration: 'Evaluación Oficial', desc: 'Aprueba este breve desafío con más del 65% para obtener y lucir tu Certificado Profesional Oficial de AI4U Academy.' }
     ]
 };
 
 document.addEventListener('DOMContentLoaded', () => {
     let currentUser = null;
-    let currentUserFullName = 'Student';
+    let currentUserFullName = 'Estudiante';
     let isAdmin = false;
     let adminUserIds = [];
     let completedModules = []; // array of module IDs (e.g. [1, 2])
@@ -419,20 +419,20 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentQuestionIndex = 0;
 
     const MODULE_CELEBRATION = {
-        1: { emoji: '🧠', objective: 'Now you understand what AI is, how it works, and its types.' },
-        2: { emoji: '💬', objective: 'You master prompt engineering to get quality answers.' },
-        3: { emoji: '🚀', objective: 'You know real-world applications of AI in different sectors.' },
-        4: { emoji: '⚡', objective: 'You know how to use AI to automate and work smarter.' },
-        5: { emoji: '🛡️', objective: 'You understand hallucinations, biases, and ethical limits of AI.' },
-        6: { emoji: '🏆', objective: 'You applied everything in a practical workshop! You are ready for the exam.' }
+        1: { emoji: '🧠', objective: 'Ahora entiendes qué es la IA, cómo funciona y cuáles son sus tipos.' },
+        2: { emoji: '💬', objective: 'Dominas el prompt engineering para obtener respuestas de calidad.' },
+        3: { emoji: '🚀', objective: 'Conoces aplicaciones reales de la IA en distintos sectores.' },
+        4: { emoji: '⚡', objective: 'Sabes usar la IA para automatizar y trabajar más inteligente.' },
+        5: { emoji: '🛡️', objective: 'Comprendes alucinaciones, sesgos y límites éticos de la IA.' },
+        6: { emoji: '🏆', objective: '¡Aplicaste todo en un taller práctico! Ya estás listo para el examen.' }
     };
     const ENCOURAGEMENT_MESSAGES = {
-        1: 'Great first step! The journey of a thousand miles begins with one.',
-        2: 'You are at 33%! Fundamentals and communication with AI: mastered.',
-        3: 'Halfway there! The certificate is getting closer. Don\'t stop now.',
-        4: 'More than halfway through! The final stretch is on the horizon.',
-        5: 'One more module and you\'ve made it! The certificate is almost yours.',
-        6: 'Course completed! Now conquer the certification exam.'
+        1: '¡Gran primer paso! El viaje de mil millas comienza con uno.',
+        2: '¡Vas al 33%! Fundamentos y comunicación con IA: dominados.',
+        3: '¡Ya la mitad! El certificado se acerca. No pares ahora.',
+        4: '¡Más de la mitad superada! La recta final está en el horizonte.',
+        5: '¡Un módulo más y lo logras! El certificado casi es tuyo.',
+        6: '¡Curso completado! Ahora conquista el examen de certificación.'
     };
     let stopConfettiFn = null;
 
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentUser = session.user;
 
             if (currentUser.user_metadata) {
-                currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Student';
+                currentUserFullName = currentUser.user_metadata.full_name || currentUser.user_metadata.name || 'Estudiante';
             }
 
             // Check admin role from DB — never from client-side email comparison
@@ -494,7 +494,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (mod && mod.quiz) {
                         startQuiz(mod.quiz);
                     } else {
-                        alert('This module does not require quiz exercises.');
+                        alert('Este módulo no requiere ejercicios de preguntas.');
                     }
                 });
             }
@@ -576,7 +576,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <strong>${mod.title}</strong>
                     <small>${mod.duration}</small>
                 </span>
-                ${isActive ? '<span class="csnav__now-pill">Now</span>' : ''}
+                ${isActive ? '<span class="csnav__now-pill">Ahora</span>' : ''}
             `;
 
             if (!isLocked) {
@@ -602,7 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update Global Progress Bar
         const percent = Math.round((completedModules.length / COURSE_META.modules.length) * 100);
         progressFill.style.width = percent + '%';
-        progressText.textContent = `${percent}% Completed`;
+        progressText.textContent = `${percent}% Completado`;
 
         // Update sidebar ring
         const ringFill = document.getElementById('sidebar-ring-fill');
@@ -619,8 +619,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const mod = COURSE_META.modules.find(m => m.id === modId);
         if (!mod) return;
 
-        videoTitle.textContent = `Playing Module ${mod.id}...`;
-        badgeEl.textContent = `Module ${mod.id}`;
+        videoTitle.textContent = `Reproduciendo Módulo ${mod.id}...`;
+        badgeEl.textContent = `Módulo ${mod.id}`;
         titleEl.textContent = mod.title;
         timeEl.textContent = mod.duration;
         descEl.textContent = mod.desc;
@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isCompleted) {
             btnComplete.innerHTML = `
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Module Completed</span>
+                <span>Módulo Completado</span>
             `;
             btnComplete.classList.remove('btn-primary');
             btnComplete.classList.add('btn-secondary');
@@ -639,7 +639,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnComplete.disabled = true;
         } else if (mod.id === 7) {
             btnComplete.innerHTML = `
-                <span>Take Official Exam & Get Certificate</span>
+                <span>Hacer Examen Oficial y Obtener Certificado</span>
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><path d="M5 12l5 5l10 -10"></path></svg>
             `;
             btnComplete.className = 'btn btn-primary btn-complete';
@@ -647,7 +647,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btnComplete.disabled = false;
         } else {
             btnComplete.innerHTML = `
-                <span>Mark as Completed & Continue</span>
+                <span>Marcar como Completado y Continuar</span>
                 <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"><path d="M5 12l5 5l10 -10"></path></svg>
             `;
             btnComplete.className = 'btn btn-primary btn-complete';
@@ -709,7 +709,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentSubmitBtn = document.getElementById('comment-submit');
 
     async function loadComments(modId) {
-        commentsList.innerHTML = '<p style="color: #94a3b8;">Loading comments...</p>';
+        commentsList.innerHTML = '<p style="color: #94a3b8;">Cargando comentarios...</p>';
         try {
             const { data, error } = await supabase
                 .from('course_comments')
@@ -723,14 +723,14 @@ document.addEventListener('DOMContentLoaded', () => {
             renderComments(data);
         } catch (err) {
             console.error(err);
-            commentsList.innerHTML = '<p style="color: #ef4444;">Error loading comments.</p>';
+            commentsList.innerHTML = '<p style="color: #ef4444;">Error cargando dudas.</p>';
         }
     }
 
     function renderComments(data) {
         commentsList.innerHTML = '';
         if (!data || data.length === 0) {
-            commentsList.innerHTML = '<p style="color: #94a3b8; font-style: italic;">No comments yet. Be the first to ask!</p>';
+            commentsList.innerHTML = '<p style="color: #94a3b8; font-style: italic;">Sin comentarios aún. ¡Sé el primero en preguntar!</p>';
             return;
         }
 
@@ -758,23 +758,23 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function createCommentHTML(comment, isReply = false) {
-        const date = new Date(comment.created_at).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-        const adminBadge = adminUserIds.includes(comment.user_id) ? '<span class="admin-badge">Teacher</span>' : '';
+        const date = new Date(comment.created_at).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+        const adminBadge = adminUserIds.includes(comment.user_id) ? '<span class="admin-badge">Profesor</span>' : '';
         
         let replyBtnHtml = '';
         let replyFormHtml = '';
         
         let deleteBtnHtml = '';
         if (isAdmin || comment.user_id === currentUser.id) {
-            deleteBtnHtml = `<button class="btn-reply" style="color: #ef4444;" onclick="window.deleteComment('${comment.id}')">Delete</button>`;
+            deleteBtnHtml = `<button class="btn-reply" style="color: #ef4444;" onclick="window.deleteComment('${comment.id}')">Eliminar</button>`;
         }
         
         if (!isReply) {
-            replyBtnHtml = `<button class="btn-reply" onclick="window.toggleReplyForm('${comment.id}')">Reply</button>`;
+            replyBtnHtml = `<button class="btn-reply" onclick="window.toggleReplyForm('${comment.id}')">Responder</button>`;
             replyFormHtml = `
             <div id="reply-form-${comment.id}" class="reply-form-container" style="display: none;">
-                <textarea id="reply-input-${comment.id}" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0,0,0,0.3); color: white; min-height: 60px;" placeholder="Write your reply..."></textarea>
-                <button type="button" class="btn btn-secondary btn-sm" onclick="window.submitReply('${comment.id}')" style="align-self: flex-start;">Submit Reply</button>
+                <textarea id="reply-input-${comment.id}" style="width: 100%; padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.2); background: rgba(0,0,0,0.3); color: white; min-height: 60px;" placeholder="Escribe tu respuesta..."></textarea>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="window.submitReply('${comment.id}')" style="align-self: flex-start;">Enviar Respuesta</button>
             </div>`;
         }
 
@@ -805,12 +805,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!text) return;
 
             if (!isAdmin && containsProhibitedContent(text)) {
-                alert('Policies prohibit sharing phone numbers, emails, links, or social media.');
+                alert('Las políticas prohíben compartir números de teléfono, correos, enlaces o redes sociales.');
                 return;
             }
 
             commentSubmitBtn.disabled = true;
-            commentSubmitBtn.textContent = 'Sending...';
+            commentSubmitBtn.textContent = 'Enviando...';
             
             const { error } = await supabase.from('course_comments').insert({
                 course_id: COURSE_META.id,
@@ -821,13 +821,13 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (error) {
-                alert('Error posting comment.');
+                alert('Error al publicar comentario.');
             } else {
                 commentInput.value = '';
                 await loadComments(currentModuleId);
             }
             commentSubmitBtn.disabled = false;
-            commentSubmitBtn.textContent = 'Post Comment';
+            commentSubmitBtn.textContent = 'Publicar Comentario';
         });
     }
 
@@ -846,7 +846,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         if (!isAdmin && containsProhibitedContent(text)) {
-            alert('Policies prohibit sharing phone numbers, links, or social media.');
+            alert('Las políticas prohíben compartir números de teléfono, enlaces o redes sociales.');
             return;
         }
 
@@ -862,7 +862,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (error) {
-            alert('Error posting reply.');
+            alert('Error publicando respuesta.');
             input.disabled = false;
             return;
         }
@@ -871,12 +871,12 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     window.deleteComment = async function(commentId) {
-        if (!confirm('Are you sure you want to delete this comment?')) return;
+        if (!confirm('¿Seguro que deseas eliminar este comentario?')) return;
         
         const { error } = await supabase.from('course_comments').delete().eq('id', commentId);
         
         if (error) {
-            alert('Error trying to delete the comment.');
+            alert('Error al intentar borrar el comentario.');
             console.error(error);
         } else {
             await loadComments(currentModuleId);
@@ -934,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Modules 1-6: show celebration modal before proceeding
+        // Módulos 1-6: mostrar modal de celebración antes de avanzar
         if (justCompletedId <= 6) {
             showCelebrationModal(justCompletedId);
             return;
@@ -1021,12 +1021,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const meta = MODULE_CELEBRATION[completedModId] || { emoji: '🎉', objective: '' };
         const isLast = completedModId === TOTAL_CONTENT;
 
-        document.getElementById('celebration-module-pill').textContent = `Module ${completedModId} of ${TOTAL_CONTENT}`;
+        document.getElementById('celebration-module-pill').textContent = `Módulo ${completedModId} de ${TOTAL_CONTENT}`;
         document.getElementById('celebration-icon').textContent = meta.emoji;
-        document.getElementById('celebration-headline').textContent = `Module ${completedModId} completed!`;
+        document.getElementById('celebration-headline').textContent = `¡Módulo ${completedModId} completado!`;
         document.getElementById('celebration-objective').textContent = meta.objective;
         document.getElementById('celebration-progress-label').textContent =
-            `${completedCount} of ${TOTAL_CONTENT} modules completed · ${percent}% of the course`;
+            `${completedCount} de ${TOTAL_CONTENT} módulos completados · ${percent}% del curso`;
 
         const fill = document.getElementById('celebration-progress-fill');
         fill.style.transition = 'none';
@@ -1046,8 +1046,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const newCta = oldCta.cloneNode(true);
         oldCta.parentNode.replaceChild(newCta, oldCta);
         newCta.textContent = isLast
-            ? 'Go to Certification Exam →'
-            : `Continue to Module ${completedModId + 1} →`;
+            ? 'Ir al Examen de Certificación →'
+            : `Continuar al Módulo ${completedModId + 1} →`;
         newCta.addEventListener('click', closeCelebrationModal);
 
         const overlay = document.getElementById('celebration-modal');
@@ -1070,18 +1070,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ─── Wire share buttons ───────────────────────────────────────────────────
     function wireShareButtons(modId, count, total, percent) {
         const MOD_TITLES = {
-            1: 'AI Fundamentals',
-            2: 'How to Talk to AI',
-            3: 'Real World AI Applications',
-            4: 'AI for Productivity',
-            5: 'Risks, Ethics, and Limits of AI',
-            6: 'Final Practical Workshop'
+            1: 'Fundamentos de IA',
+            2: 'Cómo hablar con la IA',
+            3: 'Aplicaciones reales de IA',
+            4: 'IA para Productividad',
+            5: 'Riesgos, Ética y Límites de la IA',
+            6: 'Taller Práctico Final'
         };
         const courseUrl = 'https://ai4uacademy.com/';
-        const modName   = MOD_TITLES[modId] || `Module ${modId}`;
+        const modName   = MOD_TITLES[modId] || `Módulo ${modId}`;
 
-        const xText  = `I just completed the "${modName}" module of my Intro to AI course at AI4U Academy! 🎯 (${count}/${total} modules · ${percent}%) Join and start learning: ${courseUrl}`;
-        const liText = `I just completed the "${modName}" module of my Intro to AI course at AI4U Academy! I've completed ${count} out of ${total} modules (${percent}%). Join today and start learning: ${courseUrl}`;
+        const xText  = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! 🎯 (${count}/${total} módulos · ${percent}%) Únete y empieza a aprender: ${courseUrl}`;
+        const liText = `¡Acabo de completar el módulo "${modName}" de mi curso de introducción a la IA de AI4U Academy! Llevo ${count} de ${total} módulos completados (${percent}%). Únete hoy mismo y empieza a aprender: ${courseUrl}`;
 
         const urls = {
             'csb-linkedin': `https://www.linkedin.com/feed/?shareActive=true&text=${encodeURIComponent(liText)}`,
@@ -1114,7 +1114,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadQuestion() {
         const question = currentQuiz[currentQuestionIndex];
-        quizStepText.textContent = `Step ${currentQuestionIndex + 1} of ${currentQuiz.length}`;
+        quizStepText.textContent = `Paso ${currentQuestionIndex + 1} de ${currentQuiz.length}`;
         quizQuestionText.textContent = question.q;
         quizOptionsContainer.innerHTML = '';
         quizFeedbackContainer.style.display = 'none';
@@ -1146,9 +1146,9 @@ document.addEventListener('DOMContentLoaded', () => {
         quizFeedbackContainer.style.display = 'block';
 
         if (currentQuestionIndex === currentQuiz.length - 1) {
-            btnNextQuestion.textContent = 'Finish Evaluation and Continue';
+            btnNextQuestion.textContent = 'Finalizar Evaluación y Continuar';
         } else {
-            btnNextQuestion.textContent = 'Next Question';
+            btnNextQuestion.textContent = 'Siguiente Pregunta';
         }
     }
 
@@ -1165,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dummy video click
     videoContainer.addEventListener('click', () => {
         const placeholder = document.getElementById('video-placeholder');
-        placeholder.innerHTML = `<h2 style="color: #00A389">▶ Playing video...</h2><p>Fast load simulator active.</p>`;
+        placeholder.innerHTML = `<h2 style="color: #00A389">▶ Reproduciendo video...</h2><p>Simulador de carga rápido activo.</p>`;
     });
 
 });

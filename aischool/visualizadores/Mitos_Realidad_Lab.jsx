@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-// 🎬 Myth vs Reality Cards (interactive + visual)
+// 🎬 Tarjetas Mito vs Realidad (interactivo + visual)
 
 const CARDS = [
   {
-    myth: "AI knows everything",
-    reality: "It can be wrong and generate false information"
+    myth: "La IA lo sabe todo",
+    reality: "Puede equivocarse y generar información falsa"
   },
   {
-    myth: "AI thinks",
-    reality: "It only predicts text based on patterns"
+    myth: "La IA piensa",
+    reality: "Solo predice texto basado en patrones"
   },
   {
-    myth: "AI understands",
-    reality: "It doesn't comprehend, it only calculates probabilities"
+    myth: "La IA entiende",
+    reality: "No comprende, solo calcula probabilidades"
   },
   {
-    myth: "AI is always accurate",
-    reality: "It depends on the context and the data"
+    myth: "La IA siempre es precisa",
+    reality: "Depende del contexto y los datos"
   }
 ];
 
@@ -34,24 +34,24 @@ function Card({ myth, reality }) {
         style={{ transformStyle: "preserve-3d" }}
       >
 
-        {/* Front (Myth) */}
+        {/* Front (Mito) */}
         <div
           className="absolute w-full h-full bg-[#0B1647] text-white rounded-xl flex items-center justify-center text-center p-3"
           style={{ backfaceVisibility: "hidden" }}
         >
           <div>
-            <div className="text-xs opacity-70 mb-2">MYTH</div>
+            <div className="text-xs opacity-70 mb-2">MITO</div>
             <div className="text-sm font-semibold">{myth}</div>
           </div>
         </div>
 
-        {/* Back (Reality) */}
+        {/* Back (Realidad) */}
         <div
           className="absolute w-full h-full bg-[#48E5E5] text-[#0B1647] rounded-xl flex items-center justify-center text-center p-3"
           style={{ transform: "rotateY(180deg)", backfaceVisibility: "hidden" }}
         >
           <div>
-            <div className="text-xs opacity-70 mb-2">REALITY</div>
+            <div className="text-xs opacity-70 mb-2">REALIDAD</div>
             <div className="text-sm font-semibold">{reality}</div>
           </div>
         </div>
@@ -66,21 +66,21 @@ export default function App() {
     <div className="w-full min-h-screen bg-white flex items-center justify-center py-10">
       <div className="w-[360px] h-[640px] bg-white rounded-2xl shadow-xl p-6 flex flex-col">
 
-        {/* Title */}
+        {/* Título */}
         <h1 className="text-lg font-bold text-center text-[#0B1647] mb-4">
-          AI Myths vs Reality
+          Mitos vs Realidad sobre la IA
         </h1>
 
-        {/* Card Grid */}
+        {/* Grid tarjetas */}
         <div className="grid grid-cols-2 gap-4 flex-1 place-items-center">
           {CARDS.map((c, i) => (
             <Card key={i} myth={c.myth} reality={c.reality} />
           ))}
         </div>
 
-        {/* Instruction */}
+        {/* Instrucción */}
         <div className="text-center text-xs text-gray-400 mt-4">
-          Tap a card to reveal the truth
+          Toca una tarjeta para revelar la verdad
         </div>
 
         {/* Branding */}
